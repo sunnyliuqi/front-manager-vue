@@ -1,8 +1,31 @@
-# 前后端分离框架--vue\antd-vue  
-## 代码格式化命令  
-  ```js-beautify -s 2 -f  service.js  -r service.js```
-## 代码规范检查命令  
-   ```npm run lint```
+# 前后端分离框架--vue\antd-vue 
+## 代码生成（必读） 
+1. 配置服务代理（front-manager-vue\vue.config.js）
+    >proxy 节点下配置对应的代理服务  
+    ````
+             // demo服务
+             '/api/demo': {
+               target: 'http://127.0.0.1:67',
+               changeOrigin: true,
+               pathRewrite: { '^/api': '' }
+             },
+    ````
+   >其中/api是全局默认，如需修改则到文件.env中VUE_APP_API_BASE_URL值  
+/demo对应后台application.yml中context-path属性  
+2. 运行项目
+    >打开front-manager-vue\package.json  
+           >点击serve 进行运行  
+           >也可以在Terminal 中跳转到front-manager-vue目录下执行 cnpm run serve  
+3. 浏览器访问（默认就是代码生成页面），使用代码生成
+    1. 点击新增
+    2. 只生成路由（对于父级菜单使用） 
+        > 录入路由信息并保存即可
+    3. 生成页面
+        > 接口服务配置添加（新增服务中服务地址对应配置服务代理中/api/demo中的demo）  
+        这里面配置的服务就会在后台对应的服务项目生成相应的后台代码
+    4. 录入相关信息保存
+        > 保存后重启后台对应服务  
+        等待前台自动编译运行
 ## 页面权限控制（必读）
 1. 自定义指令（优先推荐）
     > <a-button v-authorize:xxx >查询</a-button> ,其中xxx对应菜单管理里面操作的操作编码
@@ -24,6 +47,10 @@
      })
    }
 ```
+## 代码格式化命令  
+  ```js-beautify -s 2 -f  service.js  -r service.js```
+## 代码规范检查命令  
+   ```npm run lint```
 ## 添加必填效果
 > 标签添加class="custom-required"  
 ## 菜单路由静态化（代码生成的默认设置）
