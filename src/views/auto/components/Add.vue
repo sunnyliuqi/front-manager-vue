@@ -239,12 +239,14 @@
           <span slot="insertFlag" slot-scope="text, recordChildren">
             <a-checkbox
               class="editTable"
-              :default-checked="true"
+              :disabled="recordChildren.publicFlag === '1'"
+              :checked="getChecked(text)"
               @change="e => handleChange({'insertFlag':e.target.checked}, recordChildren)"/>
           </span>
           <span slot="editFlag" slot-scope="text, recordChildren">
             <a-checkbox
               class="editTable"
+              :disabled="recordChildren.publicFlag === '1'"
               :checked="getChecked(text)"
               @change="e => handleChange({'editFlag':e.target.checked}, recordChildren)"/>
           </span>
