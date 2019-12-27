@@ -239,12 +239,14 @@
           <span slot="insertFlag" slot-scope="text, recordChildren">
             <a-checkbox
               class="editTable"
-              :default-checked="true"
+              :disabled="recordChildren.publicFlag === '1'"
+              :checked="getChecked(text)"
               @change="e => handleChange({'insertFlag':e.target.checked}, recordChildren)"/>
           </span>
           <span slot="editFlag" slot-scope="text, recordChildren">
             <a-checkbox
               class="editTable"
+              :disabled="recordChildren.publicFlag === '1'"
               :checked="getChecked(text)"
               @change="e => handleChange({'editFlag':e.target.checked}, recordChildren)"/>
           </span>
@@ -313,6 +315,10 @@ import { STable } from '@/components'
 export default {
   name: 'AutoAdd',
   props: {
+    setService: {
+      type: Function,
+      default: undefined
+    },
     record: {
       type: Object,
       default: function () {
@@ -610,11 +616,6 @@ export default {
       this.routerNode = routerNode
       this.newRouterList = JSON.parse(JSON.stringify(this.routerList))
       this.updateRouterList(this.newRouterList, routerNode)
-    },
-    // 设置服务
-    setService (serviceContent) {
-      const serviceContents = Object.keys(serviceContent)
-      this.$set(this.serviceName, serviceContents[0], serviceContent[serviceContents[0]])
     },
     // 将新增的路由节点放到父级下面
     updateRouterList (routerList, routerNode) {

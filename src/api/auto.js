@@ -40,7 +40,7 @@ export function tableColumnInfo (data) {
 // 保存
 export function save (data) {
   return axios({
-    url: path.default + '/auto/tableInfoSave',
+    url: (data.serviceName.match(/(.*):.*'(.*)'/)[2] || path.default) + '/auto/tableInfoSave',
     method: 'POST',
     data: data
   })
