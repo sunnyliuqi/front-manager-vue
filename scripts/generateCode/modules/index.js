@@ -156,6 +156,8 @@ const generateCodeHandle = param => {
     createAdd(param)
     /* 创建编辑页面 */
     createEdit(param)
+    /* lint 延迟5s修复 */
+    setTimeout(formatFullCode, 5000)
     code = 10000
     msg = '生成页面成功'
   }
@@ -274,7 +276,7 @@ function createApi (param) {
         //  格式化代码
         formatJsonCode(filePath)
         // 代码规范修复
-        setTimeout(formatCode(filePath), 2000)
+        formatCode(filePath)
       })
     })
   })
@@ -1282,6 +1284,13 @@ function reReplaceError (string) {
  */
 const formatJsonCode = path => {
   const execCommand = `js-beautify -s 2 -f  ${path} -r ${path}`
+  exec(execCommand, function (err, stdout, stderr) {
+    if (err) console.error(JSON.stringify(err))
+  })
+}
+/* 代码全部格式 */
+const formatFullCode = () => {
+  const execCommand = `npm run lint`
   exec(execCommand, function (err, stdout, stderr) {
     if (err) console.error(JSON.stringify(err))
   })
