@@ -121,6 +121,15 @@ export const dynRouterMap = [{
         static: true
       }
     }]
+  }, {
+    path: '/four',
+    name: 'four',
+    component: () => import('@/views/four/FourList'),
+    meta: {
+      title: '四',
+      keepAlive: true,
+      static: true
+    }
   }]
 }, {
   path: '*',
