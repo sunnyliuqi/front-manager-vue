@@ -274,7 +274,7 @@ function createApi (param) {
         //  格式化代码
         formatJsonCode(filePath)
         // 代码规范修复
-        setTimeout(formatCode(filePath), 1000)
+        setTimeout(formatCode(filePath), 2000)
       })
     })
   })
