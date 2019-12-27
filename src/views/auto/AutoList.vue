@@ -52,6 +52,7 @@
       ref="autoAdd"
       :record="recordActive"
       :save="save"
+      :set-service="setService"
       :table-info="tableInfo"
       :table-column-info="tableColumnInfo"
       :check-router="checkRouter"
@@ -149,6 +150,13 @@ export default {
   created () {
   },
   methods: {
+    // 设置服务
+    setService (serviceContent) {
+      const serviceContents = Object.keys(serviceContent)
+      const _serviceName = {}
+      _serviceName[serviceContents[0]] = serviceContent[serviceContents[0]]
+      this.serviceName = { ..._serviceName, ...this.serviceName }
+    },
     // 重置查询
     restQuery () {
       this.queryParam = {}
