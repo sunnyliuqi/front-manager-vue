@@ -42,7 +42,7 @@ export function del (data) {
 // 获取详情
 export function get (params) {
   return axios({
-    url: path.sys + '/operation/' + params.id,
+    url: path.sys + '/operation/id/' + params.id,
     method: 'GET'
   })
 }

@@ -59,7 +59,7 @@ export function resetPassword (data) {
 // 获取详情
 export function get (params) {
   return axios({
-    url: path.sys + '/user/' + params.id,
+    url: path.sys + '/user/id/' + params.id,
     method: 'GET'
   })
 }

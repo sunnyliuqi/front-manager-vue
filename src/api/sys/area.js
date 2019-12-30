@@ -40,18 +40,18 @@ export function del (data) {
 // 获取详情
 export function get (params) {
   return axios({
-    url: path.sys + '/area/' + params.id,
+    url: path.sys + '/area/id/' + params.id,
     method: 'GET'
   })
 }
-
+/* 区域树 */
 export function listTree () {
   return axios({
     url: path.sys + '/area/listTree',
     method: 'GET'
   })
 }
-
+/* 区域树带县 */
 export function listTreeHasCounty () {
   return axios({
     url: path.sys + '/area/listTreeHasCounty',
@@ -59,7 +59,7 @@ export function listTreeHasCounty () {
   })
 }
 
-// 获取详情
+// 编码验证
 export function checkCode (params) {
   return axios({
     url: path.sys + '/area/checkCode',
