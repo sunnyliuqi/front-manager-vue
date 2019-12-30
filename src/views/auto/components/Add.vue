@@ -357,10 +357,6 @@ export default {
       type: Function,
       default: undefined
     },
-    checkRouter: {
-      type: Function,
-      default: undefined
-    },
     createCode: {
       type: Function,
       default: undefined

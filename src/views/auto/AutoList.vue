@@ -55,7 +55,6 @@
       :set-service="setService"
       :table-info="tableInfo"
       :table-column-info="tableColumnInfo"
-      :check-router="checkRouter"
       :router-list="routerList"
       :is-empty="isEmpty"
       :create-code="createCode"
@@ -74,7 +73,6 @@ import {
   tableInfo,
   tableColumnInfo,
   save,
-  checkRouter,
   createCode
 } from '@/api/auto'
 import { STable } from '@/components'
@@ -88,8 +86,6 @@ export default {
     return {
       // 前端代码生成
       createCode: createCode,
-      // 检查路由唯一性
-      checkRouter: checkRouter,
       // 保存方法
       save: save,
       //  删除记录

@@ -46,10 +46,10 @@ export function save (data) {
   })
 }
 
-// 检查路由唯一性
+// 检查路由唯一性(暂不启用)
 export function checkRouter (params) {
   return axios({
-    url: path.default + '/auto/user/checkRouter',
+    url: path.default + '/auto/checkRouter',
     method: 'POST',
     // 设置后，业务错误时不会调用弹出全局错误信息
     headers: { 'check': true },
