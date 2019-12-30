@@ -57,7 +57,7 @@ export function checkType (params) {
   })
 }
 
-// 获取所有的字典数据
+// 获取所有的字典类型
 export function getAllDict () {
   return axios({
     url: path.sys + '/dict/allType',

@@ -47,7 +47,7 @@ export function enabled (data) {
   })
 }
 
-// 启用禁用
+// 重置密码
 export function resetPassword (data) {
   return axios({
     url: path.sys + '/user/resetPassword',
@@ -88,13 +88,6 @@ export function checkUserName (params) {
 export function getUserAllList () {
   return axios({
     url: path.sys + '/user/allList',
-    method: 'GET'
-  })
-}
-// 用户信息
-export function getUserInfo () {
-  return axios({
-    url: path.sys + '/user/getUserInfo',
     method: 'GET'
   })
 }
