@@ -69,13 +69,3 @@ export function checkCode (params) {
     params: params
   })
 }
-
-// 根据类别获取区域
-export function getAreaByType (params) {
-  return axios({
-    url: path.sys + '/area/getAreaByType',
-    method: 'GET',
-    // type=params.type&code=params.code
-    params: params
-  })
-}
