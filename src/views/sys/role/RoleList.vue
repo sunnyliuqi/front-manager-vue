@@ -7,6 +7,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_ROLE_LIST')"
       ref="roleTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

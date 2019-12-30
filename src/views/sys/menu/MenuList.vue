@@ -6,6 +6,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_MENU_LIST')"
       ref="menuTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

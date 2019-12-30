@@ -27,9 +27,9 @@
         > 保存后重启后台对应服务  
         等待前台自动编译运行
 ## 页面权限控制（必读）
-1. 自定义指令（优先推荐）
+1. 自定义指令（视图数据只是隐藏，还是会读取）
     > <a-button v-authorize:xxx >查询</a-button> ,其中xxx对应菜单管理里面操作的操作编码
-2. v-if方式
+2. v-if方式（视图数据不会读取数据）
     ><a-button v-if="$authorize('xxx')" >查询</a-button>,其中xxx对应菜单管理里面操作的操作编码
 3. 去掉菜单路由静态化
     >front-manager-vue\src\config\dynRouter.config.js里面对应菜单设置 static: false

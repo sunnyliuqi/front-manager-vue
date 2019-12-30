@@ -20,7 +20,7 @@
                 <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.addTimeCondition"/>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:SYS_LOG_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.logTable.refresh(true)">查询</a-button>
@@ -33,6 +33,7 @@
 
     </div>
     <s-table
+      v-if="$authorize('SYS_LOG_LIST')"
       ref="logTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

@@ -7,6 +7,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_API_LIST')"
       ref="apiTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

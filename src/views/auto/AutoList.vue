@@ -14,7 +14,7 @@
                 <a-input v-model="queryParam.tableComment" placeholder="请输入名称"/>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:CODE_GENERATE_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.autoTable.refresh(true)">查询</a-button>
@@ -30,6 +30,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('CODE_GENERATE_LIST')"
       ref="autoTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

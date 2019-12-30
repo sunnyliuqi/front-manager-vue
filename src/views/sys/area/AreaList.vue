@@ -19,7 +19,7 @@
                 <a-select :options="areaType" v-model="queryParam.type" placeholder="请选择区域类型"/>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:SYS_AREA_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.areaTable.refresh(true)">查询</a-button>
@@ -36,6 +36,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_AREA_LIST')"
       ref="areaTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"
