@@ -12,7 +12,7 @@ const user = {
     avatar: '',
     roles: [],
     info: {},
-    serviceMenus: [],
+    serviceMenus: undefined,
     operationCodes: []
   },
 

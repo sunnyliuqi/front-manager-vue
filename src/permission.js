@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
               })
             })
         }
-        if (store.getters.serviceMenus.length === 0) {
+        if (store.getters.serviceMenus === undefined) {
           store
             .dispatch('GetMenus')
             .then(res => {
