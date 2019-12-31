@@ -55,7 +55,7 @@
 <script>
 
 import { del, get, queryList, save, update, checkUrl, checkCode } from '@/api/sys/menu'
-import { loadApi } from '@/api/sys/api'
+import { queryList as loadApi } from '@/api/sys/api'
 import { STable } from '@/components'
 import Edit from './components/Edit'
 /**

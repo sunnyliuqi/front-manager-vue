@@ -233,14 +233,14 @@ export default {
       isEmpty: isEmpty,
       operateColumns: [{
         dataIndex: 'name',
-        width: '300px',
+        width: '260px',
         key: 'name',
         slots: { title: 'customNameTitle' },
         scopedSlots: { customRender: 'operateName' }
       },
       {
         dataIndex: 'code',
-        width: '300px',
+        width: '280px',
         key: 'code',
         slots: { title: 'customCodeTitle' },
         scopedSlots: { customRender: 'operateCode' }
@@ -248,14 +248,14 @@ export default {
       {
         dataIndex: 'sysApis',
         key: 'sysApis',
-        width: '300px',
+        width: '400px',
         slots: { title: 'customApiTitle' },
         scopedSlots: { customRender: 'operateApis' }
       },
       {
         title: '操作',
         dataIndex: 'action',
-        width: '100px',
+        width: '60px',
         scopedSlots: { customRender: 'operateAction' }
       }],
       operations: [],
@@ -284,7 +284,7 @@ export default {
     }
   },
   created () {
-    this.loadApi().then(res => {
+    this.loadApi({}).then(res => {
       if (res.code === 10000) {
         this.apiList = res.result.map(item => {
           return { label: item.name, value: item.id }

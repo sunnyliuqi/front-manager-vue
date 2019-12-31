@@ -68,12 +68,3 @@ export function checkUrl (params) {
     params: params
   })
 }
-
-// 获取所有api
-export function loadApi () {
-  return axios({
-    url: path.sys + '/api/list',
-    method: 'POST',
-    data: {}
-  })
-}
