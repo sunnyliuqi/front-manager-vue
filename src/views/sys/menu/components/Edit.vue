@@ -240,7 +240,7 @@ export default {
       },
       {
         dataIndex: 'code',
-        width: '280px',
+        width: '270px',
         key: 'code',
         slots: { title: 'customCodeTitle' },
         scopedSlots: { customRender: 'operateCode' }
@@ -255,7 +255,7 @@ export default {
       {
         title: '操作',
         dataIndex: 'action',
-        width: '60px',
+        width: '70px',
         scopedSlots: { customRender: 'operateAction' }
       }],
       operations: [],
