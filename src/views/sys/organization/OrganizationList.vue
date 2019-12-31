@@ -6,6 +6,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_ORGANIZATION_LIST')"
       ref="organizationTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

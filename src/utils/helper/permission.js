@@ -1,3 +1,5 @@
+import store from '@/store'
+
 const PERMISSION_ENUM = {
   'add': { key: 'add', label: '新增' },
   'delete': { key: 'delete', label: '删除' },
@@ -23,8 +25,10 @@ function plugin (Vue) {
       get () {
         const _this = this
         return (operationCode) => {
+          /* 用户是否超级管理员 */
+          const { adminFlag } = _this.$store.getters.userInfo
           const operationCodes = _this.$store.getters.operationCodes
-          return operationCodes.includes(operationCode)
+          return adminFlag === '1' || operationCodes.includes(operationCode)
         }
       }
     }

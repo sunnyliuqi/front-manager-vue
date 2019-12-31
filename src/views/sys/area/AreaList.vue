@@ -19,7 +19,7 @@
                 <a-select :options="areaType" v-model="queryParam.type" placeholder="请选择区域类型"/>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:SYS_AREA_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.areaTable.refresh(true)">查询</a-button>
@@ -36,6 +36,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_AREA_LIST')"
       ref="areaTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"
@@ -152,7 +153,7 @@ export default {
       loadData: parameter => {
         return queryList(Object.assign(parameter, this.queryParam))
           .then(res => {
-            if (res.code === 10000) {
+            if (res.code && res.code === 10000) {
               const result = res.result
               formatTree(result)
               this.treeData = result
@@ -171,7 +172,7 @@ export default {
   created () {
     getDictByType('area_type').then(
       (res) => {
-        if (res.code === 10000) {
+        if (res.code && res.code === 10000) {
           const dnyAreaType = res.result.map(item => {
             return { label: `${item.dictKey}`, value: `${item.dictValue}` }
           })
@@ -223,15 +224,6 @@ export default {
     refresh () {
       this.$refs.areaTable.refresh()
     },
-    // 打开详情
-    handleDetail (record) {
-      get(record).then(res => {
-        if (res.code === 10000) {
-          this.recordActive = res.result
-          this.$refs.areaDetail.show()
-        }
-      })
-    },
     // 打开新增
     handleAdd (supId, supCode, disabled) {
       this.recordActive = { supId: supId || '', supCode: supCode || '', disabled: disabled || false }
@@ -240,7 +232,7 @@ export default {
     // 打开更新
     handleUpdate (record) {
       get(record).then(res => {
-        if (res.code === 10000) {
+        if (res.code && res.code === 10000) {
           this.recordActive = res.result
           this.$refs.areaEdit.show()
         }
@@ -254,7 +246,7 @@ export default {
       })
       const param = { id: ids }
       del(param).then(res => {
-        if (res.code === 10000) {
+        if (res.code && res.code === 10000) {
           this.$message.info(res.msg)
           this.refresh()
         }

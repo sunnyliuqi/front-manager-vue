@@ -56,7 +56,7 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:SYS_USER_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.userTable.refresh(true)">查询</a-button>
@@ -72,6 +72,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_USER_LIST')"
       ref="userTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

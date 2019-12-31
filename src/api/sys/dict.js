@@ -42,7 +42,7 @@ export function del (data) {
 // 获取详情
 export function get (params) {
   return axios({
-    url: path.sys + '/dict/' + params.id,
+    url: path.sys + '/dict/id/' + params.id,
     method: 'GET'
   })
 }
@@ -57,7 +57,7 @@ export function checkType (params) {
   })
 }
 
-// 获取所有的字典数据
+// 获取所有的字典类型
 export function getAllDict () {
   return axios({
     url: path.sys + '/dict/allType',

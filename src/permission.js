@@ -26,16 +26,7 @@ router.beforeEach((to, from, next) => {
         next({ path: '/' })
         NProgress.done()
       } else {
-        if (Object.keys(store.getters.userInfo).length === 0) {
-          store
-            .dispatch('GetInfo')
-            .catch(() => {
-              store.dispatch('Logout').then(() => {
-                next({ path: '/user/login', query: { redirect: to.fullPath } })
-              })
-            })
-        }
-        if (store.getters.serviceMenus.length === 0) {
+        if (store.getters.serviceMenus === undefined) {
           store
             .dispatch('GetMenus')
             .then(res => {
@@ -60,6 +51,16 @@ router.beforeEach((to, from, next) => {
               store.dispatch('Logout').then(() => {
                 next({ path: '/user/login', query: { redirect: to.fullPath } })
               })
+            }).then(() => {
+              if (Object.keys(store.getters.userInfo).length === 0) {
+                store
+                  .dispatch('GetInfo')
+                  .catch(() => {
+                    store.dispatch('Logout').then(() => {
+                      next({ path: '/user/login', query: { redirect: to.fullPath } })
+                    })
+                  })
+              }
             })
         } else {
           next()

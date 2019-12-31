@@ -14,7 +14,6 @@ function hasPermission (menus, route) {
   let hasPermiss = false
   menus.forEach(menu => {
     if (menu.url === route.path) {
-      route.meta.sort = menu.sort
       hasPermiss = true
     }
   })
@@ -47,8 +46,16 @@ function filterAsyncRouter (routerMap, menus) {
     }
     return false
   })
+  accessedRouters.forEach(route => {
+    menus.forEach(menu => {
+      if (menu.url === route.path) {
+        route.meta.sort = menu.sort
+        route.meta.title = menu.name
+      }
+    })
+  })
   return accessedRouters.sort(function (a, b) {
-    return b.meta.sort - a.meta.sort
+    return (b.meta.sort || 1) - (a.meta.sort || 1)
   })
   //  return routerMap
 }

@@ -42,7 +42,7 @@ export function del (data) {
 // 获取详情
 export function get (params) {
   return axios({
-    url: path.sys + '/api/' + params.id,
+    url: path.sys + '/api/id/' + params.id,
     method: 'GET'
   })
 }
@@ -66,14 +66,5 @@ export function checkUrl (params) {
     headers: { 'check': true },
     // id=params.id&path=params.path&requestMethod=params.requestMethod
     params: params
-  })
-}
-
-// 获取所有api
-export function loadApi () {
-  return axios({
-    url: path.sys + '/api/list',
-    method: 'POST',
-    data: {}
   })
 }

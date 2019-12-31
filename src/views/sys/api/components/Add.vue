@@ -9,17 +9,17 @@
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :span="24">
           <a-form-item
             label="名称"
             :labelCol="{ span: 8 }"
             :wrapperCol="{ span: 16 }">
             <a-input
               v-decorator="['name',{rules:[{required: true, message: '名称不能为空'},{validator:validatorCheckName}]}]"
-              placeholder="请输入名称"/>
+              placeholder="请输入名称,格式[js接口方法-菜单页面-操作]"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :span="24">
           <a-form-item
             label="路径"
             :labelCol="{ span: 8 }"
@@ -30,7 +30,7 @@
               placeholder="请输入以/开头的路径"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :span="24">
           <a-form-item
             label="请求方法"
             :labelCol="{ span: 8 }"

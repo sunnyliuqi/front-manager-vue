@@ -24,7 +24,7 @@
                 <a-input v-model="queryParam.remark" placeholder="请输入备注"/>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="12" :xs="24">
+            <a-col v-authorize:SYS_DICT_LIST :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.dictTable.refresh(true)">查询</a-button>
@@ -41,6 +41,7 @@
       </div>
     </div>
     <s-table
+      v-if="$authorize('SYS_DICT_LIST')"
       ref="dictTable"
       size="default"
       :rowKey="(recordActive) => recordActive.id"

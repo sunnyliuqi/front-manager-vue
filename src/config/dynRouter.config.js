@@ -64,8 +64,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/role/RoleList'),
       meta: {
         title: '角色管理',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }, {
       path: '/sys/menu',
@@ -73,8 +72,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/menu/MenuList'),
       meta: {
         title: '菜单管理',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }, {
       path: '/sys/api',
@@ -82,8 +80,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/api/ApiList'),
       meta: {
         title: '接口管理',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }, {
       path: '/sys/organization',
@@ -91,8 +88,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/organization/OrganizationList'),
       meta: {
         title: '组织机构',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }, {
       path: '/sys/area',
@@ -108,8 +104,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/dict/DictList'),
       meta: {
         title: '数据字典',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }, {
       path: '/sys/log',
@@ -117,8 +112,7 @@ export const dynRouterMap = [{
       component: () => import('@/views/sys/log/LogList'),
       meta: {
         title: '操作日志',
-        keepAlive: true,
-        static: true
+        keepAlive: true
       }
     }]
   }]
