@@ -47,11 +47,7 @@ router.beforeEach((to, from, next) => {
                 }
               })
             })
-            .catch(() => {
-              store.dispatch('Logout').then(() => {
-                next({ path: '/user/login', query: { redirect: to.fullPath } })
-              })
-            }).then(() => {
+            .then(() => {
               if (Object.keys(store.getters.userInfo).length === 0) {
                 store
                   .dispatch('GetInfo')
@@ -61,6 +57,11 @@ router.beforeEach((to, from, next) => {
                     })
                   })
               }
+            })
+            .catch(() => {
+              store.dispatch('Logout').then(() => {
+                next({ path: '/user/login', query: { redirect: to.fullPath } })
+              })
             })
         } else {
           next()

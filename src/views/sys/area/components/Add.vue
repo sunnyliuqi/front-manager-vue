@@ -17,7 +17,6 @@
             <a-tree-select
               showSearch
               allowClear
-              treeDefaultExpandAll
               :disabled="record.disabled"
               :treeData="treeData"
               :filterTreeNode="filterTreeNode"
