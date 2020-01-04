@@ -44,7 +44,7 @@
       :data="loadData"
       :expandedRowKeys="expandedKeys"
       :expand="expand"
-      showPagination="false"
+      :showPagination="showPagination"
     >
       <span slot="type" slot-scope="text">
         {{ getTypeName(text) }}
@@ -90,9 +90,9 @@ import { STable } from '@/components'
 import Add from './components/Add'
 import Edit from './components/Edit'
 /**
- * 格式化树名称为标题
- * @param list
- */
+   * 格式化树名称为标题
+   * @param list
+   */
 const formatTree = list => {
   list.forEach(item => {
     item.title = item.name
@@ -111,6 +111,7 @@ export default {
   },
   data () {
     return {
+      showPagination: true,
       checkCode: checkCode,
       // 保存方法
       save: save,
@@ -149,17 +150,25 @@ export default {
         }
       ],
       treeData: [],
+      listData: [],
       expandedKeys: [],
       loadData: parameter => {
         return queryList(Object.assign(parameter, this.queryParam))
           .then(res => {
             if (res.code && res.code === 10000) {
               const result = res.result
-              formatTree(result)
-              this.treeData = result
-              /* 默认展开两层 */
-              this.expandedKeys = this.renderTree(this.treeData)
-              return this.treeData
+              if (result instanceof Array) {
+                formatTree(result)
+                this.treeData = JSON.parse(JSON.stringify(result))
+                /* 默认展开两层 */
+                this.expandedKeys = this.renderTree(result)
+                this.showPagination = false
+                this.filterTrees(result, 0)
+              } else {
+                this.showPagination = true
+              }
+              this.listData = result
+              return this.listData
             }
           })
       },
@@ -196,6 +205,10 @@ export default {
     },
     /* 节点图标点击事件 展开或合并 */
     expand (expanded, record) {
+      const src = JSON.parse(JSON.stringify(this.deepQuery(this.treeData, record.id)))
+      this.filterTrees(src, 0)
+      const target = this.deepQuery(this.listData, record.id)
+      target.children = src.children
       let _expandedKeys = this.expandedKeys
       if (expanded) {
         _expandedKeys.push(record.id)
@@ -251,6 +264,47 @@ export default {
           this.refresh()
         }
       })
+    },
+    filterTrees (treeData, deep) {
+      if (!deep) {
+        deep = 0
+      }
+      if (deep >= 2) {
+        return []
+      } else {
+        if (treeData instanceof Array) {
+          const _treeDate = treeData.map(item => {
+            if (item.children) {
+              item.children = this.filterTrees(item.children, deep + 1)
+            }
+            return item
+          })
+          return _treeDate
+        } else {
+          if (treeData.children && treeData.children.length > 0) {
+            treeData.children = this.filterTrees(treeData.children, deep + 1)
+          }
+          return treeData
+        }
+      }
+    },
+    deepQuery (tree, id) {
+      let isGet = false
+      let retNode = null
+      function deepSearch (tree, id) {
+        for (let i = 0; i < tree.length; i++) {
+          if (tree[i].children && tree[i].children.length > 0) {
+            deepSearch(tree[i].children, id)
+          }
+          if (id === tree[i].id || isGet) {
+            isGet || (retNode = tree[i])
+            isGet = true
+            break
+          }
+        }
+      }
+      deepSearch(tree, id)
+      return retNode
     }
   }
 }
