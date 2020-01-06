@@ -269,7 +269,7 @@ function createApi (param) {
       if (err) console.error(JSON.stringify(err))
       data = data
         .replace(/#{SERVICE_PATH}/g, SERVICE_PATH)
-        .replace(/#{ROUTER}/g, param.router)
+        .replace(/#{FULL_ROUTER}/g, FULL_ROUTER)
       const filePath = `${dir}/${FUNCTION_NAME_LOWER}.js`
       fs.writeFile(filePath, data, character, (err) => {
         if (err) console.error(JSON.stringify(err))
