@@ -14,7 +14,7 @@ import { axios } from '@/utils/request'
  */
 export function login (parameter) {
   return axios({
-    url: path.default + '/loginjwt',
+    url: path.sys + '/loginjwt',
     method: 'post',
     contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
     params: parameter
@@ -23,28 +23,28 @@ export function login (parameter) {
 // 用户信息
 export function getInfo () {
   return axios({
-    url: path.default + '/token/user',
+    url: path.sys + '/token/user',
     method: 'post'
   })
 }
 // 用户菜单和操作码
 export function getMenus () {
   return axios({
-    url: path.default + '/token/user/menus',
+    url: path.sys + '/token/user/menus',
     method: 'post'
   })
 }
 // 用户退出
 export function logout () {
   return axios({
-    url: path.default + '/logoutjwt',
+    url: path.sys + '/logoutjwt',
     method: 'post'
   })
 }
 // 更新密码
 export function updatePasswd (data) {
   return axios({
-    url: path.default + '/user/updatePassword',
+    url: path.sys + '/user/updatePassword',
     method: 'post',
     data: data
   })
@@ -52,7 +52,7 @@ export function updatePasswd (data) {
 // 更新用户信息
 export function updateUserInfo (data) {
   return axios({
-    url: path.default + '/user/updateInfo',
+    url: path.sys + '/user/updateInfo',
     method: 'put',
     data: data
   })
@@ -60,7 +60,7 @@ export function updateUserInfo (data) {
 // 发送短信验证码
 export function getSmsCaptcha (parameter) {
   return axios({
-    url: path.default + '/validationcode/sms/create',
+    url: path.sys + '/validationcode/sms/create',
     method: 'post',
     data: parameter
   })
