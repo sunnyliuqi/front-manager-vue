@@ -116,7 +116,6 @@ export default {
           permission.selected = selected || []
           this.onChangeCheck(permission)
         })
-
       }
 
       this.$nextTick(() => {
