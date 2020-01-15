@@ -58,7 +58,7 @@
     "eslint-plugin-html": "^5.0.5",
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^4.0.9",
-    "js-beautify": "^1.10.3",
+    "js-beautify": "^1.10.2",
     "less": "^3.10.3",
     "less-loader": "^4.1.0",
     "opencollective": "^1.0.3",
