@@ -104,7 +104,7 @@ module.exports = {
         pathRewrite: { '^/api': '' }
       },
       // demo服务
-      '/api/demo':{
+      '/api/demo': {
         target: 'http://127.0.0.1:67',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
