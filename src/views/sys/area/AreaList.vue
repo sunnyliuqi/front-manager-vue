@@ -16,7 +16,7 @@
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="区域类型">
-                <a-select :options="areaType" v-model="queryParam.type" placeholder="请选择区域类型"/>
+                <a-select :options="areaType" v-model="queryParam.type" placeholder="全部"/>
               </a-form-item>
             </a-col>
             <a-col v-authorize:SYS_AREA_LIST :md="8" :sm="12" :xs="24">

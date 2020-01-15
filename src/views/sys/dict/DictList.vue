@@ -6,7 +6,7 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="字典类型">
-                <a-select :options="allDict" v-model="queryParam.type" placeholder="请选择字典类型"/>
+                <a-select :options="allDict" v-model="queryParam.type" placeholder="全部"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">

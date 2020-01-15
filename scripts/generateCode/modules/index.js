@@ -389,7 +389,7 @@ function getQueryCondition (param) {
           temp.push(`
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="${column.columnName}">
-                <a-select :options="${underLineToCamelbak(column.componentData)}" v-model="queryParam.${column.javaName}" placeholder="请选择${column.columnName}"/>
+                <a-select :options="${underLineToCamelbak(column.componentData)}" v-model="queryParam.${column.javaName}" placeholder="全部"/>
               </a-form-item>
             </a-col>`)
         } else {
@@ -405,8 +405,7 @@ function getQueryCondition (param) {
           temp.push(`
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="${column.columnName}">
-                <a-select v-model="queryParam.${column.javaName}" placeholder="请选择${column.columnName}">
-                  <a-select-option value="">全部</a-select-option>${selectOpt.join('')}
+                <a-select v-model="queryParam.${column.javaName}" placeholder="全部">${selectOpt.join('')}
                 </a-select>
               </a-form-item>
             </a-col>`)
