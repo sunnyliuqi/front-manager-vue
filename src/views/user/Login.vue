@@ -185,7 +185,6 @@ export default {
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-          console.log('login form', values)
           const loginParams = { ...values }
           Login(loginParams)
             .then((res) => this.loginSuccess(res))

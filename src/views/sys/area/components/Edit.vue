@@ -129,7 +129,6 @@ export default {
   },
   watch: {
     record () {
-      console.log(this.record)
       this.setDisSelectabled(this.treeData)
     }
   },
