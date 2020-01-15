@@ -97,6 +97,12 @@ module.exports = {
     // development server port 8000
     port: 8001,
     proxy: {
+      // 前端代码生成
+      '/api/createFile': {
+        target: 'http://localhost:9228',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      },
       // demo服务
       '/api/demo': {
         target: 'http://127.0.0.1:67',
@@ -109,22 +115,21 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       },
-      // 文件回显需要在nginx 配置
-      '/uploads': {
-        target: 'http://127.0.0.1:66',
-        changeOrigin: true
-      },
       // 文件上传服务
       '/api/upload': {
         target: 'http://127.0.0.1:69',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       },
-      // 前端代码生成
-      '/api/createFile': {
-        target: 'http://localhost:9228',
+      /* '/api': {
+        target: 'http://127.0.0.1:80',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
+      }, */
+      // 文件回显需要在nginx 配置
+      '/uploads': {
+        target: 'http://127.0.0.1:66',
+        changeOrigin: true
       }
     }
   },
