@@ -8,7 +8,7 @@ export function queryList (data) {
     url: path.sys + '/dict',
     method: 'POST',
     data: data,
-    params: parsePageParams(data)
+    params: { 'desc': 'addTime', ...parsePageParams(data) }
   })
 }
 
