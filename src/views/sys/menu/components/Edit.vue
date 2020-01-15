@@ -156,6 +156,7 @@
           padding: '10px 16px',
           background: '#fff',
           textAlign: 'right',
+          zIndex: 2
         }"
       >
         <a-button
@@ -221,7 +222,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     }
   },
   data () {

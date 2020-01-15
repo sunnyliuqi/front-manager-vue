@@ -7,7 +7,7 @@ export function queryList (data) {
     url: path.sys + '/log',
     method: 'POST',
     data: data,
-    params: parsePageParams(data)
+    params: { 'desc': 'addTime', ...parsePageParams(data) }
   })
 }
 

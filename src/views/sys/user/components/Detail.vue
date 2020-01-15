@@ -8,7 +8,7 @@
   >
     <a-row :gutter="16">
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">员工头像:</span><img
+        <span class="detail-label">员工头像</span><img
           v-if="record.userHeader"
           :src="fileDisplayPrefix+record.userHeader"
           alt="员工头像"
@@ -16,46 +16,46 @@
           width="96"/>
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">编码:</span>{{ record.userCode }}
+        <span class="detail-label">编码</span>{{ record.userCode }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">工号:</span>{{ record.workNum }}
+        <span class="detail-label">工号</span>{{ record.workNum }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">用户名:</span>{{ record.userName }}
+        <span class="detail-label">用户名</span>{{ record.userName }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">姓名:</span>{{ record.fullName }}
+        <span class="detail-label">姓名</span>{{ record.fullName }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">身份证号:</span>{{ record.idNum }}
+        <span class="detail-label">身份证号</span>{{ record.idNum }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">手机号:</span>{{ record.mobileNum }}
+        <span class="detail-label">手机号</span>{{ record.mobileNum }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">邮箱:</span>{{ record.email }}
+        <span class="detail-label">邮箱</span>{{ record.email }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">所属机构:</span>{{ record.srcOrgName }}
+        <span class="detail-label">所属机构</span>{{ record.srcOrgName }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">岗位:</span>{{ record.position }}
+        <span class="detail-label">岗位</span>{{ record.position }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">入职时间:</span>{{ record.entryTime }}
+        <span class="detail-label">入职时间</span>{{ record.entryTime }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">状态:</span>{{ record.enabled ? '正常' : '冻结' }}
+        <span class="detail-label">状态</span>{{ record.enabled ? '正常' : '冻结' }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">超级管理员:</span>{{ record.adminFlag === '1' ? '是' : '否' }}
+        <span class="detail-label">超级管理员</span>{{ record.adminFlag === '1' ? '是' : '否' }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">用户角色:</span>{{ record.rolesName }}
+        <span class="detail-label">用户角色</span>{{ record.rolesName }}
       </a-col>
       <a-col :sm="12" :xs="24">
-        <span class="detail-label">备注:</span>{{ record.remark }}
+        <span class="detail-label">备注</span>{{ record.remark }}
       </a-col>
     </a-row>
     <div
@@ -90,7 +90,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     },
     fileDisplayPrefix: {
       type: String,

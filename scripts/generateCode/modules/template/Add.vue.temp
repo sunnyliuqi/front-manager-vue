@@ -58,7 +58,7 @@ export default {
     },#{ADD_PROPS}
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     }
   },
   data () {

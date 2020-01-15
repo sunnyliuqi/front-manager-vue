@@ -102,7 +102,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     }
   },
   data () {

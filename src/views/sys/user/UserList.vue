@@ -37,7 +37,7 @@
                   :treeData="treeData"
                   :filterTreeNode="filterTreeNode"
                   v-model="queryParam.srcOrgId"
-                  placeholder="请选择所属机构">
+                  placeholder="全部">
                 </a-tree-select>
               </a-form-item>
             </a-col>
@@ -49,7 +49,7 @@
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="状态">
-                <a-select v-model="queryParam.enabled" placeholder="请选择状态">
+                <a-select v-model="queryParam.enabled" placeholder="全部">
                   <a-select-option value="">全部</a-select-option>
                   <a-select-option value="true">正常</a-select-option>
                   <a-select-option value="false">冻结</a-select-option>
