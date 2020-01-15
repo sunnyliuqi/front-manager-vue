@@ -99,7 +99,8 @@ export default {
         {
           title: '机构名称',
           dataIndex: 'name',
-          key: 'name'
+          key: 'name',
+          width: '200px'
         },
         {
           title: '机构编码',
@@ -270,3 +271,5 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+</style>

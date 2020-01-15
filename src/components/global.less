@@ -483,6 +483,12 @@ body {
 .ant-input-number {
   width: 100% !important;
 }
+.ant-divider-vertical {
+  width: 0px !important;
+}
+.ant-table-thead > tr > th {
+  min-width: 100px;
+}
 .content {
   .table-operator {
     margin-bottom: 18px;
@@ -496,10 +502,15 @@ body {
 .detail-label{
   width:100px;
   text-align: right;
-  padding-right: 16px;
+  padding-right: 8px;
   display: inline-block;
   height: 32px;
   line-height: 32px;
+}
+.detail-label:after{
+  display: inline-block;
+  margin-left: 4px;
+  content: ':';
 }
 /*自定义必填项效果*/
 .custom-required:before {

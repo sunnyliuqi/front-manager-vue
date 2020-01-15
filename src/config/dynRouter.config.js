@@ -21,6 +21,7 @@ export const dynRouterMap = [{
     component: PageView,
     meta: {
       title: '自动生成',
+      icon: 'code',
       keepAlive: true
     },
     children: [{
@@ -37,7 +38,8 @@ export const dynRouterMap = [{
     redirect: '/sys/user',
     component: PageView,
     meta: {
-      title: '系统'
+      title: '系统',
+      icon: 'setting'
     },
     children: [{
       path: '/sys/user',

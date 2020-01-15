@@ -8,22 +8,22 @@
   >
     <a-row :gutter="16">
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">操作人:</span>{{ record.operationPerson }}
+        <span class="detail-label">操作人</span>{{ record.operationPerson }}
       </a-col>
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">api请求数据:</span>{{ record.requestData }}
+        <span class="detail-label">api请求数据</span>{{ record.requestData }}
       </a-col>
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">API名称:</span>{{ record.name }}
+        <span class="detail-label">API名称</span>{{ record.name }}
       </a-col>
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">api响应数据:</span>{{ record.responseData }}
+        <span class="detail-label">api响应数据</span>{{ record.responseData }}
       </a-col>
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">路径:</span>{{ record.path }}
+        <span class="detail-label">路径</span>{{ record.path }}
       </a-col>
       <a-col :sm="24" :xs="24">
-        <span class="detail-label">请求方法,putgetpostdelete:</span>{{ record.requestMethod }}
+        <span class="detail-label">请求方法</span>{{ record.requestMethod }}
       </a-col>
     </a-row>
     <div
@@ -62,7 +62,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     }
   },
   data () {

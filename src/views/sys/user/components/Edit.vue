@@ -177,13 +177,13 @@
             label="超级管理员"
             :labelCol="{ span: 4 }"
             :wrapperCol="{ span: 8 }">
-            <a-select v-decorator="['adminFlag',{initialValue: record.adminFlag ? record.adminFlag : 0} ]">
+            <a-select @change="changRoles" v-decorator="['adminFlag',{initialValue: record.adminFlag ? record.adminFlag : 0} ]">
               <a-select-option value="0">否</a-select-option>
               <a-select-option value="1">是</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
+        <a-col :span="24" v-if="isRoles">
           <a-form-item
             label="用户角色"
             :labelCol="{ span: 4 }"
@@ -239,7 +239,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     },
     refresh: {
       type: Function,
@@ -295,7 +295,8 @@ export default {
       editVisible: false,
       form: this.$form.createForm(this),
       formLoading: false,
-      fileLoading: false
+      fileLoading: false,
+      isRoles: true
     }
   },
   computed: {
@@ -306,6 +307,13 @@ export default {
     }
   },
   methods: {
+    changRoles (value, option) {
+      if (value === '1') {
+        this.isRoles = false
+      } else {
+        this.isRoles = true
+      }
+    },
     show () {
       this.editVisible = true
     },

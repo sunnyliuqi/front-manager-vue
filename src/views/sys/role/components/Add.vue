@@ -39,6 +39,7 @@
               v-decorator="['menus',{}]"
               checkable
               @check="onCheck"
+              :checkedKeys="checkedKeys"
               :treeData="treeData"
             />
           </a-form-item>
@@ -97,7 +98,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     }
   },
   data () {
@@ -127,6 +128,8 @@ export default {
       this.addVisible = false
       this.formLoading = false
       this.form.resetFields()
+      this.checkedKeys = []
+      this.halfCheckedKeys = []
     },
     renderData () {
       return [...this.checkedKeys, ...this.halfCheckedKeys].filter(item => item !== '-1')

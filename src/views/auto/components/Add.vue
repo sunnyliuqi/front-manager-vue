@@ -292,6 +292,7 @@
           padding: '10px 16px',
           background: '#fff',
           textAlign: 'right',
+          zIndex: 2
         }"
       >
         <a-button

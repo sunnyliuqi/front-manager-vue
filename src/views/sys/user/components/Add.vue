@@ -78,7 +78,7 @@
         </a-col>
         <a-col :span="12">
           <a-form-item
-            label="密码"
+            label="确认密码"
             :labelCol="{ span: 8 }"
             :wrapperCol="{ span: 16 }">
             <a-input
@@ -89,7 +89,7 @@
                          { min: 6, message: '确认密码长度最小6位' },
                          {validator:handlePasswordCheck}]}
               ]"
-            />
+              placeholder="请输入确认密码"/>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -190,13 +190,13 @@
             label="超级管理员"
             :labelCol="{ span: 4 }"
             :wrapperCol="{ span: 8 }">
-            <a-select v-decorator="['adminFlag',{initialValue:'0'} ]">
+            <a-select @change="changRoles" v-decorator="['adminFlag',{initialValue:'0'} ]">
               <a-select-option value="0">否</a-select-option>
               <a-select-option value="1">是</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
+        <a-col :span="24" v-if="isRoles">
           <a-form-item
             label="用户角色"
             :labelCol="{ span: 4 }"
@@ -250,7 +250,7 @@ export default {
     },
     customWidth: {
       type: Number,
-      default: 720
+      default: 800
     },
     refresh: {
       type: Function,
@@ -302,7 +302,8 @@ export default {
       addVisible: false,
       form: this.$form.createForm(this),
       formLoading: false,
-      fileLoading: false
+      fileLoading: false,
+      isRoles: true
     }
   },
   computed: {
@@ -313,6 +314,13 @@ export default {
     }
   },
   methods: {
+    changRoles (value, option) {
+      if (value === '1') {
+        this.isRoles = false
+      } else {
+        this.isRoles = true
+      }
+    },
     show () {
       this.addVisible = true
     },
