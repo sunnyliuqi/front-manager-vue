@@ -110,7 +110,7 @@ module.exports = {
         pathRewrite: { '^/api': '' }
       },
       // 系统服务
-      '/api/sys': {
+      '/api/sys':{
         target: 'http://127.0.0.1:68',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
