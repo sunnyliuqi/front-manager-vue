@@ -89,13 +89,11 @@ export default {
         name: '新增角色',
         describe: '新增一个角色'
       })
-      console.log('this.roles', this.roles)
     })
     this.loadPermissions()
   },
   methods: {
     callback (val) {
-      console.log(val)
     },
 
     add () {
@@ -112,7 +110,6 @@ export default {
           permissionsAction[permission.permissionId] = permission.actionEntitySet.map(entity => entity.action)
         })
 
-        console.log('permissionsAction', permissionsAction)
         // 把权限表遍历一遍，设定要勾选的权限 action
         this.permissions.forEach(permission => {
           const selected = permissionsAction[permission.id]
@@ -120,13 +117,11 @@ export default {
           this.onChangeCheck(permission)
         })
 
-        console.log('this.permissions', this.permissions)
       }
 
       this.$nextTick(() => {
         this.form.setFieldsValue(pick(this.mdl, 'id', 'name', 'status', 'describe'))
       })
-      console.log('this.mdl', this.mdl)
     },
 
     onChangeCheck (permission) {
@@ -134,8 +129,6 @@ export default {
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
     onChangeCheckAll (e, permission) {
-      console.log('permission:', permission)
-
       Object.assign(permission, {
         selected: e.target.checked ? permission.actionsOptions.map(obj => obj.value) : [],
         indeterminate: false,

@@ -675,7 +675,6 @@ export default {
             }
           }
           const params = replaceBlooean(values)
-          console.log(JSON.stringify(params))
           // 前端代码生成
           this.createCode(params).then(res => {
             if (res.code === 10000) {
