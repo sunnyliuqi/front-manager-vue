@@ -382,12 +382,12 @@ export default {
               if (res.code === 10000) {
                 this.$message.info(res.msg)
                 this.refresh()
+                this.onClose()
               }
             }
             ).finally(
               () => {
                 this.formLoading = false
-                this.onClose()
               }
             )
           } else {
@@ -395,10 +395,10 @@ export default {
               if (res.code === 10000) {
                 this.$message.info(res.msg)
                 this.refresh()
+                this.onClose()
               }
             }).finally(() => {
               this.formLoading = false
-              this.onClose()
             })
           }
         } else {
