@@ -5,6 +5,7 @@ body {
   &.colorWeak {
     filter: invert(80%);
   }
+
   &.userLayout {
     overflow: auto;
   }
@@ -26,16 +27,20 @@ body {
      * ant-table-wrapper
      * 覆盖的表格手机模式样式，如果想修改在手机上表格最低宽度，可以在这里改动
      */
+
     .ant-table-wrapper {
       .ant-table-content {
         overflow-y: auto;
       }
+
       .ant-table-body {
         min-width: 800px;
       }
     }
+
     .topmenu {
       /* 必须为 topmenu  才能启用流式布局 */
+
       &.content-width-Fluid {
         .header-index-wide {
           margin-left: 0;
@@ -65,6 +70,7 @@ body {
     padding: 0 24px;
     cursor: pointer;
     transition: color 0.3s;
+
     &:hover {
       background: rgba(0, 0, 0, 0.025);
     }
@@ -87,7 +93,9 @@ body {
         width: 100%;
       }
     }
+
     /* 必须为 topmenu  才能启用流式布局 */
+
     &.content-width-Fluid {
       .header-index-wide {
         max-width: unset;
@@ -163,6 +171,7 @@ body {
       .user-wrapper {
         .action {
           color: rgba(255, 255, 255, 0.85);
+
           a {
             color: rgba(255, 255, 255, 0.85);
           }
@@ -189,6 +198,7 @@ body {
             flex: 0 0 56px;
             text-align: center;
             line-height: 58px;
+
             h1 {
               display: none;
             }
@@ -204,6 +214,7 @@ body {
             }
           }
         }
+
         //
       }
     }
@@ -220,6 +231,7 @@ body {
             white-space: nowrap;
           }
         }
+
         .ant-menu.ant-menu-horizontal {
           flex: 0 1 auto;
           white-space: normal;
@@ -338,8 +350,10 @@ body {
       background-color: rgb(0, 21, 41);
     }
   }
+
   &.light {
     box-shadow: none;
+
     .ant-drawer-content {
       background-color: #fff;
     }
@@ -427,6 +441,7 @@ body {
     user-select: none;
   }
 }
+
 .user-dropdown-menu-wrapper.ant-dropdown-menu {
   padding: 4px 0;
 
@@ -465,35 +480,43 @@ body {
         padding-right: 8px;
         width: 80px;
       }
+
       .ant-form-item-control {
         height: 32px;
         line-height: 32px;
       }
     }
   }
-.table-page-search-submitButtons {
+
+  .table-page-search-submitButtons {
     display: block;
     margin-bottom: 24px;
     white-space: nowrap;
   }
 }
+
 .ant-calendar-picker {
   width: 100% !important;
 }
+
 .ant-input-number {
   width: 100% !important;
 }
+
 .ant-divider-vertical {
   width: 0px !important;
 }
+
 .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
   min-width: 100px;
   max-width: 300px;
   word-wrap: break-word;
 }
+
 .ant-table-body {
   overflow: auto;
 }
+
 .content {
   .table-operator {
     margin-bottom: 18px;
@@ -503,20 +526,34 @@ body {
     }
   }
 }
+
 // 详情页面样式
-.detail-label{
-  width:100px;
+.detail-label {
+  width: 100px;
   text-align: right;
   padding-right: 8px;
   display: inline-block;
   height: 32px;
   line-height: 32px;
 }
-.detail-label:after{
+
+.detail-label:after {
   display: inline-block;
   margin-left: 4px;
   content: ':';
 }
+
+.detail-content {
+  display: inline-block;
+  width: calc(100% - 100px);
+  word-wrap: break-word;
+  left: 100px;
+  text-align: left;
+  padding-right: 8px;
+  line-height: 32px;
+  vertical-align: top;
+}
+
 /*自定义必填项效果*/
 .custom-required:before {
   display: inline-block;
@@ -527,78 +564,69 @@ body {
   font-size: 14px;
   color: #f5222d;
 }
+
 /*抽屉页面布局*/
-.custom-drawer .ant-drawer-content-wrapper{
-  width: 100% !important;
-  .ant-drawer-content{
-    width: 50%;
-    left: 50%;
-  }
+.custom-drawer .ant-drawer-content-wrapper {
+  width: 50% !important;
+  left: 50%;
 }
+
 /* 小屏抽屉页面布局*/
 @media screen and (max-width: @screen-sm) {
-  .custom-drawer .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 80%;
-      left: 20%;
-    }
+  .custom-drawer .ant-drawer-content-wrapper {
+    width: 80% !important;
+    left: 20%;
   }
 }
+
 /* 其他预设置的抽屉宽度开始 */
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-3 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 30%;
-      left: 70%;
-    }
+  .custom-drawer-3 .ant-drawer-content-wrapper {
+    width: 30% !important;
+    left: 70%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-4 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 40%;
-      left: 60%;
-    }
+  .custom-drawer-4 .ant-drawer-content-wrapper {
+    width: 40% !important;
+    left: 60%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-5 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 50%;
-      left: 40%;
-    }
+  .custom-drawer-5 .ant-drawer-content-wrapper {
+    width: 50% !important;
+    left: 40%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-6 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 60%;
-      left: 40%;
-    }
+  .custom-drawer-6 .ant-drawer-content-wrapper {
+    width: 60% !important;
+    left: 40%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-7 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 70%;
-      left: 30%;
-    }
+  .custom-drawer-7 .ant-drawer-content-wrapper {
+    width: 70% !important;
+    left: 30%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-8 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 80%;
-      left: 20%;
-    }
+  .custom-drawer-8 .ant-drawer-content-wrapper {
+    width: 80% !important;
+    left: 20%;
   }
 }
+
 @media screen and (min-width: @screen-sm) {
-  .custom-drawer-9 .ant-drawer-content-wrapper{
-    .ant-drawer-content{
-      width: 90%;
-      left: 10%;
-    }
+  .custom-drawer-9 .ant-drawer-content-wrapper {
+    width: 90% !important;
+    left: 10%;
   }
 }
+
 /* 其他预设置的抽屉宽度结束 */

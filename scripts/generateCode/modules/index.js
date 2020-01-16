@@ -973,7 +973,7 @@ function getEdit (param) {
 
 /**
  * <a-col :sm="12" :xs="24">
- <span class="detail-label">编码</span>{{ record.userCode }}
+ <span class="detail-label">编码</span><span class="detail-content">{{ record.userCode }}</span>
  </a-col>
  * @param param
  * @returns {string}
@@ -987,22 +987,22 @@ function getDetail (param) {
         const getName = `get_${column.tableColumn}`
         temp.push(`
       <a-col :lg="12" :md="24">
-        <span class="detail-label">${column.columnName}</span>{{ ${underLineToCamelbak(getName)}Name(record.${column.javaName}) }}
+        <span class="detail-label">${column.columnName}</span><span class="detail-content">{{ ${underLineToCamelbak(getName)}Name(record.${column.javaName}) }}</span>
       </a-col>`)
       } else if (column.componentType === 'DatePicker_date') {
         temp.push(`
       <a-col :lg="12" :md="24">
-        <span class="detail-label">${column.columnName}</span>{{ formatDate(record.${column.javaName},'YYYY-MM-DD') }}
+        <span class="detail-label">${column.columnName}</span><span class="detail-content">{{ formatDate(record.${column.javaName},'YYYY-MM-DD') }}</span>
       </a-col>`)
       } else if (column.componentType === 'DatePicker_datetime') {
         temp.push(`
       <a-col :lg="12" :md="24">
-        <span class="detail-label">${column.columnName}</span>{{ formatDate(record.${column.javaName},'YYYY-MM-DD HH:mm:ss') }}
+        <span class="detail-label">${column.columnName}</span><span class="detail-content">{{ formatDate(record.${column.javaName},'YYYY-MM-DD HH:mm:ss') }}</span>
       </a-col>`)
       } else {
         temp.push(`
       <a-col :lg="12" :md="24">
-        <span class="detail-label">${column.columnName}</span>{{ record.${column.javaName} }}
+        <span class="detail-label">${column.columnName}</span><span class="detail-content">{{ record.${column.javaName} }}</span>
       </a-col>`)
       }
     }
