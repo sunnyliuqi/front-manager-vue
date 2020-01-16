@@ -8,22 +8,22 @@
   >
     <a-row :gutter="16">
       <a-col :span="24">
-        <span class="detail-label">操作人</span>{{ record.operationPerson }}
+        <span class="detail-label">操作人</span><span class="detail-content">{{ record.operationPerson }}</span>
       </a-col>
       <a-col :span="24">
-        <span class="detail-label">api请求数据</span>{{ record.requestData }}
+        <span class="detail-label">api请求数据</span><span class="detail-content">{{ record.requestData }}</span>
       </a-col>
       <a-col :span="24">
-        <span class="detail-label">API名称</span>{{ record.name }}
+        <span class="detail-label">API名称</span><span class="detail-content">{{ record.name }}</span>
       </a-col>
       <a-col :span="24">
-        <span class="detail-label">api响应数据</span>{{ record.responseData }}
+        <span class="detail-label">api响应数据</span><span class="detail-content">{{ record.responseData }}</span>
       </a-col>
       <a-col :span="24">
-        <span class="detail-label">路径</span>{{ record.path }}
+        <span class="detail-label">路径</span><span class="detail-content">{{ record.path }}</span>
       </a-col>
       <a-col :span="24">
-        <span class="detail-label">请求方法</span>{{ record.requestMethod }}
+        <span class="detail-label">请求方法</span><span class="detail-content">{{ record.requestMethod }}</span>
       </a-col>
     </a-row>
     <div
