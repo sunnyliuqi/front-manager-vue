@@ -1,6 +1,6 @@
 <template>
   <a-drawer
-    wrapClassName="custom-drawer"
+    wrapClassName="custom-drawer custom-drawer-4"
     :maskClosable="false"
     title="新增"
     @close="onClose"
@@ -169,6 +169,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

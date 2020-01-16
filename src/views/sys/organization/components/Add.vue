@@ -1,6 +1,6 @@
 <template>
   <a-drawer
-    wrapClassName="custom-drawer"
+    wrapClassName="custom-drawer custom-drawer-6"
     :maskClosable="false"
     title="新增"
     @close="onClose"
