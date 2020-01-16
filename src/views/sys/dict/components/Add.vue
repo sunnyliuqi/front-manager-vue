@@ -1,15 +1,15 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     title="新增"
-    :width="customWidth"
     @close="onClose"
     :visible="addVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="字典类型"
             :labelCol="{ span: 8 }"
@@ -20,7 +20,7 @@
               placeholder="请输入字典类型"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="字典标签"
             :labelCol="{ span: 8 }"
@@ -30,7 +30,7 @@
               placeholder="请输入字典标签"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="字典值"
             :labelCol="{ span: 8 }"
@@ -40,7 +40,7 @@
               placeholder="请输入字典值"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="排序"
             :labelCol="{ span: 8 }"
@@ -50,7 +50,7 @@
               placeholder="请输入排序"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="备注"
             :labelCol="{ span: 8 }"
@@ -106,10 +106,6 @@ export default {
     save: {
       type: Function,
       default: undefined
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

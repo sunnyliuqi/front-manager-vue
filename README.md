@@ -60,6 +60,12 @@
 > getMoment 获取当前时间  
 > formatDate 日期转字符串  
 > offsetMoment 日期偏移  
+## 抽屉宽度设置
+> 默认宽度：活动窗口的50%
+> 自定义宽度： 可设置30%-90%（对应3-9），例如40%,
+````
+wrapClassName="custom-drawer custom-drawer-4"
+````
 ## 更多文档查看   
 > [vue](https://cn.vuejs.org/v2/guide/components.html)  
 > [antd-vue UI组件](https://vue.ant.design/)  

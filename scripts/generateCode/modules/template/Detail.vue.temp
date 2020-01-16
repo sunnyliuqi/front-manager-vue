@@ -1,7 +1,7 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     title="详情"
-    :width="customWidth"
     @close="onClose"
     :visible="detailVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
@@ -34,13 +34,10 @@
 export default {
   name: '#{FUNCTION_NAME_FIRST_UPPER}Detail',
   props: {
+    #{DETAIL_PROPS}
     record: {
       type: [Object, String],
       default: ''
-    },#{DETAIL_PROPS}
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

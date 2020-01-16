@@ -1,5 +1,6 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer custom-drawer-9"
     :maskClosable="false"
     title="新增"
     :width="'calc(100% - 260px)'"

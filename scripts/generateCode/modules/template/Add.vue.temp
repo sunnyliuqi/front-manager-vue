@@ -1,8 +1,8 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     title="新增"
-    :width="customWidth"
     @close="onClose"
     :visible="addVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
@@ -42,12 +42,6 @@ export default {
   name: '#{FUNCTION_NAME_FIRST_UPPER}Add',
   components: { ACol },
   props: {
-    record: {
-      type: Object,
-      default: function () {
-        return {}
-      }
-    },
     refresh: {
       type: Function,
       default: undefined
@@ -56,9 +50,11 @@ export default {
       type: Function,
       default: undefined
     },#{ADD_PROPS}
-    customWidth: {
-      type: Number,
-      default: 800
+    record: {
+      type: Object,
+      default: function () {
+        return {}
+      }
     }
   },
   data () {

@@ -1,28 +1,28 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     title="详情"
-    :width="customWidth"
     @close="onClose"
     :visible="detailVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-row :gutter="16">
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">操作人</span>{{ record.operationPerson }}
       </a-col>
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">api请求数据</span>{{ record.requestData }}
       </a-col>
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">API名称</span>{{ record.name }}
       </a-col>
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">api响应数据</span>{{ record.responseData }}
       </a-col>
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">路径</span>{{ record.path }}
       </a-col>
-      <a-col :sm="24" :xs="24">
+      <a-col :span="24">
         <span class="detail-label">请求方法</span>{{ record.requestMethod }}
       </a-col>
     </a-row>
@@ -59,10 +59,6 @@ export default {
     formatDate: {
       type: Function,
       default: undefined
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

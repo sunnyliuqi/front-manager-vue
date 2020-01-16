@@ -1,15 +1,15 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     title="修改"
-    :width="customWidth"
     @close="onClose"
     :visible="editVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="上级区域"
             :labelCol="{ span: 8 }"
@@ -25,7 +25,7 @@
             </a-tree-select>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="名称"
             :labelCol="{ span: 8 }"
@@ -35,7 +35,7 @@
               placeholder="请输入名称"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="编码"
             :labelCol="{ span: 8 }"
@@ -45,7 +45,7 @@
               placeholder="请输入编码"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="备注"
             :labelCol="{ span: 8 }"
@@ -114,10 +114,6 @@ export default {
       default: function () {
         return {}
       }
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

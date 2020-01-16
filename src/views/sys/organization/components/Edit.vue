@@ -1,15 +1,15 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer custom-drawer-6"
     :maskClosable="false"
     title="修改"
-    :width="customWidth"
     @close="onClose"
     :visible="editVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="上级机构"
             :labelCol="{ span: 8 }"
@@ -25,7 +25,7 @@
             </a-tree-select>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="机构名称"
             :labelCol="{ span: 8 }"
@@ -35,7 +35,7 @@
               placeholder="请输入机构名称"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="机构编码"
             :labelCol="{ span: 8 }"
@@ -45,7 +45,7 @@
               placeholder="请输入机构编码"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="机构类型"
             :labelCol="{ span: 8 }"
@@ -56,7 +56,7 @@
               placeholder="请选择机构类型"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="负责人"
             :labelCol="{ span: 8 }"
@@ -64,7 +64,7 @@
             <a-select :options="managerUsers" v-decorator="['principalCode',{initialValue: record.principalCode,rules:[]}]" placeholder="请选择负责人"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="手机号"
             :labelCol="{ span: 8 }"
@@ -74,7 +74,7 @@
               placeholder="请输入手机号"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="归属区域"
             :labelCol="{ span: 8 }"
@@ -89,7 +89,7 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="详细地址"
             :labelCol="{ span: 8 }"
@@ -170,10 +170,6 @@ export default {
       default: function () {
         return {}
       }
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

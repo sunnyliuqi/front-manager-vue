@@ -884,7 +884,7 @@ function getEdit (param) {
             allowClear = ' allowClear'
           }
           //  数据字典
-          temp.push(`\n        <a-col :span="12">
+          temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -908,7 +908,7 @@ function getEdit (param) {
               selectOpt.push(`\n              <a-select-option value="${opts[0]}">${opts[1]}</a-select-option>`)
             }
           })
-          temp.push(`\n        <a-col :span="12">
+          temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -920,7 +920,7 @@ function getEdit (param) {
         </a-col>`)
         }
       } else if (column.componentType === 'DatePicker_date') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -931,7 +931,7 @@ function getEdit (param) {
           </a-form-item>
         </a-col>`)
       } else if (column.componentType === 'DatePicker_datetime') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -944,7 +944,7 @@ function getEdit (param) {
           </a-form-item>
         </a-col>`)
       } else if (column.componentType === 'InputNumber') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -955,7 +955,7 @@ function getEdit (param) {
           </a-form-item>
         </a-col>`)
       } else {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -986,22 +986,22 @@ function getDetail (param) {
       if (column.componentType === 'Select') {
         const getName = `get_${column.tableColumn}`
         temp.push(`
-      <a-col :sm="12" :xs="24">
+      <a-col :lg="12" :md="24">
         <span class="detail-label">${column.columnName}</span>{{ ${underLineToCamelbak(getName)}Name(record.${column.javaName}) }}
       </a-col>`)
       } else if (column.componentType === 'DatePicker_date') {
         temp.push(`
-      <a-col :sm="12" :xs="24">
+      <a-col :lg="12" :md="24">
         <span class="detail-label">${column.columnName}</span>{{ formatDate(record.${column.javaName},'YYYY-MM-DD') }}
       </a-col>`)
       } else if (column.componentType === 'DatePicker_datetime') {
         temp.push(`
-      <a-col :sm="12" :xs="24">
+      <a-col :lg="12" :md="24">
         <span class="detail-label">${column.columnName}</span>{{ formatDate(record.${column.javaName},'YYYY-MM-DD HH:mm:ss') }}
       </a-col>`)
       } else {
         temp.push(`
-      <a-col :sm="12" :xs="24">
+      <a-col :lg="12" :md="24">
         <span class="detail-label">${column.columnName}</span>{{ record.${column.javaName} }}
       </a-col>`)
       }
@@ -1050,7 +1050,7 @@ function getAdd (param) {
             allowClear = ' allowClear'
           }
           //  数据字典
-          temp.push(`\n        <a-col :span="12">
+          temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -1071,7 +1071,7 @@ function getAdd (param) {
               selectOpt.push(`\n              <a-select-option value="${opts[0]}">${opts[1]}</a-select-option>`)
             }
           })
-          temp.push(`\n        <a-col :span="12">
+          temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -1082,7 +1082,7 @@ function getAdd (param) {
         </a-col>`)
         }
       } else if (column.componentType === 'DatePicker_date') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -1093,7 +1093,7 @@ function getAdd (param) {
           </a-form-item>
         </a-col>`)
       } else if (column.componentType === 'DatePicker_datetime') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -1106,7 +1106,7 @@ function getAdd (param) {
           </a-form-item>
         </a-col>`)
       } else if (column.componentType === 'InputNumber') {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
@@ -1117,7 +1117,7 @@ function getAdd (param) {
           </a-form-item>
         </a-col>`)
       } else {
-        temp.push(`\n        <a-col :span="12">
+        temp.push(`\n        <a-col :lg="12" :md="24">
           <a-form-item
             label="${column.columnName}"
             :labelCol="{ span: 8 }"
