@@ -1,15 +1,15 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     title="新增"
-    :width="customWidth"
     @close="onClose"
     :visible="addVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="工号"
             :labelCol="{ span: 8 }"
@@ -22,7 +22,7 @@
               placeholder="请输入工号"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="员工头像"
             :labelCol="{ span: 8 }"
@@ -49,7 +49,7 @@
             </a-upload>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="用户名"
             :labelCol="{ span: 8 }"
@@ -62,7 +62,7 @@
               placeholder="请输入用户名"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="密码"
             :labelCol="{ span: 8 }"
@@ -76,7 +76,7 @@
               placeholder="请输入密码"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="确认密码"
             :labelCol="{ span: 8 }"
@@ -92,7 +92,7 @@
               placeholder="请输入确认密码"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="姓名"
             :labelCol="{ span: 8 }"
@@ -105,7 +105,7 @@
               placeholder="请输入姓名"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="身份证号"
             :labelCol="{ span: 8 }"
@@ -115,7 +115,7 @@
               placeholder="请输入身份证号"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="手机号"
             :labelCol="{ span: 8 }"
@@ -128,7 +128,7 @@
               placeholder="请输入手机号"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="邮箱"
             :labelCol="{ span: 8 }"
@@ -141,7 +141,7 @@
               placeholder="请输入邮箱"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="所属机构"
             :labelCol="{ span: 8 }"
@@ -156,7 +156,7 @@
             </a-tree-select>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="岗位"
             :labelCol="{ span: 8 }"
@@ -166,7 +166,7 @@
               placeholder="请输入岗位"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="入职时间"
             :labelCol="{ span: 8 }"
@@ -174,7 +174,7 @@
             <a-date-picker v-decorator="['entryTime',{}]" placeholder="请选择入职时间"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="状态"
             :labelCol="{ span: 8 }"
@@ -247,10 +247,6 @@ export default {
       default: function () {
         return {}
       }
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     },
     refresh: {
       type: Function,

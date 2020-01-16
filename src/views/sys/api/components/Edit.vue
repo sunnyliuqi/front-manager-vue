@@ -1,8 +1,8 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     title="修改"
-    :width="customWidth"
     @close="onClose"
     :visible="editVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
@@ -97,10 +97,6 @@ export default {
     update: {
       type: Function,
       default: undefined
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

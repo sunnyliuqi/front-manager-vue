@@ -1,15 +1,15 @@
 <template>
   <a-drawer
+    wrapClassName="custom-drawer"
     :maskClosable="false"
     :title="title"
-    :width="customWidth"
     @close="onClose"
     :visible="editVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="上级菜单"
             :labelCol="{ span: 8 }"
@@ -25,7 +25,7 @@
             </a-tree-select>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="菜单名称"
             :labelCol="{ span: 8 }"
@@ -35,7 +35,7 @@
               placeholder="请输入菜单名称"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="URL"
             :labelCol="{ span: 8 }"
@@ -45,7 +45,7 @@
               :placeholder="getPlaceHolder"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="排序"
             :labelCol="{ span: 8 }"
@@ -55,7 +55,7 @@
               placeholder="请输入排序"/>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="显示"
             :labelCol="{ span: 8 }"
@@ -68,7 +68,7 @@
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
+        <a-col :lg="12" :md="24">
           <a-form-item
             label="备注"
             :labelCol="{ span: 8 }"
@@ -219,10 +219,6 @@ export default {
     save: {
       type: Function,
       default: undefined
-    },
-    customWidth: {
-      type: Number,
-      default: 800
     }
   },
   data () {

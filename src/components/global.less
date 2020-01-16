@@ -527,3 +527,20 @@ body {
   font-size: 14px;
   color: #f5222d;
 }
+/*抽屉页面布局*/
+.custom-drawer .ant-drawer-content-wrapper{
+  width: 100% !important;
+  .ant-drawer-content{
+    width: 50%;
+    left: 50%;
+  }
+}
+/* 小屏抽屉页面布局*/
+@media screen and (max-width: @screen-sm) {
+  .custom-drawer .ant-drawer-content-wrapper{
+    .ant-drawer-content{
+      width: 80%;
+      left: 20%;
+    }
+  }
+}
