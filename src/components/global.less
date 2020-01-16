@@ -486,8 +486,13 @@ body {
 .ant-divider-vertical {
   width: 0px !important;
 }
-.ant-table-thead > tr > th {
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td {
   min-width: 100px;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+.ant-table-body {
+  overflow: auto;
 }
 .content {
   .table-operator {

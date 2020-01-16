@@ -21,7 +21,7 @@
               :disabled="record.disabled"
               :treeData="treeData"
               :filterTreeNode="filterTreeNode"
-              v-decorator="['supId',{initialValue: record.supId,rules:[]}]"
+              v-decorator="['supId',{initialValue: record.supId || undefined,rules:[]}]"
               placeholder="请选择上级机构">
             </a-tree-select>
           </a-form-item>
