@@ -20,7 +20,7 @@
               :disabled="record.disabled"
               :treeData="menuTreeData"
               :filterTreeNode="filterTreeNode"
-              v-decorator="['supId',{initialValue: record.supId  || undefined,rules:[{required:true, message:'上级菜单不能为空'}]}]"
+              v-decorator="['supId',{initialValue: record.supId || undefined,rules:[{required:true, message:'上级菜单不能为空'}]}]"
               placeholder="请选择上级菜单">
             </a-tree-select>
           </a-form-item>
