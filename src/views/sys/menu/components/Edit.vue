@@ -293,9 +293,21 @@ export default {
     /* 当前数据变化时，刷新操作列表 */
     record: function () {
       this.refreshOperatesTable()
+      this.setDisSelectabled(this.menuTreeData)
     }
   },
   methods: {
+    /* 不可选设置 */
+    setDisSelectabled (array) {
+      array.forEach(item => {
+        if (item.value === this.record.id || (item.supIds && item.supIds.split(',').includes(this.record.id))) {
+          item.selectable = false
+        }
+        if (item.children && item.children.length > 0) {
+          this.setDisSelectabled(item.children)
+        }
+      })
+    },
     /* 验证操作编码 */
     validatorOperateCode (rule, value, callback) {
       const index = this.operations.filter(item => item.code === value)
