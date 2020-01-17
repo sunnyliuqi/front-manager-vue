@@ -181,7 +181,23 @@ export default {
   },
   computed: {
   },
+  watch: {
+    record () {
+      this.setDisSelectabled(this.treeData)
+    }
+  },
   methods: {
+    /* 不可选设置 */
+    setDisSelectabled (array) {
+      array.forEach(item => {
+        if (item.value === this.record.id || (item.supIds && item.supIds.split(',').includes(this.record.id))) {
+          item.selectable = false
+        }
+        if (item.children && item.children.length > 0) {
+          this.setDisSelectabled(item.children)
+        }
+      })
+    },
     validatorCheckCode (rule, value, callback) {
       const params = { 'id': this.record.id, 'code': value }
       this.checkCode(params).then(res => {
