@@ -1,5 +1,5 @@
 import path from '@/api/index'
-import { axios } from '@/utils/request'
+import { axios, axiosFile } from '@/utils/request'
 import parsePageParams from '@/utils/page'
 
 // 分页
@@ -62,5 +62,32 @@ export function getAllDict () {
   return axios({
     url: path.sys + '/dict/allType',
     method: 'GET'
+  })
+}
+// 导出excel
+export function exportExcel (data) {
+  return axiosFile({
+    url: path.sys + '/dict/export',
+    method: 'POST',
+    data: data
+  })
+}
+// 模板下载
+export function template () {
+  return axiosFile({
+    url: path.sys + '/dict/template',
+    method: 'POST'
+  })
+}
+// 导入excel
+export function importExcel (file) {
+  const data = new FormData()
+  data.append('file', file)
+  return axios({
+    url: path.sys + '/dict/import',
+    method: 'POST',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 180000,
+    data: data
   })
 }
