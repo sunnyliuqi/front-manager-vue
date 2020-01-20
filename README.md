@@ -66,6 +66,90 @@
 ````
 wrapClassName="custom-drawer custom-drawer-4"
 ````
+## 导入导出
+1. api js文件导出或者模板下载时新增axiosFile(只有导入时不用新增)  
+    ```import { axios, axiosFile } from '@/utils/request'，```
+2. 导出或模板下载,请求示例
+    ````
+    export function exportExcel (data) {
+      return axiosFile({
+        url: path.sys + '/dict/export',
+        method: 'POST',
+        data: data
+      })
+    }
+    ````
+3. 导入，请求示例
+   ````
+   export function importExcel (file) {
+     const data = new FormData()
+     data.append('file', file)
+     return axios({
+       url: path.sys + '/dict/import',
+       method: 'POST',
+       headers: { 'Content-Type': 'multipart/form-data' },
+       timeout: 180000,
+       data: data
+     })
+   }
+   ````   
+4. 页面组件实例
+    ````
+    <a-button v-authorize:SYS_DICT_EXPORT icon="download" @click="handleExport()">导出</a-button>
+    <a-button v-authorize:SYS_DICT_IMPORT icon="cloud-download" @click="handleTemplate()">模板下载</a-button>
+    <a-upload
+      v-authorize:SYS_DICT_IMPORT
+      name="file"
+      :showUploadList="false"
+      :customRequest="handleImport"
+    >
+      <a-button :icon="fileLoading ? 'loading' : 'upload'">导入</a-button>
+    </a-upload>
+   ...
+   data () {
+       return {
+         /* 导入加载状态 */
+         fileLoading: false,
+   }
+   ...
+   methods: {
+   /**
+    * 导出
+    */
+   handleExport () {
+     exportExcel(this.queryParam).then(res => {
+       if (res.code === 10000) {
+         this.$message.info(res.msg)
+       }
+     })
+   },
+   /**
+    * 模板下载
+    */
+   handleTemplate () {
+     template().then(res => {
+       if (res.code === 10000) {
+         this.$message.info(res.msg)
+       }
+     })
+   },
+   /**
+    * 导入
+    */
+   handleImport (data) {
+     this.fileLoading = true
+     importExcel(data.file).then(res => {
+       if (res.code === 10000) {
+         this.$message.info(res.result)
+       }
+     }).finally(() => {
+       this.fileLoading = false
+       this.refresh()
+     })
+   },
+   }
+    ```` 
+ 5. 完整参考示例，请前往系统管理-->>字典管理   
 ## 更多文档查看   
 > [vue](https://cn.vuejs.org/v2/guide/components.html)  
 > [antd-vue UI组件](https://vue.ant.design/)  

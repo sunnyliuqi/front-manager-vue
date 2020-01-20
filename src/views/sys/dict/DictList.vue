@@ -37,7 +37,16 @@
 
       <div class="table-operator">
         <a-button v-authorize:SYS_DICT_ADD type="primary" icon="plus" @click="handleAdd()">新建</a-button>
-
+        <a-button v-authorize:SYS_DICT_EXPORT icon="download" @click="handleExport()">导出</a-button>
+        <a-button v-authorize:SYS_DICT_IMPORT icon="cloud-download" @click="handleTemplate()">模板下载</a-button>
+        <a-upload
+          v-authorize:SYS_DICT_IMPORT
+          name="file"
+          :showUploadList="false"
+          :customRequest="handleImport"
+        >
+          <a-button :icon="fileLoading ? 'loading' : 'upload'">导入</a-button>
+        </a-upload>
       </div>
     </div>
     <s-table
@@ -78,7 +87,7 @@
 
 <script>
 
-import { del, get, queryList, save, update, getAllDict } from '@/api/sys/dict'
+import { del, get, queryList, save, update, getAllDict, exportExcel, template, importExcel } from '@/api/sys/dict'
 import { STable } from '@/components'
 import Add from './components/Add'
 import Edit from './components/Edit'
@@ -92,6 +101,8 @@ export default {
   },
   data () {
     return {
+      /* 导入加载状态 */
+      fileLoading: false,
       allDict: [{ label: '全部', value: '' }],
       // 保存方法
       save: save,
@@ -156,6 +167,40 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 导出
+     */
+    handleExport () {
+      exportExcel(this.queryParam).then(res => {
+        if (res.code === 10000) {
+          this.$message.info(res.msg)
+        }
+      })
+    },
+    /**
+     * 模板下载
+     */
+    handleTemplate () {
+      template().then(res => {
+        if (res.code === 10000) {
+          this.$message.info(res.msg)
+        }
+      })
+    },
+    /**
+     * 导入
+     */
+    handleImport (data) {
+      this.fileLoading = true
+      importExcel(data.file).then(res => {
+        if (res.code === 10000) {
+          this.$message.info(res.result)
+        }
+      }).finally(() => {
+        this.fileLoading = false
+        this.refresh()
+      })
+    },
 
     // 重置查询
     restQuery () {
