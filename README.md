@@ -113,40 +113,50 @@ wrapClassName="custom-drawer custom-drawer-4"
    }
    ...
    methods: {
-   /**
-    * 导出
-    */
-   handleExport () {
-     exportExcel(this.queryParam).then(res => {
-       if (res.code === 10000) {
-         this.$message.info(res.msg)
-       }
-     })
-   },
-   /**
-    * 模板下载
-    */
-   handleTemplate () {
-     template().then(res => {
-       if (res.code === 10000) {
-         this.$message.info(res.msg)
-       }
-     })
-   },
-   /**
-    * 导入
-    */
-   handleImport (data) {
-     this.fileLoading = true
-     importExcel(data.file).then(res => {
-       if (res.code === 10000) {
-         this.$message.info(res.result)
-       }
-     }).finally(() => {
-       this.fileLoading = false
-       this.refresh()
-     })
-   },
+   ...
+       /**
+        * 导出
+        */
+       handleExport () {
+         exportExcel(this.queryParam).then(res => {
+           if (res.code === 10000) {
+             this.$message.info(res.msg)
+           }
+         })
+       },
+       /**
+        * 模板下载
+        */
+       handleTemplate () {
+         template().then(res => {
+           if (res.code === 10000) {
+             this.$message.info(res.msg)
+           }
+         })
+       },
+       /**
+        * 导入
+        */
+       handleImport (data) {
+         this.fileLoading = true
+         importExcel(data.file).then(res => {
+           if (res.code === 10000) {
+             this.$message.info(this.createMsg(res.result))
+           }
+         }).finally(() => {
+           this.fileLoading = false
+           this.refresh()
+         })
+       },
+       /* 创建多行vnode */
+       createMsg (messages) {
+         const msgNodes = messages.map(msg => {
+           return this.$createElement('p', msg)
+         })
+         const multiMsg = this.$createElement('p', { style: { textAlign: 'left' } }, msgNodes)
+         return multiMsg
+       },
+   ...
    }
     ```` 
  5. 完整参考示例，请前往系统管理-->>字典管理   
