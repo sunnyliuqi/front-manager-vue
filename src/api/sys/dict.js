@@ -87,7 +87,7 @@ export function importExcel (file) {
     url: path.sys + '/dict/import',
     method: 'POST',
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 180000,
+    timeout: 1800000,
     data: data
   })
 }
