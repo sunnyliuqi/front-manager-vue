@@ -91,7 +91,6 @@ import { del, get, queryList, save, update, getAllDict, exportExcel, template, i
 import { STable } from '@/components'
 import Add from './components/Add'
 import Edit from './components/Edit'
-
 export default {
   name: 'DictList',
   components: {
@@ -194,14 +193,21 @@ export default {
       this.fileLoading = true
       importExcel(data.file).then(res => {
         if (res.code === 10000) {
-          this.$message.info(res.result)
+          this.$message.info(this.createMsg(res.result))
         }
       }).finally(() => {
         this.fileLoading = false
         this.refresh()
       })
     },
-
+    /* 创建多行vnode */
+    createMsg (messages) {
+      const msgNodes = messages.map(msg => {
+        return this.$createElement('p', msg)
+      })
+      const multiMsg = this.$createElement('p', { style: { textAlign: 'left' } }, msgNodes)
+      return multiMsg
+    },
     // 重置查询
     restQuery () {
       this.queryParam = {}
