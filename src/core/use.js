@@ -15,9 +15,9 @@ import uploader from 'vue-simple-uploader'
 // import '@/components/use'
 // import './directives/action'
 import './directives/authorize'
-
+import UUID from 'vue-uuid'
 VueClipboard.config.autoSetContainer = true
-
+Vue.use(UUID)
 Vue.use(Antd)
 Vue.use(Viser)
 Vue.use(uploader)
