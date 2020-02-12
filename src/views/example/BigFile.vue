@@ -3,7 +3,7 @@
     <a-col :lg="24" :md="24">
       <base-uploader
         ref="uploader"
-        />
+      />
     </a-col>
   </a-row>
 </template>
