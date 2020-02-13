@@ -21,7 +21,7 @@ export const dynRouterMap = [{
     component: PageView,
     meta: {
       title: '自动生成',
-      icon: 'code',
+      'icon': 'code',
       keepAlive: true
     },
     children: [{
@@ -39,7 +39,7 @@ export const dynRouterMap = [{
     component: PageView,
     meta: {
       title: '系统',
-      icon: 'setting'
+      'icon': 'setting'
     },
     children: [{
       path: '/sys/user',
@@ -117,6 +117,25 @@ export const dynRouterMap = [{
         keepAlive: true
       }
     }]
+  }, {
+    path: '/example',
+    component: PageView,
+    meta: {
+      title: '示例',
+      static: true
+    },
+    children: [
+      {
+        path: '/example/bigFile',
+        name: 'bigFile',
+        component: () => import('@/views/example/BigFile'),
+        meta: {
+          title: '大文件上传',
+          keepAlive: true,
+          static: true
+        }
+      }
+    ]
   }]
 }, {
   path: '*',
