@@ -47,8 +47,8 @@ export default {
       type: [Object, Function],
       default () {
         return {
-          success: '成功了',
-          error: '出错了',
+          success: '上传成功',
+          error: '上传出错',
           uploading: '上传中',
           paused: '暂停中',
           waiting: '等待中'
@@ -88,11 +88,7 @@ export default {
     },
     fileSuccess (rootFile, file, message, chunk) {
       //  文件上传成功
-      chunkComplete(file.uniqueIdentifier).then(res => {
-        if (res.code === 10000) {
-          this.$message.info('上传完成')
-        }
-      })
+      chunkComplete(file.uniqueIdentifier)
     },
     // 上传完成
     complete () {
