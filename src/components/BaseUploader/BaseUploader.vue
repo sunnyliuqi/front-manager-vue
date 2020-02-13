@@ -47,8 +47,8 @@ export default {
       type: [Object, Function],
       default () {
         return {
-          success: '上传成功',
-          error: '上传出错',
+          success: '成功',
+          error: '错误',
           uploading: '上传中',
           paused: '暂停中',
           waiting: '等待中'
