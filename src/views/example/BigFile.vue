@@ -7,11 +7,14 @@
       <br/>
     </a-col>
     <a-col :lg="24" :md="24">
-      <span class="detail-label">自定义</span><span class="detail-content"><base-uploader>
-        <uploader-unsupport></uploader-unsupport>
-        <uploader-btn :attrs="attrs">选择视频</uploader-btn>
-        <uploader-list></uploader-list>
-      </base-uploader></span>
+      <span class="detail-label">自定义</span>
+      <span class="detail-content">
+        <base-uploader>
+          <uploader-unsupport></uploader-unsupport>
+          <uploader-btn :attrs="attrs">选择视频</uploader-btn>
+          <uploader-list></uploader-list>
+        </base-uploader>
+      </span>
     </a-col>
   </a-row>
 </template>
