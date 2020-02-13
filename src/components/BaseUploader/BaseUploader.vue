@@ -54,6 +54,12 @@ export default {
           waiting: '等待中'
         }
       }
+    },
+    completeCallBack: {
+      type: Function,
+      default: function (filePath) {
+        console.log('文件路径：' + filePath)
+      }
     }
   },
   data () {
@@ -66,6 +72,7 @@ export default {
         forceChunkSize: true,
         maxChunkRetries: 3,
         // chunkRetryInterval: 100,
+        allowDuplicateUploads: true,
         generateUniqueIdentifier: this.generateIdentifier,
         checkChunkUploadedByResponse: function (chunk, message) {
           let objMessage = {}
@@ -88,7 +95,11 @@ export default {
     },
     fileSuccess (rootFile, file, message, chunk) {
       //  文件上传成功
-      chunkComplete(file.uniqueIdentifier)
+      chunkComplete(file.uniqueIdentifier).then(res => {
+        if (res.code === 10000) {
+          this.completeCallBack(res.result)
+        }
+      })
     },
     // 上传完成
     complete () {

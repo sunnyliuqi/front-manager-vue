@@ -1,7 +1,7 @@
 <template>
   <a-row :gutter="16">
     <a-col :lg="24" :md="24">
-      <span class="detail-label">普通</span><span class="detail-content"><base-uploader/></span>
+      <span class="detail-label">普通</span><span class="detail-content"><base-uploader :complete-call-back="customCompleteCallBack" /></span>
     </a-col>
     <a-col :lg="24" :md="24">
       <br/>
@@ -9,7 +9,7 @@
     <a-col :lg="24" :md="24">
       <span class="detail-label">自定义</span>
       <span class="detail-content">
-        <base-uploader>
+        <base-uploader :complete-call-back="customCompleteCallBack">
           <uploader-unsupport></uploader-unsupport>
           <uploader-btn :attrs="attrs">选择视频</uploader-btn>
           <uploader-list></uploader-list>
@@ -33,7 +33,11 @@ export default {
   components: {
     BaseUploader
   },
-  methods: {},
+  methods: {
+    customCompleteCallBack (path) {
+      console.log('customCompleteCallBack-->>' + path)
+    }
+  },
   mounted () {
   }
 }

@@ -169,11 +169,11 @@ wrapClassName="custom-drawer custom-drawer-4"
 2. 如何使用
     > 快速使用 
    ````
-   <base-uploader/>
+   <base-uploader :complete-call-back="customCompleteCallBack" />
    ````  
    > 自定义使用
    ```
-    <base-uploader>
+    <base-uploader :complete-call-back="customCompleteCallBack" >
      <uploader-unsupport></uploader-unsupport>
      <uploader-btn :attrs="attrs">选择视频</uploader-btn>
      <uploader-list></uploader-list>
