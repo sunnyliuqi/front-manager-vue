@@ -6,7 +6,7 @@
     :visible="detailVisible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
-    <a-row :gutter="16">#{DETAIL_CONTENT}
+    <a-row :gutter="16" style="padding-bottom: 24px;">#{DETAIL_CONTENT}
     </a-row>
     <div
       :style="{
