@@ -8,7 +8,7 @@
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <a-form :form="form">
-      <a-row :gutter="16">#{ADD_CONTENT}
+      <a-row :gutter="16" style="padding-bottom: 24px;">#{ADD_CONTENT}
       </a-row>
       <div
         :style="{
