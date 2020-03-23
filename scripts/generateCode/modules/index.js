@@ -1203,7 +1203,7 @@ function getEditDecorator (column) {
     rule.push(`,rules:[{required: true, message: '${column.columnName}不能为空'}]`)
   }
   if (column.componentType === 'DatePicker_date') {
-    decorator.push(`v-decorator="['${column.javaName}',record.${column.javaName}?{initialValue: getMoment(record.${column.javaName},'YYYY-MM-DD'):undefined${rule.join('')}}]"`)
+    decorator.push(`v-decorator="['${column.javaName}',{initialValue: record.${column.javaName}?getMoment(record.${column.javaName},'YYYY-MM-DD'):undefined${rule.join('')}}]"`)
   } else if (column.componentType === 'DatePicker_datetime') {
     decorator.push(`v-decorator="['${column.javaName}',{initialValue: record.${column.javaName}?getMoment(record.${column.javaName},'YYYY-MM-DD HH:mm:ss'):undefined${rule.join('')}}]"`)
   } else {
