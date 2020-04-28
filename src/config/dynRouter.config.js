@@ -134,6 +134,16 @@ export const dynRouterMap = [{
           keepAlive: true,
           static: true
         }
+      },
+      {
+        path: '/example/geoMapJpn',
+        name: 'geoMapJpn',
+        component: () => import('@/views/example/GeoMapJpn'),
+        meta: {
+          title: '基于地图报表-日本',
+          keepAlive: true,
+          static: true
+        }
       }
     ]
   }]
