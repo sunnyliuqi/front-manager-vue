@@ -8,135 +8,165 @@
 </template>
 
 <script>
-import Hk from '@/components/Geomap/China/HK'
-const option = {
-  title: {
-    text: '香港18区人口密度 （2011）',
-    subtext: '人口密度数据',
-    sublink: '/example/geoMapJpn'
-  },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{b}<br/>{c} (p / km2)'
-  },
-  toolbox: {
-    show: true,
-    orient: 'vertical',
-    left: 'right',
-    top: 'center',
-    feature: {
-      dataView: { readOnly: false },
-      restore: {},
-      saveAsImage: {}
-    }
-  },
-  visualMap: {
-    min: 800,
-    max: 50000,
-    text: ['High', 'Low'],
-    realtime: false,
-    calculable: true,
-    inRange: {
-      color: ['lightskyblue', 'yellow', 'orangered']
-    }
-  },
-  series: [
-    {
-      name: '香港18区人口密度',
-      type: 'map',
-      mapType: 'HK', // 自定义扩展图表类型
-      label: {
-        show: true
-      },
-      data: [
-        { name: '中西区', value: 20057.34 },
-        { name: '湾仔', value: 15477.48 },
-        { name: '东区', value: 31686.1 },
-        { name: '南区', value: 6992.6 },
-        { name: '油尖旺', value: 44045.49 },
-        { name: '深水埗', value: 40689.64 },
-        { name: '九龙城', value: 37659.78 },
-        { name: '黄大仙', value: 45180.97 },
-        { name: '观塘', value: 55204.26 },
-        { name: '葵青', value: 21900.9 },
-        { name: '荃湾', value: 4918.26 },
-        { name: '屯门', value: 5881.84 },
-        { name: '元朗', value: 4178.01 },
-        { name: '北区', value: 2227.92 },
-        { name: '大埔', value: 2180.98 },
-        { name: '沙田', value: 9172.94 },
-        { name: '西贡', value: 3368 },
-        { name: '离岛', value: 806.98 }
-      ],
-      // 自定义名称映射
-      nameMap: {
-        'Central and Western': '中西区',
-        'Eastern': '东区',
-        'Islands': '离岛',
-        'Kowloon City': '九龙城',
-        'Kwai Tsing': '葵青',
-        'Kwun Tong': '观塘',
-        'North': '北区',
-        'Sai Kung': '西贡',
-        'Sha Tin': '沙田',
-        'Sham Shui Po': '深水埗',
-        'Southern': '南区',
-        'Tai Po': '大埔',
-        'Tsuen Wan': '荃湾',
-        'Tuen Mun': '屯门',
-        'Wan Chai': '湾仔',
-        'Wong Tai Sin': '黄大仙',
-        'Yau Tsim Mong': '油尖旺',
-        'Yuen Long': '元朗'
-      }
-    }
-  ]
-}
+import { china, hk } from '@/components/Geomap/China'
 let timeFn = null
-
+let echarts = null
+let myChart = null
+// 各省份的数据
+const allData = [{
+  name: '北京'
+}, {
+  name: '天津'
+}, {
+  name: '上海'
+}, {
+  name: '重庆'
+}, {
+  name: '河北'
+}, {
+  name: '河南'
+}, {
+  name: '云南'
+}, {
+  name: '辽宁'
+}, {
+  name: '黑龙江'
+}, {
+  name: '湖南'
+}, {
+  name: '安徽'
+}, {
+  name: '山东'
+}, {
+  name: '新疆'
+}, {
+  name: '江苏'
+}, {
+  name: '浙江'
+}, {
+  name: '江西'
+}, {
+  name: '湖北'
+}, {
+  name: '广西'
+}, {
+  name: '甘肃'
+}, {
+  name: '山西'
+}, {
+  name: '内蒙古'
+}, {
+  name: '陕西'
+}, {
+  name: '吉林'
+}, {
+  name: '福建'
+}, {
+  name: '贵州'
+}, {
+  name: '广东'
+}, {
+  name: '青海'
+}, {
+  name: '西藏'
+}, {
+  name: '四川'
+}, {
+  name: '宁夏'
+}, {
+  name: '海南'
+}, {
+  name: '台湾'
+}, {
+  name: '香港'
+}, {
+  name: '澳门'
+}]
+for (var i = 0; i < allData.length; i++) {
+  allData[i].value = Math.round(Math.random() * 100)
+}
 export default {
   name: 'GeoMapJpn',
   data () {
     return {
       echarts: {},
-      myChart: {}
+      myChart: {},
+      chartData: allData
     }
   },
   mounted () {
     /**
      * 初始化
      */
-    this.echarts = this.$echarts
-    this.myChart = this.echarts.init(document.getElementById('main'))
-    this.myChart.on('click', this.click)
-    this.myChart.on('dblclick', this.doubleClick)
+    echarts = this.$echarts
+    myChart = echarts.init(document.getElementById('main'))
+    myChart.on('click', this.click)
+    myChart.on('dblclick', this.doubleClick)
     /**
      * 默认加载
      */
-    this.loadMap('HK', Hk, option)
+    loadMap('china', china, this.chartData)
   },
   methods: {
     doubleClick (params) {
       clearTimeout(timeFn)
       console.info('双击了一下')
+      loadMap('china', china, this.chartData)
     },
     click (params) {
       clearTimeout(timeFn)
       timeFn = setTimeout(function () {
         console.info('单击了一下')
+        loadMap('hk', hk, this.chartData)
       }, 250)
-    },
-    /**
-     * 加载地图报表
-     * @param name
-     * @param geoJson
-     * @param option
-     */
-    loadMap (name, geoJson, option) {
-      this.echarts.registerMap(name, geoJson)
-      this.myChart.setOption(option)
     }
   }
+}
+/**
+ * 加载地图报表
+ * @param name
+ * @param geoJson
+ * @param chartData
+ */
+function loadMap (name, geoJson, chartData) {
+  echarts.registerMap(name, geoJson)
+  const option = {
+    tooltip: {
+      show: true,
+      formatter: function (params) {
+        if (params.data) return params.name + '：' + params.data['value']
+      }
+    },
+    visualMap: {
+      type: 'continuous',
+      text: ['', ''],
+      showLabel: true,
+      left: '50',
+      min: 0,
+      max: 100,
+      inRange: {
+        // eslint-disable-next-line standard/array-bracket-even-spacing
+        color: ['#edfbfb', '#b7d6f3', '#40a9ed', '#3598c1', '#215096' ]
+      },
+      splitNumber: 0
+    },
+    series: [{
+      name: 'MAP',
+      type: 'map',
+      mapType: name,
+      selectedMode: 'false', // 是否允许选中多个区域
+      label: {
+        normal: {
+          show: true
+        },
+        emphasis: {
+          show: true
+        }
+      },
+      data: chartData
+    }]
+  }
+  myChart.setOption(option)
 }
 </script>
 
