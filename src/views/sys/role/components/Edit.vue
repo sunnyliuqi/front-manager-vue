@@ -118,8 +118,12 @@ export default {
       if (this.record.id) {
         this.getRoleMenus(this.record).then(res => {
           if (res.code === 10000) {
-            this.checkedKeys = res.result.menuAndOperationIds
-            this.halfCheckedKeys = res.result.supMenuIds
+            if (res.result.menuAndOperationIds) {
+              this.checkedKeys = res.result.menuAndOperationIds
+            }
+            if (res.result.supMenuIds) {
+              this.halfCheckedKeys = res.result.supMenuIds
+            }
           }
         })
       }

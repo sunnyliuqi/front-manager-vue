@@ -21,7 +21,6 @@
     "ant-design-vue": "^1.4.10",
     "axios": "^0.19.1",
     "core-js": "^2.6.11",
-    "echarts": "^4.7.0",
     "enquire.js": "^2.1.6",
     "js-cookie": "^2.2.1",
     "lodash.get": "^4.4.2",

@@ -16,8 +16,6 @@ import uploader from 'vue-simple-uploader'
 // import './directives/action'
 import './directives/authorize'
 import UUID from 'vue-uuid'
-import echarts from 'echarts'
-Vue.prototype.$echarts = echarts
 VueClipboard.config.autoSetContainer = true
 Vue.use(UUID)
 Vue.use(Antd)
