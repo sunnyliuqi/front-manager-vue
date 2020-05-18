@@ -5,6 +5,7 @@ import {
   BlankLayout,
   PageView
 } from '@/layouts'
+import { process } from '@/core/icons'
 export const dynRouterMap = [{
   path: '/',
   name: 'index',
@@ -124,18 +125,25 @@ export const dynRouterMap = [{
       title: '示例',
       static: true
     },
-    children: [
-      {
-        path: '/example/bigFile',
-        name: 'bigFile',
-        component: () => import('@/views/example/BigFile'),
-        meta: {
-          title: '大文件上传',
-          keepAlive: true,
-          static: true
-        }
+    children: [{
+      path: '/example/bigFile',
+      name: 'bigFile',
+      component: () => import('@/views/example/BigFile'),
+      meta: {
+        title: '大文件上传',
+        keepAlive: true,
+        static: true
       }
-    ]
+    }]
+  }, {
+    path: '/process',
+    component: PageView,
+    meta: {
+      title: '流程管理',
+      icon: process,
+      static: true
+    },
+    children: []
   }]
 }, {
   path: '*',
