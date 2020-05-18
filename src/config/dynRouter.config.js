@@ -5,7 +5,7 @@ import {
   BlankLayout,
   PageView
 } from '@/layouts'
-import { process } from '@/core/icons'
+import { process, caseStudy } from '@/core/icons'
 export const dynRouterMap = [{
   path: '/',
   name: 'index',
@@ -123,6 +123,7 @@ export const dynRouterMap = [{
     component: PageView,
     meta: {
       title: '示例',
+      icon: caseStudy,
       static: true
     },
     children: [{
