@@ -188,34 +188,34 @@ export const dynRouterMap = [{
         }
       }
     ]
-  }]
-}, {
-  path: '/example',
-  component: PageView,
-  meta: {
-    title: '示例',
-    icon: caseStudy,
-    static: true
-  },
-  children: [{
-    path: '/example/bigFile',
-    name: 'bigFile',
-    component: () => import('@/views/example/BigFile'),
+  }, {
+    path: '/example',
+    component: PageView,
     meta: {
-      title: '大文件上传',
-      keepAlive: true,
+      title: '示例',
+      icon: caseStudy,
       static: true
-    }
-  },
-  {
-    path: '/example/leave',
-    name: 'leave',
-    component: () => import('@/views/example/Leave'),
-    meta: {
-      title: '请假管理',
-      keepAlive: true,
-      static: true
-    }
+    },
+    children: [{
+      path: '/example/bigFile',
+      name: 'bigFile',
+      component: () => import('@/views/example/BigFile'),
+      meta: {
+        title: '大文件上传',
+        keepAlive: true,
+        static: true
+      }
+    },
+    {
+      path: '/example/leave',
+      name: 'leave',
+      component: () => import('@/views/example/Leave'),
+      meta: {
+        title: '请假',
+        keepAlive: true,
+        static: true
+      }
+    }]
   }]
 }, {
   path: '*',
