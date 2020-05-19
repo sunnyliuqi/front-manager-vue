@@ -109,6 +109,12 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       },
+      // 流程服务
+      '/api/process': {
+        target: 'http://127.0.0.1:61',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      },
       // 系统服务
       '/api/sys': {
         target: 'http://127.0.0.1:68',

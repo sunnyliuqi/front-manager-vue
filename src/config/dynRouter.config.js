@@ -144,7 +144,68 @@ export const dynRouterMap = [{
       icon: process,
       static: true
     },
-    children: []
+    children: [
+      {
+        path: '/process/definition',
+        name: 'definition',
+        component: () => import('@/views/process/definition/Definition'),
+        meta: {
+          title: '流程定义',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/instance',
+        name: 'instance',
+        component: () => import('@/views/process/instance/Instance'),
+        meta: {
+          title: '流程实例',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/task',
+        name: 'task',
+        component: () => import('@/views/process/task/Task'),
+        meta: {
+          title: '流程任务',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/model',
+        name: 'model',
+        component: () => import('@/views/process/model/Model'),
+        meta: {
+          title: '流程模型',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/form',
+        name: 'form',
+        component: () => import('@/views/process/form/Form'),
+        meta: {
+          title: '表单设计',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/app',
+        name: 'app',
+        component: () => import('@/views/process/app/App'),
+        meta: {
+          title: 'App模块',
+          keepAlive: true,
+          static: true
+        }
+      }
+    ]
   }]
 }, {
   path: '*',
