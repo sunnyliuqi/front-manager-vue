@@ -80,7 +80,7 @@ export default {
           key: 'name'
         },
         {
-          title: '业务key',
+          title: 'businessKey',
           dataIndex: 'businessKey',
           key: 'businessKey'
         },
