@@ -5,6 +5,31 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="流程名称">
+                <a-input v-model="queryParam.nameLike" placeholder="请输入流程名称"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="key">
+                <a-input v-model="queryParam.keyLike" placeholder="请输入key"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="版本">
+                <a-input-number v-model="queryParam.version" placeholder="请输入版本"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="状态">
+                <a-select :options="allStatus" v-model="queryParam.suspended" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="最新版本">
+                <a-checkbox v-model="queryParam.latest"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.definitionTable.refresh(true)">查询</a-button>
@@ -16,7 +41,7 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>
+        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
       </div>
     </div>
     <s-table
@@ -35,7 +60,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+                    <a @click="handleUpdate(record)">修改</a>
         </template>
       </span>
     </s-table>
@@ -53,8 +78,9 @@ export default {
   },
   data () {
     return {
+      allStatus: [{ label: '全部', value: '' }, { label: '活动', value: 'false' }, { label: '挂起', value: 'true' }],
       // 查询参数
-      queryParam: {},
+      queryParam: { suspended: '' },
       // 列表表头
       columns: [
         {

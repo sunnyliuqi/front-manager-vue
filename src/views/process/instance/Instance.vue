@@ -5,6 +5,21 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="实例名称">
+                <a-input v-model="queryParam.nameLike" placeholder="请输入实例名称"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="业务key">
+                <a-input v-model="queryParam.businessKey" placeholder="请输入业务key"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="状态">
+                <a-select :options="allStatus" v-model="queryParam.finished" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.instanceTable.refresh(true)">查询</a-button>
@@ -16,7 +31,7 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>
+        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
       </div>
     </div>
     <s-table
@@ -44,7 +59,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+                    <a @click="handleUpdate(record)">修改</a>
         </template>
       </span>
     </s-table>
@@ -64,8 +79,9 @@ export default {
     return {
       formatDate: formatDate,
       duration: duration,
+      allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
       // 查询参数
-      queryParam: {},
+      queryParam: { },
       // 列表表头
       columns: [
         {

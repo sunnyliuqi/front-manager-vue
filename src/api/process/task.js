@@ -8,7 +8,6 @@ export function queryList (data) {
   return axios({
     url: path.process + '/historys/task/historic-task-instances',
     method: 'GET',
-    data: data,
-    params: parsePageParams(data)
+    params: { ...data, ...parsePageParams(data) }
   })
 }

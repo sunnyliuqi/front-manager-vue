@@ -5,6 +5,26 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="节点名称">
+                <a-input v-model="queryParam.taskNameLike" placeholder="请输入节点名称"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="业务key">
+                <a-input v-model="queryParam.processBusinessKey" placeholder="请输入业务key"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="优先级">
+                <a-input-number v-model="queryParam.taskPriority" placeholder="请输入优先级"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="状态">
+                <a-select :options="allStatus" v-model="queryParam.finished" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
               <span
                 class="table-page-search-submitButtons">
                 <a-button type="primary" @click="$refs.taskTable.refresh(true)">查询</a-button>
@@ -16,7 +36,7 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>
+        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
       </div>
     </div>
     <s-table
@@ -47,7 +67,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+                    <a @click="handleUpdate(record)">修改</a>
         </template>
       </span>
     </s-table>
@@ -67,6 +87,7 @@ export default {
     return {
       duration: duration,
       formatDate: formatDate,
+      allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
       // 查询参数
       queryParam: {},
       // 列表表头
@@ -157,11 +178,11 @@ export default {
     // 重置查询
     restQuery () {
       this.queryParam = {}
-      this.$refs.definitionTable.refresh(true)
+      this.$refs.taskTable.refresh(true)
     },
     // 刷新列表
     refresh () {
-      this.$refs.definitionTable.refresh()
+      this.$refs.taskTable.refresh()
     },
     // 打开新增
     handleAdd (type, disabled) {
