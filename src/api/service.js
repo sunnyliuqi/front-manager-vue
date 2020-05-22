@@ -1,6 +1,6 @@
 export const service = {
   default: '/demo',
-  process: '/process',
+  process: '/activiti',
   upload: '/upload',
   uploads: '/uploads',
   createCode: '/createFile',

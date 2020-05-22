@@ -110,10 +110,14 @@ module.exports = {
         pathRewrite: { '^/api': '' }
       },
       // 流程服务
-      '/api/process': {
+      '/api/activiti': {
         target: 'http://127.0.0.1:61',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
+      },
+      '/activiti': {
+        target: 'http://127.0.0.1:61',
+        changeOrigin: true
       },
       // 系统服务
       '/api/sys': {

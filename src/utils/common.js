@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+export { moment }
 /**
  * 获取moment
  * @param date
@@ -48,6 +49,19 @@ export function offsetMoment (date, format, type, offset) {
     format = 'YYYY-MM-DD HH:mm:ss'
   }
   return moment(moment(date).add(offset, type), format)
+}
+
+/**
+ * 时长格式化
+ * @param milliseconds
+ * @returns {string} x天x时x分x秒
+ */
+export function duration (milliseconds) {
+  if (isEmpty(milliseconds)) {
+    return '-'
+  }
+  const dur = moment.duration(milliseconds)
+  return `${dur.days()}天${dur.hours()}时${dur.minutes()}分${dur.seconds()}秒`
 }
 /**
  * 判断是否为空
