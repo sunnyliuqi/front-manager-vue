@@ -59,7 +59,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-                    <a @click="handleUpdate(record)">修改</a>
+          <a @click="handleUpdate(record)">修改</a>
         </template>
       </span>
     </s-table>
