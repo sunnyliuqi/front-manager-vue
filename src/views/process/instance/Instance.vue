@@ -10,7 +10,7 @@
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
-              <a-form-item label="业务key">
+              <a-form-item label="businessKey">
                 <a-input v-model="queryParam.businessKey" placeholder="请输入业务key"/>
               </a-form-item>
             </a-col>
