@@ -31,7 +31,7 @@
       </div>
 
       <div class="table-operator">
-        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
+        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>
       </div>
     </div>
     <s-table

@@ -309,7 +309,7 @@ export default {
     },
     // 打开新增
     handleAdd () {
-      this.recordActive = {}
+      this.recordActive = { userHeader: '' }
       roleList().then(res => {
         if (res.code === 10000) {
           this.roles = res.result
@@ -321,7 +321,7 @@ export default {
     handleUpdate (record) {
       get(record).then(res => {
         if (res.code === 10000) {
-          this.recordActive = res.result
+          this.recordActive = Object.assign({ userHeader: '' }, res.result)
           roleList().then(res => {
             if (res.code === 10000) {
               this.roles = res.result

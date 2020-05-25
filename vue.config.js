@@ -138,7 +138,7 @@ module.exports = {
       }, */
       // 文件回显需要在nginx 配置
       '/uploads': {
-        target: 'http://127.0.0.1:66',
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true
       }
     }
