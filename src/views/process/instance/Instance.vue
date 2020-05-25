@@ -33,7 +33,7 @@
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item
                 label="结束时间">
-                <a-range-picker  showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.finishedCondition"/>
+                  <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.finishedCondition"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
