@@ -80,7 +80,7 @@ export default {
     return {
       allStatus: [{ label: '全部', value: '' }, { label: '活动', value: 'false' }, { label: '挂起', value: 'true' }],
       // 查询参数
-      queryParam: { suspended: '' },
+      queryParam: { suspended: '', latest: true },
       // 列表表头
       columns: [
         {

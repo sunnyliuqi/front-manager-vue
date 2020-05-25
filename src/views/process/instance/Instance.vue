@@ -15,6 +15,28 @@
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="发起人">
+                <a-select :options="getUsers" v-model="queryParam.startedBy" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="参与人">
+                <a-select :options="getUsers" v-model="queryParam.involvedUser" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item
+                label="发起时间">
+                <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.startedCondition"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item
+                label="结束时间">
+                <a-range-picker  showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.finishedCondition"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="状态">
                 <a-select :options="allStatus" v-model="queryParam.finished" placeholder="全部"/>
               </a-form-item>
@@ -68,6 +90,7 @@
 
 <script>
 import { queryList } from '@/api/process/instance'
+import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import { formatDate, duration } from '@/utils/common'
 export default {
@@ -80,6 +103,7 @@ export default {
       formatDate: formatDate,
       duration: duration,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
+      getUsers: [{ label: '全部', value: '' }],
       // 查询参数
       queryParam: { },
       // 列表表头
@@ -139,7 +163,7 @@ export default {
         }
       ],
       loadData: parameter => {
-        return queryList(Object.assign(parameter, this.queryParam))
+        return queryList(Object.assign(parameter, this.getQuery()))
           .then(res => {
             if (res.code === 10000) {
               return res.result
@@ -151,10 +175,31 @@ export default {
     }
   },
   created () {
-
+    queryUsers().then((res) => {
+      if (res.code === 10000) {
+        const dnyUsers = res.result.map(item => {
+          return { label: `${item.lastName}`, value: `${item.id}` }
+        })
+        this.getUsers = [...this.getUsers, ...dnyUsers]
+      }
+    })
   },
   computed: {},
   methods: {
+    getQuery () {
+      const _queryParma = Object.assign({}, this.queryParam)
+      if (this.queryParam.startedCondition) {
+        _queryParma.startedBefore = formatDate(this.queryParam.startedCondition[1], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.startedAfter = formatDate(this.queryParam.startedCondition[0], 'YYYY-MM-DD HH:mm:ssD')
+        _queryParma.startedCondition = []
+      }
+      if (this.queryParam.finishedCondition) {
+        _queryParma.finishedBefore = formatDate(this.queryParam.finishedCondition[1], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.finishedAfter = formatDate(this.queryParam.finishedCondition[0], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.finishedCondition = []
+      }
+      return _queryParma
+    },
     // 重置查询
     restQuery () {
       this.queryParam = {}
