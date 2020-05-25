@@ -11,7 +11,35 @@
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="业务key">
-                <a-input v-model="queryParam.processBusinessKey" placeholder="请输入业务key"/>
+                <a-input v-model="queryParam.processBusinessKeyLike" placeholder="请输入业务key"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="处理人">
+                <a-input v-model="queryParam.taskAssigneeLike" placeholder="请输入处理人"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="参与人">
+                <a-select :options="getUsers" v-model="queryParam.taskInvolvedUser" placeholder="全部"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item
+                label="创建时间">
+                <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.taskCreatedCondition"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item
+                label="完成时间">
+                <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.taskCompletedCondition"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item
+                label="任务期限">
+                <a-range-picker showTime format="YYYY-MM-DD HH:mm:ss" v-model="queryParam.dueDateCondition"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
@@ -76,6 +104,7 @@
 
 <script>
 import { queryList } from '@/api/process/task'
+import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import { formatDate, duration } from '@/utils/common'
 export default {
@@ -89,6 +118,7 @@ export default {
       formatDate: formatDate,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
       // 查询参数
+      getUsers: [{ label: '全部', value: '' }],
       queryParam: {},
       // 列表表头
       columns: [
@@ -159,7 +189,7 @@ export default {
         }
       ],
       loadData: parameter => {
-        return queryList(Object.assign(parameter, this.queryParam))
+        return queryList(Object.assign(parameter, this.getQuery()))
           .then(res => {
             if (res.code === 10000) {
               return res.result
@@ -171,10 +201,36 @@ export default {
     }
   },
   created () {
-
+    queryUsers().then((res) => {
+      if (res.code === 10000) {
+        const dnyUsers = res.result.map(item => {
+          return { label: `${item.lastName}`, value: `${item.id}` }
+        })
+        this.getUsers = [...this.getUsers, ...dnyUsers]
+      }
+    })
   },
   computed: {},
   methods: {
+    getQuery () {
+      const _queryParma = Object.assign({}, this.queryParam)
+      if (this.queryParam.taskCreatedCondition) {
+        _queryParma.taskCreatedBefore = formatDate(this.queryParam.taskCreatedCondition[1], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.taskCreatedAfter = formatDate(this.queryParam.taskCreatedCondition[0], 'YYYY-MM-DD HH:mm:ssD')
+        _queryParma.taskCreatedCondition = []
+      }
+      if (this.queryParam.taskCompletedCondition) {
+        _queryParma.taskCompletedBefore = formatDate(this.queryParam.taskCompletedCondition[1], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.taskCompletedAfter = formatDate(this.queryParam.taskCompletedCondition[0], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.taskCompletedCondition = []
+      }
+      if (this.queryParam.dueDateCondition) {
+        _queryParma.dueDateBefore = formatDate(this.queryParam.dueDateCondition[1], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.dueDateAfter = formatDate(this.queryParam.dueDateCondition[0], 'YYYY-MM-DD HH:mm:ss')
+        _queryParma.dueDateCondition = []
+      }
+      return _queryParma
+    },
     // 重置查询
     restQuery () {
       this.queryParam = {}
