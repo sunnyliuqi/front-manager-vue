@@ -53,7 +53,6 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>
       </div>
     </div>
     <s-table
@@ -81,11 +80,13 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a v-if="!record.endTime" @click="cancel(record)">终止流程</a>
+          <a v-if="!record.endTime" @click="cancel(record)">终止</a>
           <a-divider v-if="!record.endTime" type="vertical"/>
-          <a v-if="!record.endTime"@click="freeSkip(record)">自由跳转</a>
+          <a v-if="!record.endTime"@click="assign(record)">指派</a>
           <a-divider v-if="!record.endTime" type="vertical"/>
-          <a @click="trace(record)">流程跟踪</a>
+          <a v-if="!record.endTime"@click="freeSkip(record)">跳转</a>
+          <a-divider v-if="!record.endTime" type="vertical"/>
+          <a @click="trace(record)">跟踪</a>
         </template>
       </span>
     </s-table>
@@ -94,24 +95,53 @@
       :delete-process-instance="deleteProcessInstance"
       :refresh="refresh"
       :record="recordActive" />
+    <Trace
+      ref="trace"
+      :get-process-instance="getProcessInstance"
+      :get-process-instance-diagram="getProcessInstanceDiagram"
+      :get-process-definition-image="getProcessDefinitionImage"
+      :get-historic-process-task-instances="getHistoricProcessTaskInstances"
+      :get-historic-activity-instances="getHistoricActivityInstances"
+      :get-historic-subprocess-instances="getHistoricSubprocessInstances"
+      :get-jobs="getJobs"
+      :format-date="formatDate"
+      :duration="duration"
+      :record="recordActive"
+    />
+    <FreeSkip
+      ref="freeSkip"
+      :record="recordActive"
+    />
   </a-card>
 </template>
 
 <script>
-import { queryList, deleteProcessInstance } from '@/api/process/instance'
+import { queryList, deleteProcessInstance, getProcessInstance, getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
+import { getProcessDefinitionImage } from '@/api/process/definition'
 import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import Cancel from './components/Cancel'
+import Trace from './components/Trace'
+import FreeSkip from './components/FreeSkip'
 import { formatDate, duration } from '@/utils/common'
 export default {
   name: 'Instance',
   components: {
     STable,
-    Cancel
+    Cancel,
+    Trace,
+    FreeSkip
   },
   data () {
     return {
       deleteProcessInstance: deleteProcessInstance,
+      getProcessInstance: getProcessInstance,
+      getProcessInstanceDiagram: getProcessInstanceDiagram,
+      getProcessDefinitionImage: getProcessDefinitionImage,
+      getHistoricProcessTaskInstances: getHistoricProcessTaskInstances,
+      getHistoricActivityInstances: getHistoricActivityInstances,
+      getHistoricSubprocessInstances: getHistoricSubprocessInstances,
+      getJobs: getJobs,
       formatDate: formatDate,
       duration: duration,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
@@ -198,8 +228,18 @@ export default {
   },
   computed: {},
   methods: {
-    trace (record) {},
-    freeSkip (record) {},
+    trace (record) {
+      getProcessInstance(record.id).then(res => {
+        if (res.code === 10000) {
+          this.recordActive = res.result
+          this.$refs.trace.show()
+        }
+      })
+    },
+    freeSkip (record) {
+      this.recordActive = record
+      this.$refs.freeSkip.show()
+    },
     cancel (record) {
       this.recordActive = record
       this.$refs.cancel.show()

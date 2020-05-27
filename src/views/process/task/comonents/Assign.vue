@@ -2,7 +2,7 @@
   <a-drawer
     wrapClassName="custom-drawer"
     :maskClosable="false"
-    title="流程终止"
+    title="流程指派"
     @close="onClose"
     :visible="visible"
     :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
@@ -11,7 +11,7 @@
       :form="form"
     >
       <a-form-item
-        label="终止原因"
+        label="指派给"
         :label-col="{ span: 5 }"
         :wrapper-col="{ span: 12 }"
       >
@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'Cancel',
+  name: 'Assign',
   props: {
     record: {
       type: Object,
@@ -83,7 +83,7 @@ export default {
           const params = { 'deleteReason': this.form.getFieldValue('deleteReason'), 'id': this.record.id }
           this.deleteProcessInstance(params).then(res => {
             if (res.code === 10000) {
-              this.$message.info('终止成功')
+              this.$message.info(res.msg)
               this.onClose()
               this.refresh()
             }
