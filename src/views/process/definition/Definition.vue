@@ -109,6 +109,11 @@ export default {
           key: 'key'
         },
         {
+          title: '部署id',
+          dataIndex: 'deploymentId',
+          key: 'deploymentId'
+        },
+        {
           title: '版本',
           dataIndex: 'version',
           key: 'version'
