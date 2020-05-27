@@ -11,3 +11,16 @@ export function queryList (data) {
     params: { ...data, ...parsePageParams(data) }
   })
 }
+
+/**
+ * 终止流程
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function deleteProcessInstance (data) {
+  return axios({
+    url: path.process + '/instances/runtime/process-instances/' + data.id,
+    method: 'DELETE',
+    params: { 'deleteReason': data.deleteReason }
+  })
+}

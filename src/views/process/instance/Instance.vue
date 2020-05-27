@@ -81,25 +81,37 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+          <a v-if="!record.endTime" @click="cancel(record)">终止流程</a>
+          <a-divider v-if="!record.endTime" type="vertical"/>
+          <a v-if="!record.endTime"@click="freeSkip(record)">自由跳转</a>
+          <a-divider v-if="!record.endTime" type="vertical"/>
+          <a @click="trace(record)">流程跟踪</a>
         </template>
       </span>
     </s-table>
+    <cancel
+      ref="cancel"
+      :delete-process-instance="deleteProcessInstance"
+      :refresh="refresh"
+      :record="recordActive" />
   </a-card>
 </template>
 
 <script>
-import { queryList } from '@/api/process/instance'
+import { queryList, deleteProcessInstance } from '@/api/process/instance'
 import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
+import Cancel from './components/Cancel'
 import { formatDate, duration } from '@/utils/common'
 export default {
   name: 'Instance',
   components: {
-    STable
+    STable,
+    Cancel
   },
   data () {
     return {
+      deleteProcessInstance: deleteProcessInstance,
       formatDate: formatDate,
       duration: duration,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
@@ -186,6 +198,12 @@ export default {
   },
   computed: {},
   methods: {
+    trace (record) {},
+    freeSkip (record) {},
+    cancel (record) {
+      this.recordActive = record
+      this.$refs.cancel.show()
+    },
     getQuery () {
       const _queryParma = Object.assign({}, this.queryParam)
       if (this.queryParam.startedCondition) {
@@ -208,20 +226,6 @@ export default {
     // 刷新列表
     refresh () {
       this.$refs.instanceTable.refresh()
-    },
-    // 打开新增
-    handleAdd (type, disabled) {
-      this.recordActive = { type: type || '', disabled: disabled || false }
-      // this.$refs.definitionAdd.show()
-    },
-    // 打开更新
-    handleUpdate (record) {
-      // get(record).then(res => {
-      //   if (res.code === 10000) {
-      //     this.recordActive = res.result
-      //     this.$refs.instanceAdd.show()
-      //   }
-      // })
     }
   }
 }
