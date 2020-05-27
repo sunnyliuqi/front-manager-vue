@@ -8,7 +8,7 @@
   >
     <a-row :gutter="16">
       <a-col :span="24">
-        <img :src="img.src" :alt="img.alt">
+        <img v-if="img" :src="img.src" :alt="img.alt">
       </a-col>
     </a-row>
     <div
