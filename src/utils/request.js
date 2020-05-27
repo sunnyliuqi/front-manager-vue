@@ -6,7 +6,7 @@ import notification from 'ant-design-vue/es/notification'
 import message from 'ant-design-vue/es/message'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN, API_NO_AUTHORIZATIONS } from '@/store/mutation-types'
-import { uuid } from './common'
+import { uuid, downFile } from './common'
 // 创建 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
@@ -75,31 +75,30 @@ serviceFile.interceptors.request.use(config => {
 }, err)
 
 /**
- * 下载文件
- * @param data
- * @param fileName
+ * 检查响应类型是否能处理
+ * @param type
+ * @returns {boolean}
  */
-function downFile (data, fileName) {
-  const objectUrl = URL.createObjectURL(data)
-  // 文件地址
-  const link = document.createElement('a')
-  link.download = decodeURI(fileName)
-  link.href = objectUrl
-  link.click()
+function checkType (type) {
+  if (type === 'application/vnd.ms-excel' ||
+    type === 'application/octet-stream' ||
+    type.indexOf('image') > -1
+  ) {
+    return true
+  }
+  return false
 }
 
-// 读取导出文件的二机制文件，然后通过a标签浏览器的下载
+// 读取服务端的文件
 serviceFile.interceptors.response.use(response => {
-  const result = response.data
-  if (result.type === 'application/vnd.ms-excel') {
+  if (checkType(response.data.type)) {
     // 获取文件名
-    const fileName = response.headers['content-disposition'].split('=')[1]
-    downFile(response.data, fileName)
-    return { 'code': 10000, 'msg': '文件导出成功', 'result': '文件导出成功' }
-  } else if (result.type === 'application/octet-stream') {
-    const fileName = response.config.fileName || uuid()
-    downFile(response.data, fileName)
-    return { 'code': 10000, 'msg': '文件下载成功', 'result': '文件下载成功' }
+    const fileName = response.config.fileName || response.headers['content-disposition'].split('=')[1] || uuid()
+    if (response.config.handleCallBack) {
+      return response.config.handleCallBack(response.data, fileName)
+    } else {
+      return downFile(response.data, fileName)
+    }
   } else {
     const reader = new FileReader()
     reader.readAsText(response.data, 'utf-8')

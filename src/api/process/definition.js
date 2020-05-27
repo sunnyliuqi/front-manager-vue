@@ -3,6 +3,7 @@ import {
   axios, axiosFile
 } from '@/utils/request'
 import parsePageParams from '@/utils/page'
+import { createImgNode } from '@/utils/common'
 // 分页
 export function queryList (data) {
   return axios({
@@ -46,8 +47,23 @@ export function deleteDeployment (id) {
 export function getProcessDefinitionResource (id) {
   return axiosFile({
     url: path.process + '/repository/process-definitions/' + id + '/resourcedata',
-    headers: { 'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    headers: { 'Accept': '*/*' },
     method: 'GET',
     fileName: `${id}.xml`
+  })
+}
+
+/**
+ * 查看流程定义图片
+ * @param id
+ * @returns {*}
+ */
+export function getProcessDefinitionImage (id) {
+  return axiosFile({
+    url: path.process + '/repository/process-definitions/' + id + '/image',
+    headers: { 'Accept': '*/*' },
+    method: 'GET',
+    fileName: `${id}.png`,
+    handleCallBack: createImgNode
   })
 }

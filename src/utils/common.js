@@ -107,3 +107,29 @@ export function uuid () {
   const uuid = s.join('')
   return uuid
 }
+/**
+ * 下载文件
+ * @param data
+ * @param fileName
+ */
+export function downFile (data, fileName) {
+  const objectUrl = URL.createObjectURL(data)
+  // 文件地址
+  const link = document.createElement('a')
+  link.download = decodeURI(fileName)
+  link.href = objectUrl
+  link.click()
+  return { 'code': 10000, 'msg': '文件下载成功', 'result': '文件下载成功' }
+}
+
+/**
+ * 生成图片节点
+ */
+export function createImgNode (data, fileName) {
+  const objectUrl = URL.createObjectURL(data)
+  // 文件地址
+  const img = document.createElement('img')
+  img.src = objectUrl
+  img.alt = fileName
+  return { 'code': 10000, 'msg': '文件创建成功', 'result': img }
+}

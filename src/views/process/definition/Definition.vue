@@ -70,20 +70,23 @@
         </template>
       </span>
     </s-table>
+    <look-image ref="lookImage" :img="definitionImg" />
   </a-card>
 </template>
 
 <script>
-import { queryList, executeProcessDefinitionAction, deleteDeployment, getProcessDefinitionResource } from '@/api/process/definition'
+import { queryList, executeProcessDefinitionAction, deleteDeployment, getProcessDefinitionResource, getProcessDefinitionImage } from '@/api/process/definition'
 import { STable } from '@/components'
+import LookImage from './components/LookImage'
 import { formatDate, getMoment } from '@/utils/common'
 export default {
   name: 'Definition',
   components: {
-    STable
+    STable, LookImage
   },
   data () {
     return {
+      definitionImg: undefined,
       allStatus: [{ label: '全部', value: '' }, { label: '活动', value: 'false' }, { label: '挂起', value: 'true' }],
       // 查询参数
       queryParam: { suspended: '', latest: true },
@@ -187,11 +190,18 @@ export default {
       })
     },
     lookImg (record) {
-      this.$message.info('todo：需要跟流程设计器一起处理')
+      getProcessDefinitionImage(record.id).then(res => {
+        if (res.code === 10000) {
+          this.definitionImg = res.result
+          this.$refs.lookImage.show()
+        }
+      })
     },
     downBpmn (record) {
       getProcessDefinitionResource(record.id).then(res => {
-        this.$message.info(res.msg)
+        if (res.code === 10000) {
+          this.$message.info(res.msg)
+        }
       })
     }
   }
