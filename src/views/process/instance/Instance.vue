@@ -80,13 +80,11 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
+          <a @click="trace(record)">跟踪</a>
+          <a-divider v-if="!record.endTime" type="vertical"/>
           <a v-if="!record.endTime" @click="cancel(record)">终止</a>
           <a-divider v-if="!record.endTime" type="vertical"/>
-          <a v-if="!record.endTime"@click="assign(record)">指派</a>
-          <a-divider v-if="!record.endTime" type="vertical"/>
           <a v-if="!record.endTime"@click="freeSkip(record)">跳转</a>
-          <a-divider v-if="!record.endTime" type="vertical"/>
-          <a @click="trace(record)">跟踪</a>
         </template>
       </span>
     </s-table>
@@ -228,6 +226,10 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 跟踪
+     * @param record
+     */
     trace (record) {
       getProcessInstance(record.id).then(res => {
         if (res.code === 10000) {
@@ -236,10 +238,18 @@ export default {
         }
       })
     },
+    /**
+     * 跳转
+     * @param record
+     */
     freeSkip (record) {
       this.recordActive = record
       this.$refs.freeSkip.show()
     },
+    /**
+     * 结束
+     * @param record
+     */
     cancel (record) {
       this.recordActive = record
       this.$refs.cancel.show()
