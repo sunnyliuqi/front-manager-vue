@@ -95,6 +95,8 @@
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="trace(record)">跟踪</a>
+          <a-divider v-if="!record.endTime" type="vertical"/>
+          <a v-if="!record.endTime"@click="assign(record)">指派</a>
         </template>
       </span>
     </s-table>
@@ -111,6 +113,10 @@
       :duration="duration"
       :record="recordActive"
     />
+    <Assign
+      ref="assign"
+      :record="recordActive"
+    />
   </a-card>
 </template>
 
@@ -121,12 +127,14 @@ import { getProcessDefinitionImage } from '@/api/process/definition'
 import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import Trace from '../instance/components/Trace'
+import Assign from './components/Assign'
 import { formatDate, duration } from '@/utils/common'
 export default {
   name: 'Task',
   components: {
     STable,
-    Trace
+    Trace,
+    Assign
   },
   data () {
     return {
@@ -236,6 +244,14 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 指派
+     * @param record
+     */
+    assign (record) {
+      this.recordActive = record
+      this.$refs.assign.show()
+    },
     /**
      * 跟踪
      * @param record
