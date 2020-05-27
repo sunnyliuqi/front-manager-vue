@@ -64,7 +64,6 @@
       </div>
 
       <div class="table-operator">
-        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
       </div>
     </div>
     <s-table
@@ -95,25 +94,50 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+          <a @click="trace(record)">跟踪</a>
         </template>
       </span>
     </s-table>
+    <Trace
+      ref="trace"
+      :get-process-instance="getProcessInstance"
+      :get-process-instance-diagram="getProcessInstanceDiagram"
+      :get-process-definition-image="getProcessDefinitionImage"
+      :get-historic-process-task-instances="getHistoricProcessTaskInstances"
+      :get-historic-activity-instances="getHistoricActivityInstances"
+      :get-historic-subprocess-instances="getHistoricSubprocessInstances"
+      :get-jobs="getJobs"
+      :format-date="formatDate"
+      :duration="duration"
+      :record="recordActive"
+    />
   </a-card>
 </template>
 
 <script>
 import { queryList } from '@/api/process/task'
+import { deleteProcessInstance, getProcessInstance, getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
+import { getProcessDefinitionImage } from '@/api/process/definition'
 import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
+import Trace from '../instance/components/Trace'
 import { formatDate, duration } from '@/utils/common'
 export default {
   name: 'Task',
   components: {
-    STable
+    STable,
+    Trace
   },
   data () {
     return {
+      deleteProcessInstance: deleteProcessInstance,
+      getProcessInstance: getProcessInstance,
+      getProcessInstanceDiagram: getProcessInstanceDiagram,
+      getProcessDefinitionImage: getProcessDefinitionImage,
+      getHistoricProcessTaskInstances: getHistoricProcessTaskInstances,
+      getHistoricActivityInstances: getHistoricActivityInstances,
+      getHistoricSubprocessInstances: getHistoricSubprocessInstances,
+      getJobs: getJobs,
       duration: duration,
       formatDate: formatDate,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
@@ -212,6 +236,18 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 跟踪
+     * @param record
+     */
+    trace (record) {
+      getProcessInstance(record.processInstanceId).then(res => {
+        if (res.code === 10000) {
+          this.recordActive = res.result
+          this.$refs.trace.show()
+        }
+      })
+    },
     getQuery () {
       const _queryParma = Object.assign({}, this.queryParam)
       if (this.queryParam.taskCreatedCondition) {
