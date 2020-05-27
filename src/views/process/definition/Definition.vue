@@ -41,7 +41,6 @@
       </div>
 
       <div class="table-operator">
-        <!--        <a-button type="primary" icon="plus" @click="handleAdd()">新建</a-button>-->
       </div>
     </div>
     <s-table
@@ -60,7 +59,14 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleUpdate(record)">修改</a>
+          <a v-if="record.suspended" @click="handleSuspended(record)">激活</a>
+          <a v-else @click="handleSuspended(record)">挂起</a>
+          <a-divider type="vertical"/>
+          <a @click="handleDelete(record)">删除部署</a>
+          <a-divider type="vertical"/>
+          <a @click="lookImg(record)">流程图</a>
+          <a-divider type="vertical"/>
+          <a @click="downBpmn(record)">流程文件下载</a>
         </template>
       </span>
     </s-table>
@@ -68,9 +74,9 @@
 </template>
 
 <script>
-import { queryList } from '@/api/process/definition'
+import { queryList, executeProcessDefinitionAction, deleteDeployment, getProcessDefinitionResource } from '@/api/process/definition'
 import { STable } from '@/components'
-
+import { formatDate, getMoment } from '@/utils/common'
 export default {
   name: 'Definition',
   components: {
@@ -143,19 +149,50 @@ export default {
     refresh () {
       this.$refs.definitionTable.refresh()
     },
-    // 打开新增
-    handleAdd (type, disabled) {
-      this.recordActive = { type: type || '', disabled: disabled || false }
-      // this.$refs.definitionAdd.show()
+    getParams (record) {
+      if (!record.suspended) {
+        return {
+          'id': record.id,
+          'action': 'suspend',
+          'includeProcessInstances': 'false',
+          'date': formatDate(getMoment())
+        }
+      } else {
+        return {
+          'id': record.id,
+          'action': 'activate',
+          'includeProcessInstances': 'true',
+          'date': formatDate(getMoment())
+        }
+      }
     },
-    // 打开更新
-    handleUpdate (record) {
-      // get(record).then(res => {
-      //   if (res.code === 10000) {
-      //     this.recordActive = res.result
-      //     this.$refs.definitionAdd.show()
-      //   }
-      // })
+    // 挂起和激活
+    handleSuspended (record) {
+      executeProcessDefinitionAction(this.getParams(record)).then(res => {
+        if (res.code === 10000) {
+          this.$message.info('处理成功')
+          setTimeout(() => {
+            this.refresh()
+          }, 3000)
+        }
+      })
+    },
+    // 删除流程部署
+    handleDelete (record) {
+      deleteDeployment(record.deploymentId).then(res => {
+        if (res.code === 10000) {
+          this.$message.info('处理成功')
+          this.refresh()
+        }
+      })
+    },
+    lookImg (record) {
+      this.$message.info('todo：需要跟流程设计器一起处理')
+    },
+    downBpmn (record) {
+      getProcessDefinitionResource(record.id).then(res => {
+        this.$message.info(res.msg)
+      })
     }
   }
 }

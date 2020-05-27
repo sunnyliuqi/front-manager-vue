@@ -6,7 +6,7 @@ import notification from 'ant-design-vue/es/notification'
 import message from 'ant-design-vue/es/message'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN, API_NO_AUTHORIZATIONS } from '@/store/mutation-types'
-
+import { uuid } from './common'
 // 创建 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
@@ -73,19 +73,33 @@ serviceFile.interceptors.request.use(config => {
   config = Object.assign(requestConfig(config), { responseType: 'blob' })
   return config
 }, err)
+
+/**
+ * 下载文件
+ * @param data
+ * @param fileName
+ */
+function downFile (data, fileName) {
+  const objectUrl = URL.createObjectURL(data)
+  // 文件地址
+  const link = document.createElement('a')
+  link.download = decodeURI(fileName)
+  link.href = objectUrl
+  link.click()
+}
+
 // 读取导出文件的二机制文件，然后通过a标签浏览器的下载
 serviceFile.interceptors.response.use(response => {
   const result = response.data
   if (result.type === 'application/vnd.ms-excel') {
     // 获取文件名
     const fileName = response.headers['content-disposition'].split('=')[1]
-    const objectUrl = URL.createObjectURL(response.data)
-    // 文件地址
-    const link = document.createElement('a')
-    link.download = decodeURI(fileName)
-    link.href = objectUrl
-    link.click()
+    downFile(response.data, fileName)
     return { 'code': 10000, 'msg': '文件导出成功', 'result': '文件导出成功' }
+  } else if (result.type === 'application/octet-stream') {
+    const fileName = response.config.fileName || uuid()
+    downFile(response.data, fileName)
+    return { 'code': 10000, 'msg': '文件下载成功', 'result': '文件下载成功' }
   } else {
     const reader = new FileReader()
     reader.readAsText(response.data, 'utf-8')
