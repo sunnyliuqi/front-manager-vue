@@ -418,14 +418,13 @@ export default {
   },
   watch: {
     record () {
-      // 图表
-      this.getImg()
       this.refresh()
     }
   },
   methods: {
     refresh () {
       if (this.$refs.taskTable) {
+        this.getImg()
         this.$refs.taskTable.refresh()
       }
       if (this.$refs.variableTable) {

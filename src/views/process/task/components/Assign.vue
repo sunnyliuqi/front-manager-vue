@@ -12,16 +12,9 @@
     >
       <a-form-item
         label="指派给"
-        :label-col="{ span: 5 }"
-        :wrapper-col="{ span: 12 }"
-      >
-        <a-input
-          type="deleteReason"
-          v-decorator="[
-            'deleteReason',
-            {rules: [{ required: true, message: '原因不能为空!' }]}
-          ]"
-        />
+        :labelCol="{ span: 8 }"
+        :wrapperCol="{ span: 16 }">
+        <a-select :options="filter(getUsers)" v-decorator="['assignee',{ } ]" placeholder="请选择指派人"/>
       </a-form-item>
       <div
         :style="{
@@ -52,6 +45,14 @@
 export default {
   name: 'Assign',
   props: {
+    taskAssign: {
+      type: Function,
+      default: undefined
+    },
+    getUsers: {
+      type: Array,
+      default: () => []
+    },
     record: {
       type: Object,
       default: undefined
@@ -73,6 +74,11 @@ export default {
     }
   },
   methods: {
+    filter (array) {
+      return array.filter(item => {
+        return !(this.record.assignee === item.value)
+      })
+    },
     show () {
       this.visible = true
     },
@@ -80,8 +86,8 @@ export default {
       this.formLoading = true
       this.form.validateFields((err, values) => {
         if (!err) {
-          const params = { 'deleteReason': this.form.getFieldValue('deleteReason'), 'id': this.record.id }
-          this.deleteProcessInstance(params).then(res => {
+          const params = { 'assignee': this.form.getFieldValue('assignee'), 'id': this.record.id }
+          this.taskAssign(params).then(res => {
             if (res.code === 10000) {
               this.$message.info(res.msg)
               this.onClose()

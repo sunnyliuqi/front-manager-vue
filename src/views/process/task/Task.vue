@@ -100,7 +100,7 @@
         </template>
       </span>
     </s-table>
-    <Trace
+    <trace
       ref="trace"
       :get-process-instance="getProcessInstance"
       :get-process-instance-diagram="getProcessInstanceDiagram"
@@ -113,15 +113,18 @@
       :duration="duration"
       :record="recordActive"
     />
-    <Assign
+    <assign
       ref="assign"
+      :refresh="refresh"
+      :task-assign="taskAssign"
+      :get-users="getUsers"
       :record="recordActive"
     />
   </a-card>
 </template>
 
 <script>
-import { queryList } from '@/api/process/task'
+import { queryList, taskAssign } from '@/api/process/task'
 import { deleteProcessInstance, getProcessInstance, getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
 import { getProcessDefinitionImage } from '@/api/process/definition'
 import { queryUsers } from '@/api/process/identity'
@@ -138,6 +141,7 @@ export default {
   },
   data () {
     return {
+      taskAssign: taskAssign,
       deleteProcessInstance: deleteProcessInstance,
       getProcessInstance: getProcessInstance,
       getProcessInstanceDiagram: getProcessInstanceDiagram,

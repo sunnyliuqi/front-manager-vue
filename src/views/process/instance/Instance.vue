@@ -83,8 +83,6 @@
           <a @click="trace(record)">跟踪</a>
           <a-divider v-if="!record.endTime" type="vertical"/>
           <a v-if="!record.endTime" @click="cancel(record)">终止</a>
-          <a-divider v-if="!record.endTime" type="vertical"/>
-          <a v-if="!record.endTime"@click="freeSkip(record)">跳转</a>
         </template>
       </span>
     </s-table>
@@ -93,7 +91,7 @@
       :delete-process-instance="deleteProcessInstance"
       :refresh="refresh"
       :record="recordActive" />
-    <Trace
+    <trace
       ref="trace"
       :get-process-instance="getProcessInstance"
       :get-process-instance-diagram="getProcessInstanceDiagram"
@@ -106,10 +104,6 @@
       :duration="duration"
       :record="recordActive"
     />
-    <FreeSkip
-      ref="freeSkip"
-      :record="recordActive"
-    />
   </a-card>
 </template>
 
@@ -120,15 +114,13 @@ import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import Cancel from './components/Cancel'
 import Trace from './components/Trace'
-import FreeSkip from './components/FreeSkip'
 import { formatDate, duration } from '@/utils/common'
 export default {
   name: 'Instance',
   components: {
     STable,
     Cancel,
-    Trace,
-    FreeSkip
+    Trace
   },
   data () {
     return {
@@ -237,14 +229,6 @@ export default {
           this.$refs.trace.show()
         }
       })
-    },
-    /**
-     * 跳转
-     * @param record
-     */
-    freeSkip (record) {
-      this.recordActive = record
-      this.$refs.freeSkip.show()
     },
     /**
      * 结束
