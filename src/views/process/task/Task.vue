@@ -96,7 +96,9 @@
         <template>
           <a @click="trace(record)">跟踪</a>
           <a-divider v-if="!record.endTime" type="vertical"/>
-          <a v-if="!record.endTime"@click="assign(record)">指派</a>
+          <a v-if="!record.endTime"@click="complete(record)">完成</a>
+          <a-divider v-if="!record.endTime && !record.assignee" type="vertical"/>
+          <a v-if="!record.endTime && !record.assignee"@click="assign(record)">指派</a>
         </template>
       </span>
     </s-table>
@@ -116,15 +118,15 @@
     <assign
       ref="assign"
       :refresh="refresh"
-      :task-assign="taskAssign"
-      :get-users="getUsers"
+      :get-candidates="getCandidates"
+      :task-assign="taskAction"
       :record="recordActive"
     />
   </a-card>
 </template>
 
 <script>
-import { queryList, taskAssign } from '@/api/process/task'
+import { queryList, taskAction, taskCandidate } from '@/api/process/task'
 import { deleteProcessInstance, getProcessInstance, getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
 import { getProcessDefinitionImage } from '@/api/process/definition'
 import { queryUsers } from '@/api/process/identity'
@@ -141,7 +143,8 @@ export default {
   },
   data () {
     return {
-      taskAssign: taskAssign,
+      getCandidates: [],
+      taskAction: taskAction,
       deleteProcessInstance: deleteProcessInstance,
       getProcessInstance: getProcessInstance,
       getProcessInstanceDiagram: getProcessInstanceDiagram,
@@ -248,13 +251,30 @@ export default {
   },
   computed: {},
   methods: {
+    complete (record) {
+      taskAction(record.id, { 'action': 'complete' }).then(res => {
+        if (res.code === 10000) {
+          this.$message.info(res.msg)
+          this.$refs.taskTable.refresh(true)
+        }
+      })
+    },
     /**
      * 指派
      * @param record
      */
     assign (record) {
-      this.recordActive = record
-      this.$refs.assign.show()
+      taskCandidate(record.id).then((res) => {
+        if (res.code === 10000) {
+          this.recordActive = record
+          const dnyCandidates = res.result.map(item => {
+            return { label: `${item.user}`, value: `${item.user}` }
+          })
+          this.getCandidates = dnyCandidates
+          this.$refs.assign.show()
+        }
+      }
+      )
     },
     /**
      * 跟踪
@@ -295,20 +315,6 @@ export default {
     // 刷新列表
     refresh () {
       this.$refs.taskTable.refresh()
-    },
-    // 打开新增
-    handleAdd (type, disabled) {
-      this.recordActive = { type: type || '', disabled: disabled || false }
-      // this.$refs.definitionAdd.show()
-    },
-    // 打开更新
-    handleUpdate (record) {
-      // get(record).then(res => {
-      //   if (res.code === 10000) {
-      //     this.recordActive = res.result
-      //     this.$refs.definitionAdd.show()
-      //   }
-      // })
     }
   }
 }

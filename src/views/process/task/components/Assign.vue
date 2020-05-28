@@ -1,6 +1,6 @@
 <template>
   <a-drawer
-    wrapClassName="custom-drawer"
+    wrapClassName="custom-drawer custom-drawer-3"
     :maskClosable="false"
     title="流程指派"
     @close="onClose"
@@ -14,7 +14,7 @@
         label="指派给"
         :labelCol="{ span: 8 }"
         :wrapperCol="{ span: 16 }">
-        <a-select :options="filter(getUsers)" v-decorator="['assignee',{ } ]" placeholder="请选择指派人"/>
+        <a-select :options="getCandidates" v-decorator="['assignee',{ } ]" placeholder="请选择指派人"/>
       </a-form-item>
       <div
         :style="{
@@ -49,7 +49,7 @@ export default {
       type: Function,
       default: undefined
     },
-    getUsers: {
+    getCandidates: {
       type: Array,
       default: () => []
     },
@@ -74,11 +74,6 @@ export default {
     }
   },
   methods: {
-    filter (array) {
-      return array.filter(item => {
-        return !(this.record.assignee === item.value)
-      })
-    },
     show () {
       this.visible = true
     },
@@ -86,8 +81,8 @@ export default {
       this.formLoading = true
       this.form.validateFields((err, values) => {
         if (!err) {
-          const params = { 'assignee': this.form.getFieldValue('assignee'), 'id': this.record.id }
-          this.taskAssign(params).then(res => {
+          const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
+          this.taskAssign(this.record.id, params).then(res => {
             if (res.code === 10000) {
               this.$message.info(res.msg)
               this.onClose()

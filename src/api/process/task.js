@@ -13,14 +13,26 @@ export function queryList (data) {
 }
 
 /**
- * 指派任务给固定的人
+ * 执行任务动作
  * @param data
  * @returns {AxiosPromise}
  */
-export function taskAssign (data) {
+export function taskAction (id, data) {
   return axios({
-    url: path.process + '/tasks/runtime/' + data.id,
+    url: path.process + '/tasks/runtime/' + id,
     method: 'POST',
-    data: { 'action': 'delegate', 'assignee': data.assignee }
+    data: data
+  })
+}
+
+/**
+ * 获取任务候选人
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function taskCandidate (id) {
+  return axios({
+    url: path.process + '/runtime/tasks/' + id + '/identitylinks',
+    method: 'GET'
   })
 }
