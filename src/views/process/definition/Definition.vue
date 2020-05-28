@@ -41,6 +41,13 @@
       </div>
 
       <div class="table-operator">
+        <a-upload
+          name="file"
+          :showUploadList="false"
+          :customRequest="handleImport"
+        >
+          <a-button :icon="fileLoading ? 'loading' : 'upload'">上传部署文件</a-button>
+        </a-upload>
       </div>
     </div>
     <s-table
@@ -75,7 +82,7 @@
 </template>
 
 <script>
-import { queryList, executeProcessDefinitionAction, deleteDeployment, getProcessDefinitionResource, getProcessDefinitionImage } from '@/api/process/definition'
+import { queryList, executeProcessDefinitionAction, deleteDeployment, getProcessDefinitionResource, getProcessDefinitionImage, uploadDeployment } from '@/api/process/definition'
 import { STable } from '@/components'
 import LookImage from './components/LookImage'
 import { formatDate, getMoment } from '@/utils/common'
@@ -86,6 +93,7 @@ export default {
   },
   data () {
     return {
+      fileLoading: false,
       definitionImg: undefined,
       allStatus: [{ label: '全部', value: '' }, { label: '活动', value: 'false' }, { label: '挂起', value: 'true' }],
       // 查询参数
@@ -148,6 +156,20 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 上传部署
+     */
+    handleImport (data) {
+      this.fileLoading = true
+      uploadDeployment(data.file).then(res => {
+        if (res.code === 10000) {
+          this.$message.info(this.createMsg(res.result))
+        }
+      }).finally(() => {
+        this.fileLoading = false
+        this.refresh()
+      })
+    },
     // 重置查询
     restQuery () {
       this.queryParam = {}

@@ -67,3 +67,20 @@ export function getProcessDefinitionImage (id) {
     handleCallBack: createImgNode
   })
 }
+
+/**
+ * 上传文件部署
+ * @param file
+ * @returns {AxiosPromise}
+ */
+export function uploadDeployment (file) {
+  const data = new FormData()
+  data.append('file', file)
+  return axios({
+    url: path.process + '/repository/deployments',
+    method: 'POST',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 1800000,
+    data: data
+  })
+}
