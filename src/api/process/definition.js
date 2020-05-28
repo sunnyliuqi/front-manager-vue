@@ -9,7 +9,7 @@ export function queryList (data) {
   return axios({
     url: path.process + '/definitions/repository/process-definitions',
     method: 'GET',
-    params: { ...data, ...parsePageParams(data) }
+    params: { ...data, ...parsePageParams(data), 'order': 'desc', 'sort': 'deploymentId' }
   })
 }
 

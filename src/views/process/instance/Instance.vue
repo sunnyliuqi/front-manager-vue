@@ -137,7 +137,7 @@ export default {
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],
       getUsers: [{ label: '全部', value: '' }],
       // 查询参数
-      queryParam: { },
+      queryParam: { 'finished': 'false' },
       // 列表表头
       columns: [
         {
