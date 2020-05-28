@@ -367,7 +367,51 @@ export default {
       taskColumns: _taskColumns,
       variableColumns: _variableColumns,
       subprocessColumns: _subprocessColumns,
-      jobColumns: _jobColumns
+      jobColumns: _jobColumns,
+      /**
+       * 任务
+       */
+      loadDataTasks: parameter => {
+        return this.getHistoricProcessTaskInstances(this.record.id)
+          .then(res => {
+            if (res.code === 10000) {
+              return res.result.data
+            }
+          })
+      },
+      /**
+       * 变量
+       */
+      loadDataVariables: parameter => {
+        return this.getHistoricActivityInstances(this.record.id)
+          .then(res => {
+            if (res.code === 10000) {
+              return res.result.data
+            }
+          })
+      },
+      /**
+       * 子流程
+       */
+      loadDataSubprocesses: parameter => {
+        return this.getHistoricSubprocessInstances(this.record.id)
+          .then(res => {
+            if (res.code === 10000) {
+              return res.result.data
+            }
+          })
+      },
+      /**
+       * jobs
+       */
+      loadDataJobs: parameter => {
+        return this.getJobs(this.record.id)
+          .then(res => {
+            if (res.code === 10000) {
+              return res.result.data
+            }
+          })
+      }
     }
   },
   created () {
@@ -376,60 +420,23 @@ export default {
     record () {
       // 图表
       this.getImg()
-      // 任务
-      this.loadDataTasks()
-      // 变量
-      this.loadDataVariables()
-      // 子流程
-      this.loadDataSubprocesses()
-      // jobs
-      this.loadDataJobs()
+      this.refresh()
     }
   },
   methods: {
-    /**
-     * 任务
-     */
-    loadDataTasks (parameter) {
-      return this.getHistoricProcessTaskInstances(this.record.id)
-        .then(res => {
-          if (res.code === 10000) {
-            return res.result.data
-          }
-        })
-    },
-    /**
-     * 变量
-     */
-    loadDataVariables (parameter) {
-      return this.getHistoricActivityInstances(this.record.id)
-        .then(res => {
-          if (res.code === 10000) {
-            return res.result.data
-          }
-        })
-    },
-    /**
-     * 子流程
-     */
-    loadDataSubprocesses (parameter) {
-      return this.getHistoricSubprocessInstances(this.record.id)
-        .then(res => {
-          if (res.code === 10000) {
-            return res.result.data
-          }
-        })
-    },
-    /**
-     * jobs
-     */
-    loadDataJobs (parameter) {
-      return this.getJobs(this.record.id)
-        .then(res => {
-          if (res.code === 10000) {
-            return res.result.data
-          }
-        })
+    refresh () {
+      if (this.$refs.taskTable) {
+        this.$refs.taskTable.refresh()
+      }
+      if (this.$refs.variableTable) {
+        this.$refs.variableTable.refresh()
+      }
+      if (this.$refs.subprocessTable) {
+        this.$refs.subprocessTable.refresh()
+      }
+      if (this.$refs.loadDataJobs) {
+        this.$refs.loadDataJobs.refresh()
+      }
     },
     /**
      * 图表
