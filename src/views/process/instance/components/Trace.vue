@@ -423,8 +423,8 @@ export default {
   },
   methods: {
     refresh () {
+      this.getImg()
       if (this.$refs.taskTable) {
-        this.getImg()
         this.$refs.taskTable.refresh()
       }
       if (this.$refs.variableTable) {
