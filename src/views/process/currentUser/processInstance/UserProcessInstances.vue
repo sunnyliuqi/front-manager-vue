@@ -64,7 +64,7 @@
 import { listProcessInstancesCurrentUser, listProcessDefinitions } from '@/api/process/user'
 import { STable } from '@/components'
 import { formatDate, duration } from '@/utils/common'
-const _allStatus = [{ label: '全部', value: '' }, { label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
+const _allStatus = [{ label: '全部', value: 'all' }, { label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
 export default {
   name: 'UserProcessInstances',
   components: {
