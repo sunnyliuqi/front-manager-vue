@@ -1,6 +1,6 @@
 <template>
   <a-drawer
-    wrapClassName="custom-drawer"
+    wrapClassName="custom-drawer custom-drawer-3"
     :maskClosable="false"
     title="流程终止"
     @close="onClose"
@@ -10,19 +10,23 @@
     <a-form
       :form="form"
     >
-      <a-form-item
-        label="终止原因"
-        :label-col="{ span: 5 }"
-        :wrapper-col="{ span: 12 }"
-      >
-        <a-input
-          type="deleteReason"
-          v-decorator="[
-            'deleteReason',
-            {rules: [{ required: true, message: '原因不能为空!' }]}
-          ]"
-        />
-      </a-form-item>
+      <a-row :gutter="16">
+        <a-col :span="24">
+          <a-form-item
+            label="终止原因"
+            :label-col="{ span: 5 }"
+            :wrapper-col="{ span: 12 }"
+          >
+            <a-input
+              type="deleteReason"
+              v-decorator="[
+                'deleteReason',
+                {rules: [{ required: true, message: '原因不能为空!' }]}
+              ]"
+            />
+          </a-form-item>
+        </a-col>
+      </a-row>
       <div
         :style="{
           position: 'absolute',

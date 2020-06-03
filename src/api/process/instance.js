@@ -104,3 +104,15 @@ export function getJobs (id) {
     params: { 'processInstanceId': id }
   })
 }
+
+/**
+ * 流程启动表单变量信息
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export function startForm (id) {
+  return axios({
+    url: path.process + '/extend/form/process-definition/' + id + '/start-form',
+    method: 'GET'
+  })
+}

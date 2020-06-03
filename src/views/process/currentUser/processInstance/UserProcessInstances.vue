@@ -26,6 +26,7 @@
       </div>
 
       <div class="table-operator">
+        <a-button v-authorize:SYS_API_ADD type="primary" icon="plus" @click="handleStart()">启动一个流程</a-button>
       </div>
     </div>
     <s-table
@@ -63,6 +64,10 @@
       :duration="duration"
       :record="recordActive"
     />
+    <start-process-instance
+      ref="startProcessInstance"
+      :get-process-definitions="getProcessDefinitions"
+    />
   </a-card>
 </template>
 
@@ -71,13 +76,15 @@ import { getProcessInstance } from '@/api/process/instance'
 import { listProcessInstancesCurrentUser, listProcessDefinitions } from '@/api/process/user'
 import { STable } from '@/components'
 import Trace from '../../instance/components/Trace'
+import StartProcessInstance from './components/StartProcessInstance'
 import { formatDate, duration } from '@/utils/common'
 const _allStatus = [{ label: '全部', value: 'all' }, { label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
 export default {
   name: 'UserProcessInstances',
   components: {
     STable,
-    Trace
+    Trace,
+    StartProcessInstance
   },
   data () {
     return {
@@ -164,7 +171,7 @@ export default {
     listProcessDefinitions().then((res) => {
       if (res.code === 10000) {
         const dnyProcessDefinitions = res.result.map(item => {
-          return { label: `${item.name}`, value: `${item.id}`, hasStartForm: `${item.hasStartForm}` }
+          return { label: `${item.name}`, value: `${item.id}`, name: `${item.name}`, hasStartForm: `${item.hasStartForm}` }
         })
         this.getProcessDefinitions = [...this.getProcessDefinitions, ...dnyProcessDefinitions]
       }
@@ -172,6 +179,16 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 启动一个流程
+     */
+    handleStart () {
+      this.$refs.startProcessInstance.show()
+    },
+    /**
+     * 跟踪
+     * @param record
+     */
     trace (record) {
       getProcessInstance(record.id).then(res => {
         if (res.code === 10000) {

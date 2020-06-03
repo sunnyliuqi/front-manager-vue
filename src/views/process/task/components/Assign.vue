@@ -10,12 +10,16 @@
     <a-form
       :form="form"
     >
-      <a-form-item
-        label="指派给"
-        :labelCol="{ span: 8 }"
-        :wrapperCol="{ span: 16 }">
-        <a-select :options="getCandidates" v-decorator="['assignee',{ } ]" placeholder="请选择指派人"/>
-      </a-form-item>
+      <a-row :gutter="16">
+        <a-col :span="24">
+          <a-form-item
+            label="指派给"
+            :labelCol="{ span: 8 }"
+            :wrapperCol="{ span: 16 }">
+            <a-select :options="getCandidates" v-decorator="['assignee',{ } ]" placeholder="请选择指派人"/>
+          </a-form-item>
+        </a-col>
+      </a-row>
       <div
         :style="{
           position: 'absolute',
