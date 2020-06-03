@@ -128,6 +128,30 @@ export const dynRouterMap = [{
     },
     children: [
       {
+        path: '/process/user/tasks',
+        name: 'userTask',
+        hidden: true,
+        component: () => import('@/views/process/currentUser/task/UserTask'),
+        meta: {
+          title: '我的任务',
+          keepAlive: true,
+          hidden: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/user/processInstances',
+        name: 'userProcessInstances',
+        hidden: true,
+        component: () => import('@/views/process/currentUser/processInstance/UserProcessInstances'),
+        meta: {
+          title: '与我相关流程',
+          keepAlive: true,
+          hidden: true,
+          static: true
+        }
+      },
+      {
         path: '/process/definition',
         name: 'definition',
         component: () => import('@/views/process/definition/Definition'),
