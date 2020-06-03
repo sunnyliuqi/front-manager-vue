@@ -53,22 +53,31 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="trace(record)">流程跟踪</a>
+          <a @click="trace(record)">跟踪</a>
         </template>
       </span>
     </s-table>
+    <trace
+      ref="trace"
+      :format-date="formatDate"
+      :duration="duration"
+      :record="recordActive"
+    />
   </a-card>
 </template>
 
 <script>
+import { getProcessInstance } from '@/api/process/instance'
 import { listProcessInstancesCurrentUser, listProcessDefinitions } from '@/api/process/user'
 import { STable } from '@/components'
+import Trace from '../../instance/components/Trace'
 import { formatDate, duration } from '@/utils/common'
 const _allStatus = [{ label: '全部', value: 'all' }, { label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
 export default {
   name: 'UserProcessInstances',
   components: {
-    STable
+    STable,
+    Trace
   },
   data () {
     return {
@@ -164,7 +173,12 @@ export default {
   computed: {},
   methods: {
     trace (record) {
-
+      getProcessInstance(record.id).then(res => {
+        if (res.code === 10000) {
+          this.recordActive = res.result
+          this.$refs.trace.show()
+        }
+      })
     },
     getQuery () {
       const _queryParma = Object.assign({}, this.queryParam)

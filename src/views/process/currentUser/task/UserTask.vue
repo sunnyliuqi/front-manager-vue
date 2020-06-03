@@ -56,13 +56,23 @@
       <span slot="action" slot-scope="text, record">
         <template>
           <a v-if="!record.endDate"@click="complete(record)">处理</a>
+          <a-divider type="vertical"/>
+          <a @click="trace(record)">跟踪</a>
         </template>
       </span>
     </s-table>
+    <trace
+      ref="trace"
+      :format-date="formatDate"
+      :duration="duration"
+      :record="recordActive"
+    />
   </a-card>
 </template>
 
 <script>
+import { getProcessInstance } from '@/api/process/instance'
+import Trace from '../../instance/components/Trace'
 import { listTasksCurrentUser, listProcessDefinitions } from '@/api/process/user'
 import { STable } from '@/components'
 import { formatDate, duration } from '@/utils/common'
@@ -70,7 +80,8 @@ const _allStatus = [{ label: '进行', value: 'running' }, { label: '结束', va
 export default {
   name: 'UserTask',
   components: {
-    STable
+    STable,
+    Trace
   },
   data () {
     return {
@@ -158,6 +169,14 @@ export default {
   },
   computed: {},
   methods: {
+    trace (record) {
+      getProcessInstance(record.processInstanceId).then(res => {
+        if (res.code === 10000) {
+          this.recordActive = res.result
+          this.$refs.trace.show()
+        }
+      })
+    },
     complete (record) {
 
     },
