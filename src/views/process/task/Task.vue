@@ -104,13 +104,6 @@
     </s-table>
     <trace
       ref="trace"
-      :get-process-instance="getProcessInstance"
-      :get-process-instance-diagram="getProcessInstanceDiagram"
-      :get-process-definition-image="getProcessDefinitionImage"
-      :get-historic-process-task-instances="getHistoricProcessTaskInstances"
-      :get-historic-activity-instances="getHistoricActivityInstances"
-      :get-historic-subprocess-instances="getHistoricSubprocessInstances"
-      :get-jobs="getJobs"
       :format-date="formatDate"
       :duration="duration"
       :record="recordActive"
@@ -127,8 +120,7 @@
 
 <script>
 import { queryList, taskAction, taskCandidate } from '@/api/process/task'
-import { deleteProcessInstance, getProcessInstance, getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
-import { getProcessDefinitionImage } from '@/api/process/definition'
+import { deleteProcessInstance, getProcessInstance } from '@/api/process/instance'
 import { queryUsers } from '@/api/process/identity'
 import { STable } from '@/components'
 import Trace from '../instance/components/Trace'
@@ -147,12 +139,6 @@ export default {
       taskAction: taskAction,
       deleteProcessInstance: deleteProcessInstance,
       getProcessInstance: getProcessInstance,
-      getProcessInstanceDiagram: getProcessInstanceDiagram,
-      getProcessDefinitionImage: getProcessDefinitionImage,
-      getHistoricProcessTaskInstances: getHistoricProcessTaskInstances,
-      getHistoricActivityInstances: getHistoricActivityInstances,
-      getHistoricSubprocessInstances: getHistoricSubprocessInstances,
-      getJobs: getJobs,
       duration: duration,
       formatDate: formatDate,
       allStatus: [{ label: '全部', value: '' }, { label: '进行', value: 'false' }, { label: '结束', value: 'true' }],

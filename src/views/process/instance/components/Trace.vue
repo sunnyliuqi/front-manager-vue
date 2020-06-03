@@ -153,6 +153,8 @@
 
 <script>
 import { STable } from '@/components'
+import { getProcessInstanceDiagram, getHistoricProcessTaskInstances, getHistoricActivityInstances, getHistoricSubprocessInstances, getJobs } from '@/api/process/instance'
+import { getProcessDefinitionImage } from '@/api/process/definition'
 const _taskColumns = [
   {
     title: '序列',
@@ -334,30 +336,6 @@ export default {
     duration: {
       type: Function,
       default: undefined
-    },
-    getProcessInstanceDiagram: {
-      type: Function,
-      default: undefined
-    },
-    getProcessDefinitionImage: {
-      type: Function,
-      default: undefined
-    },
-    getHistoricProcessTaskInstances: {
-      type: Function,
-      default: undefined
-    },
-    getHistoricActivityInstances: {
-      type: Function,
-      default: undefined
-    },
-    getHistoricSubprocessInstances: {
-      type: Function,
-      default: undefined
-    },
-    getJobs: {
-      type: Function,
-      default: undefined
     }
   },
   data () {
@@ -372,7 +350,7 @@ export default {
        * 任务
        */
       loadDataTasks: parameter => {
-        return this.getHistoricProcessTaskInstances(this.record.id)
+        return getHistoricProcessTaskInstances(this.record.id)
           .then(res => {
             if (res.code === 10000) {
               return res.result.data
@@ -383,7 +361,7 @@ export default {
        * 变量
        */
       loadDataVariables: parameter => {
-        return this.getHistoricActivityInstances(this.record.id)
+        return getHistoricActivityInstances(this.record.id)
           .then(res => {
             if (res.code === 10000) {
               return res.result.data
@@ -394,7 +372,7 @@ export default {
        * 子流程
        */
       loadDataSubprocesses: parameter => {
-        return this.getHistoricSubprocessInstances(this.record.id)
+        return getHistoricSubprocessInstances(this.record.id)
           .then(res => {
             if (res.code === 10000) {
               return res.result.data
@@ -405,7 +383,7 @@ export default {
        * jobs
        */
       loadDataJobs: parameter => {
-        return this.getJobs(this.record.id)
+        return getJobs(this.record.id)
           .then(res => {
             if (res.code === 10000) {
               return res.result.data
@@ -442,7 +420,7 @@ export default {
      */
     getImg () {
       if (this.record.endTime) {
-        this.getProcessDefinitionImage(this.record.processDefinitionId).then(
+        getProcessDefinitionImage(this.record.processDefinitionId).then(
           res => {
             if (res.code === 10000) {
               this.img = res.result
@@ -450,7 +428,7 @@ export default {
           }
         )
       } else {
-        this.getProcessInstanceDiagram(this.record.id).then(
+        getProcessInstanceDiagram(this.record.id).then(
           res => {
             if (res.code === 10000) {
               this.img = res.result
