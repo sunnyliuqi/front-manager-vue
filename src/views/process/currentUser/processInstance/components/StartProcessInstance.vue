@@ -22,7 +22,7 @@
         </a-col>
       </a-row>
       <a-divider v-if="startFormVisible" orientation="left">表单变量</a-divider>
-      <dynamic-form :form-info="formInfo" v-if="startFormVisible"  />
+      <dynamic-form :form-info="formInfo" v-if="startFormVisible" />
       <div
         :style="{
           position: 'absolute',
@@ -95,17 +95,18 @@ export default {
       this.formLoading = true
       this.form.validateFields((err, values) => {
         if (!err) {
-          const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
-          this.taskAssign(this.record.id, params).then(res => {
-            if (res.code === 10000) {
-              this.$message.info(res.msg)
-              this.onClose()
-              this.refresh()
-            }
-          })
-            .finally(() => {
-              this.formLoading = false
-            })
+          console.info(JSON.stringify(values))
+          // const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
+          // this.taskAssign(this.record.id, params).then(res => {
+          //   if (res.code === 10000) {
+          //     this.$message.info(res.msg)
+          //     this.onClose()
+          //     this.refresh()
+          //   }
+          // })
+          //   .finally(() => {
+          //     this.formLoading = false
+          //   })
         } else {
           setTimeout(() => {
             this.formLoading = false

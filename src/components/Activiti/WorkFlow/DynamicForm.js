@@ -83,7 +83,7 @@ export default {
       }, {
         "name": "不通过"
       }] */
-      return (<a-radio-group button-style={'solid'} v-decorator={[`form-outcome-${this.formInfo.key}`, { initialValue: outcomes[0].name }]}>{this.getRadioButtonOpts(outcomes)}</a-radio-group>)
+      return (<a-radio-group button-style={'solid'} v-decorator={[`form_outcome_${this.formInfo.key}`, { initialValue: outcomes[0].name }]}>{this.getRadioButtonOpts(outcomes)}</a-radio-group>)
     },
     getCheckboxOpts (field) {
       /* "options": [{
