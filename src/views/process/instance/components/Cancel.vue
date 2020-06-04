@@ -18,7 +18,6 @@
             :wrapper-col="{ span: 12 }"
           >
             <a-input
-              type="deleteReason"
               v-decorator="[
                 'deleteReason',
                 {rules: [{ required: true, message: '原因不能为空!' }]}

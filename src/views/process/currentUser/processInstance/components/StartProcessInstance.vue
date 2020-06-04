@@ -20,8 +20,9 @@
             <a-select @select="getStartForm" :options="getProcessDefinitions" v-decorator="['processDefinitionId',{ rules: [{required: true, message: '流程不能为空'}] } ]" placeholder="请选择流程"/>
           </a-form-item>
         </a-col>
-        <a-divider v-if="startFormVisible" orientation="left">变量信息</a-divider>
       </a-row>
+      <a-divider v-if="startFormVisible" orientation="left">表单变量</a-divider>
+      <dynamic-form :form-info="formInfo" v-if="startFormVisible"  />
       <div
         :style="{
           position: 'absolute',
@@ -44,32 +45,17 @@
       </div>
 
     </a-form>
-    <div
-      :style="{
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        width: '100%',
-        borderTop: '1px solid #e9e9e9',
-        padding: '10px 16px',
-        background: '#fff',
-        textAlign: 'right',
-      }"
-    >
-      <a-button
-        :style="{marginRight: '8px'}"
-        @click="onClose"
-      >
-        返回
-      </a-button>
-    </div>
   </a-drawer>
 </template>
 
 <script>
 import { startForm } from '@/api/process/instance'
+import DynamicForm from '@/components/Activiti/WorkFlow/DynamicForm'
 export default {
   name: 'StartProcessInstance',
+  components: {
+    DynamicForm
+  },
   props: {
     getProcessDefinitions: {
       type: Array,
@@ -85,46 +71,47 @@ export default {
       form: this.$form.createForm(this),
       visible: false,
       formLoading: false,
-      startFormVisible: false
+      startFormVisible: false,
+      formInfo: {}
     }
   },
   methods: {
-
     getStartForm (value, option) {
       const props = option.data.props
       if (props.hasStartForm === 'true') {
         this.startFormVisible = true
         startForm(value).then(res => {
           if (res.code === 10000) {
-            console.info(JSON.stringify(res.result))
+            this.formInfo = res.result
           }
         }
         )
       } else {
         this.startFormVisible = false
+        this.formInfo = {}
       }
     },
     handleSubmit (e) {
       this.formLoading = true
-      // this.form.validateFields((err, values) => {
-      //   if (!err) {
-      //     const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
-      //     this.taskAssign(this.record.id, params).then(res => {
-      //       if (res.code === 10000) {
-      //         this.$message.info(res.msg)
-      //         this.onClose()
-      //         this.refresh()
-      //       }
-      //     })
-      //       .finally(() => {
-      //         this.formLoading = false
-      //       })
-      //   } else {
-      //     setTimeout(() => {
-      //       this.formLoading = false
-      //     }, 600)
-      //   }
-      // })
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
+          this.taskAssign(this.record.id, params).then(res => {
+            if (res.code === 10000) {
+              this.$message.info(res.msg)
+              this.onClose()
+              this.refresh()
+            }
+          })
+            .finally(() => {
+              this.formLoading = false
+            })
+        } else {
+          setTimeout(() => {
+            this.formLoading = false
+          }, 600)
+        }
+      })
     },
     show () {
       this.visible = true
@@ -132,6 +119,7 @@ export default {
     onClose () {
       this.visible = false
       this.startFormVisible = false
+      this.formInfo = {}
       this.form.resetFields()
     }
   }
