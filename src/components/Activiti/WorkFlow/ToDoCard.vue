@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card size="small" :title="activiti.title" :bordered="true">
+    <a-card :loading="loading" size="small" :title="activiti.title" :bordered="true">
       <ul id="activiti">
         <li v-for="item in activiti.list" :key="item.url">
           {{ item.label }}：<router-link :to="item.url">{{ item.count }}</router-link>
@@ -23,10 +23,13 @@ export default {
   },
   data () {
     return {
-
+      loading: true
     }
   },
   methods: {
+    closeLoading () {
+      this.loading = false
+    }
   }
 }
 </script>
