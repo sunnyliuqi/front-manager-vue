@@ -396,7 +396,9 @@ export default {
   },
   watch: {
     record () {
-      this.refresh()
+      if (this.visible) {
+        this.refresh()
+      }
     }
   },
   methods: {

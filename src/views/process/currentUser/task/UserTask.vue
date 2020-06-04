@@ -67,6 +67,10 @@
       :duration="duration"
       :record="recordActive"
     />
+    <complete-task
+      ref="completeTask"
+      :record="recordActive"
+      :refresh="refresh"/>
   </a-card>
 </template>
 
@@ -75,13 +79,15 @@ import { getProcessInstance } from '@/api/process/instance'
 import Trace from '../../instance/components/Trace'
 import { listTasksCurrentUser, listProcessDefinitions } from '@/api/process/user'
 import { STable } from '@/components'
+import CompleteTask from './components/CompleteTask'
 import { formatDate, duration } from '@/utils/common'
 const _allStatus = [{ label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
 export default {
   name: 'UserTask',
   components: {
     STable,
-    Trace
+    Trace,
+    CompleteTask
   },
   data () {
     return {
@@ -178,7 +184,8 @@ export default {
       })
     },
     complete (record) {
-
+      this.recordActive = record
+      this.$refs.completeTask.show()
     },
     getQuery () {
       const _queryParma = Object.assign({}, this.queryParam)

@@ -113,7 +113,6 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           const params = setActivitiFormDateFormat(values, this.formInfo.fields)
-          console.info(JSON.stringify(params))
           startProcessInstance(params).then(res => {
             if (res.code === 10000) {
               this.$message.info(res.msg)
