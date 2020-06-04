@@ -14,6 +14,22 @@
         <a-divider orientation="left">流程定义</a-divider>
         <a-col :span="24">
           <a-form-item
+            label="流程名称"
+            :labelCol="{ span: 8 }"
+            :wrapperCol="{ span: 16 }">
+            <a-input v-decorator="['name',{ rules: [{required: true, message: '名称不能为空'}] } ]" placeholder="请输入名称"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item
+            label="BusinessKey"
+            :labelCol="{ span: 8 }"
+            :wrapperCol="{ span: 16 }">
+            <a-input v-decorator="['businessKey',{ } ]" placeholder="请输入业务编码"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item
             label="流程"
             :labelCol="{ span: 8 }"
             :wrapperCol="{ span: 16 }">
@@ -49,8 +65,9 @@
 </template>
 
 <script>
-import { startForm } from '@/api/process/instance'
+import { startForm, startProcessInstance } from '@/api/process/instance'
 import DynamicForm from '@/components/Activiti/WorkFlow/DynamicForm'
+import { setActivitiFormDateFormat } from '@/utils/common'
 export default {
   name: 'StartProcessInstance',
   components: {
@@ -95,18 +112,18 @@ export default {
       this.formLoading = true
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.info(JSON.stringify(values))
-          // const params = { 'assignee': this.form.getFieldValue('assignee'), 'action': 'claim' }
-          // this.taskAssign(this.record.id, params).then(res => {
-          //   if (res.code === 10000) {
-          //     this.$message.info(res.msg)
-          //     this.onClose()
-          //     this.refresh()
-          //   }
-          // })
-          //   .finally(() => {
-          //     this.formLoading = false
-          //   })
+          const params = setActivitiFormDateFormat(values, this.formInfo.fields)
+          console.info(JSON.stringify(params))
+          startProcessInstance(params).then(res => {
+            if (res.code === 10000) {
+              this.$message.info(res.msg)
+              this.onClose()
+              this.refresh()
+            }
+          })
+            .finally(() => {
+              this.formLoading = false
+            })
         } else {
           setTimeout(() => {
             this.formLoading = false
@@ -121,6 +138,7 @@ export default {
       this.visible = false
       this.startFormVisible = false
       this.formInfo = {}
+      this.formLoading = false
       this.form.resetFields()
     }
   }

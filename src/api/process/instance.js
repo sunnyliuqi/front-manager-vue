@@ -116,3 +116,16 @@ export function startForm (id) {
     method: 'GET'
   })
 }
+
+/**
+ * 启动流程
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function startProcessInstance (data) {
+  return axios({
+    url: path.process + '/extend/runtime/process-instances/start',
+    method: 'POST',
+    data: data
+  })
+}

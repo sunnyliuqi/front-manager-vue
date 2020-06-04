@@ -39,42 +39,42 @@ export default {
         /**
          * 多行文本
          */
-        return (<a-textarea {...this.getDisabled(field)} rows={3} v-decorator={[field.name, { rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
+        return (<a-textarea {...this.getDisabled(field)} rows={3} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
       } else if (type === 'date') {
         /**
          * 日期
          */
-        return (<a-date-picker {...this.getDisabled(field)} v-decorator={[field.name, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}/>)
+        return (<a-date-picker {...this.getDisabled(field)} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}/>)
       } else if (type === 'datetime') {
         /**
          * 时间
          */
-        return (<a-date-picker showTime format={'YYYY-MM-DD HH:mm:ss'} {...this.getDisabled(field)} v-decorator={[field.name, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}/>)
+        return (<a-date-picker showTime format={'YYYY-MM-DD HH:mm:ss'} {...this.getDisabled(field)} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}/>)
       } else if (type === 'select') {
         /**
          * 选择框
          */
-        return (<a-select {...this.getDisabled(field)} v-decorator={[field.name, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}>{this.getOpts(field)}</a-select>)
+        return (<a-select {...this.getDisabled(field)} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} placeholder={`请选择${field.name}`}>{this.getOpts(field)}</a-select>)
       } else if (type === 'radio-buttons') {
         /**
          * 单选
          */
-        return (<a-radio-group {...this.getDisabled(field)} v-decorator={[field.name, { rules: this.getRules(field) }]}>{this.getRadioOpts(field.options)}</a-radio-group>)
+        return (<a-radio-group {...this.getDisabled(field)} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]}>{this.getRadioOpts(field.options)}</a-radio-group>)
       } else if (type === 'check-box') {
         /**
          * 多选
          */
-        return (<a-checkbox-group options={this.getCheckboxOpts(field)} {...this.getDisabled(field)} v-decorator={[field.name, { rules: this.getRules(field) }]} />)
+        return (<a-checkbox-group options={this.getCheckboxOpts(field)} {...this.getDisabled(field)} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} />)
       } else if (type === 'integer') {
         /**
          * 数字
          */
-        return (<a-input-number {...this.getDisabled(field)} rows={3} v-decorator={[field.name, { initialValue: 0, rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
+        return (<a-input-number {...this.getDisabled(field)} rows={3} v-decorator={[`values.${field.id}`, { initialValue: 0, rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
       } else {
         /**
          * 默认文本
          */
-        return (<a-input {...this.getDisabled(field)} rows={3} v-decorator={[field.name, { rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
+        return (<a-input {...this.getDisabled(field)} rows={3} v-decorator={[`values.${field.id}`, { rules: this.getRules(field) }]} placeholder={`请输入${field.name}`}/>)
       }
     },
     getOutComes (outcomes) {
@@ -83,7 +83,7 @@ export default {
       }, {
         "name": "不通过"
       }] */
-      return (<a-radio-group button-style={'solid'} v-decorator={[`form_outcome_${this.formInfo.key}`, { initialValue: outcomes[0].name }]}>{this.getRadioButtonOpts(outcomes)}</a-radio-group>)
+      return (<a-radio-group button-style={'solid'} v-decorator={[`outcome`, { initialValue: outcomes[0].name }]}>{this.getRadioButtonOpts(outcomes)}</a-radio-group>)
     },
     getCheckboxOpts (field) {
       /* "options": [{

@@ -66,6 +66,7 @@
     />
     <start-process-instance
       ref="startProcessInstance"
+      :refresh="refresh"
       :get-process-definitions="getProcessDefinitions"
     />
   </a-card>

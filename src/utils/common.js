@@ -133,3 +133,25 @@ export function createImgNode (data, fileName) {
   img.alt = fileName
   return { 'code': 10000, 'msg': '文件创建成功', 'result': img }
 }
+
+/**
+ * 流程表单变量日期格式化
+ * @param formProps
+ * @param fields
+ * @returns {*}
+ */
+export function setActivitiFormDateFormat (formProps, fields) {
+  const values = formProps.values
+  if (values) {
+    if (fields && fields.length > 0) {
+      const dateFields = fields.map(i => {
+        if (i.type === 'date') {
+          values[i.id] = formatDate(values[i.id], 'YYYY-MM-DD')
+        } else if (i.type === 'datetime') {
+          values[i.id] = formatDate(values[i.id])
+        }
+      })
+    }
+  }
+  return formProps
+}
