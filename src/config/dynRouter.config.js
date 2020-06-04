@@ -152,6 +152,26 @@ export const dynRouterMap = [{
         }
       },
       {
+        path: '/process/form',
+        name: 'form',
+        component: () => import('@/views/process/form/Form'),
+        meta: {
+          title: '表单设计',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
+        path: '/process/model',
+        name: 'model',
+        component: () => import('@/views/process/model/Model'),
+        meta: {
+          title: '流程模型',
+          keepAlive: true,
+          static: true
+        }
+      },
+      {
         path: '/process/definition',
         name: 'definition',
         component: () => import('@/views/process/definition/Definition'),
@@ -177,26 +197,6 @@ export const dynRouterMap = [{
         component: () => import('@/views/process/task/Task'),
         meta: {
           title: '流程任务',
-          keepAlive: true,
-          static: true
-        }
-      },
-      {
-        path: '/process/model',
-        name: 'model',
-        component: () => import('@/views/process/model/Model'),
-        meta: {
-          title: '流程模型',
-          keepAlive: true,
-          static: true
-        }
-      },
-      {
-        path: '/process/form',
-        name: 'form',
-        component: () => import('@/views/process/form/Form'),
-        meta: {
-          title: '表单设计',
           keepAlive: true,
           static: true
         }

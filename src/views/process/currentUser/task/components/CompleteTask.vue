@@ -14,7 +14,7 @@
         <a-divider orientation="left">任务信息</a-divider>
       </a-row>
       <a-divider v-if="formVariableVisible" orientation="left">表单变量</a-divider>
-<!--      <dynamic-form :form-info="formInfo" v-if="formVariableVisible" />-->
+      <!--      <dynamic-form :form-info="formInfo" v-if="formVariableVisible" />-->
       <div
         :style="{
           position: 'absolute',

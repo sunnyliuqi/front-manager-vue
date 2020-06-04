@@ -13,7 +13,7 @@
             <span class="detail-label">实例名称</span><span class="detail-content">{{ record.name }}</span>
           </a-col>
           <a-col :span="12">
-            <span class="detail-label">businessKey</span><span class="detail-content">{{ record.businessKey }}</span>
+            <span class="detail-label">BusinessKey</span><span class="detail-content">{{ record.businessKey }}</span>
           </a-col>
           <a-col :span="12">
             <span class="detail-label">发起人</span><span class="detail-content">{{ record.startUserId }}</span>
@@ -247,7 +247,7 @@ const _subprocessColumns = [
     key: 'name'
   },
   {
-    title: 'businessKey',
+    title: 'BusinessKey',
     dataIndex: 'businessKey',
     key: 'businessKey'
   },
