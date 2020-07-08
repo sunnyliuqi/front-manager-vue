@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { startForm, startProcessInstance } from '@/api/process/instance'
+import { startForm, startProcessInstance } from '@/api/process/user'
 import DynamicForm from '@/components/Activiti/WorkFlow/DynamicForm'
 import { setActivitiFormDateFormat } from '@/utils/common'
 export default {

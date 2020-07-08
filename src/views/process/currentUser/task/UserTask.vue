@@ -55,9 +55,10 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a v-if="!record.endDate"@click="complete(record)">处理</a>
-          <a-divider type="vertical"/>
           <a @click="trace(record)">跟踪</a>
+          <a-divider type="vertical"/>
+          <a v-if="!record.endDate && record.complete" @click="complete(record)">完成</a>
+          <a v-if="!record.endDate && record.claim " @click="claim(record)">获取</a>
         </template>
       </span>
     </s-table>
@@ -77,7 +78,7 @@
 <script>
 import { getProcessInstance } from '@/api/process/instance'
 import Trace from '../../instance/components/Trace'
-import { listTasksCurrentUser, listProcessDefinitions } from '@/api/process/user'
+import { listTasksCurrentUser, listProcessDefinitions, claimTask } from '@/api/process/user'
 import { STable } from '@/components'
 import CompleteTask from './components/CompleteTask'
 import { formatDate, duration } from '@/utils/common'
@@ -186,6 +187,14 @@ export default {
     complete (record) {
       this.recordActive = record
       this.$refs.completeTask.show()
+    },
+    claim (record) {
+      claimTask(record.id).then(res => {
+        if (res.code === 10000) {
+          this.$message.info(res.msg)
+          this.refresh()
+        }
+      })
     },
     getQuery () {
       const _queryParma = Object.assign({}, this.queryParam)

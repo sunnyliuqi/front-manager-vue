@@ -13,12 +13,14 @@ export function listTasksCurrentUser (data) {
   return axios({
     url: path.process + '/extend/task/list',
     method: 'POST',
-    data: { ...parsePageParams(data),
+    data: {
+      ...parsePageParams(data),
       'assignment': 'involved',
       'includeProcessInstance': true,
       'sort': 'desc',
       'state': 'open',
-      ...data }
+      ...data
+    }
   })
 }
 
@@ -44,5 +46,42 @@ export function listProcessDefinitions () {
     url: path.process + '/extend/definition/list',
     method: 'POST',
     params: { 'latest': true }
+  })
+}
+
+/**
+ * 流程启动表单变量信息
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export function startForm (id) {
+  return axios({
+    url: path.process + '/extend/form/process-definition/' + id + '/start-form',
+    method: 'GET'
+  })
+}
+
+/**
+ * 启动流程
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function startProcessInstance (data) {
+  return axios({
+    url: path.process + '/extend/runtime/process-instances/start',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 操作-获取任务
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function claimTask (taskId) {
+  return axios({
+    url: path.process + '/extend/task/claim/' + taskId,
+    method: 'PUT'
   })
 }
