@@ -44,6 +44,12 @@
       <span slot="sequence" slot-scope="text, record, index">
         {{ index+1 }}
       </span>
+      <span slot="involvedPeople" slot-scope="text">
+        {{ getInvolvedPeople(text) }}
+      </span>
+      <span slot="assignee" slot-scope="text">
+        {{ getAssignee(text) }}
+      </span>
       <span slot="created" slot-scope="text">
         {{ formatDate(text) }}
       </span>
@@ -82,6 +88,7 @@ import { listTasksCurrentUser, listProcessDefinitions, claimTask } from '@/api/p
 import { STable } from '@/components'
 import CompleteTask from './components/CompleteTask'
 import { formatDate, duration } from '@/utils/common'
+
 const _allStatus = [{ label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
 export default {
   name: 'UserTask',
@@ -125,6 +132,18 @@ export default {
           title: '发起人',
           dataIndex: 'processInstanceStartUserId',
           key: 'processInstanceStartUserId'
+        },
+        {
+          title: '可指派',
+          dataIndex: 'involvedPeople',
+          key: 'involvedPeople',
+          scopedSlots: { customRender: 'involvedPeople' }
+        },
+        {
+          title: '已指派',
+          dataIndex: 'assignee',
+          key: 'assignee',
+          scopedSlots: { customRender: 'assignee' }
         },
         {
           title: '启动时间',
@@ -176,6 +195,22 @@ export default {
   },
   computed: {},
   methods: {
+    getInvolvedPeople (involves) {
+      let involvesString = ''
+      if (involves && involves.length > 0) {
+        involves.forEach(i => {
+          involvesString = involvesString + i.id + ','
+        })
+        involvesString = involvesString.substring(0, involvesString.length - 1)
+      }
+      return involvesString
+    },
+    getAssignee (assignee) {
+      if (assignee && assignee.id) {
+        return assignee.id
+      }
+      return ''
+    },
     trace (record) {
       getProcessInstance(record.processInstanceId).then(res => {
         if (res.code === 10000) {
