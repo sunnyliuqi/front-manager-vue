@@ -85,3 +85,27 @@ export function claimTask (taskId) {
     method: 'PUT'
   })
 }
+
+/**
+ * 获取任务详情
+ * @param taskId
+ * @returns {AxiosPromise}
+ */
+export function getTask (taskId) {
+  return axios({
+    url: path.process + '/extend/task/' + taskId,
+    method: 'GET'
+  })
+}
+
+/**
+ * 任务表单
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export function taskForm (taskId) {
+  return axios({
+    url: path.process + '/extend/form/task/' + taskId,
+    method: 'GET'
+  })
+}

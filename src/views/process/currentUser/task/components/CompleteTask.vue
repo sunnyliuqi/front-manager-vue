@@ -1,6 +1,6 @@
 <template>
   <a-drawer
-    wrapClassName="custom-drawer custom-drawer-3"
+    wrapClassName="custom-drawer custom-drawer-6"
     :maskClosable="false"
     title="完成任务"
     @close="onClose"
@@ -12,9 +12,28 @@
     >
       <a-row :gutter="16">
         <a-divider orientation="left">任务信息</a-divider>
+        <a-col :span="12">
+          <span class="detail-label">任务名称</span><span class="detail-content">{{ record.name }}</span>
+        </a-col>
+        <a-col :span="12">
+          <span class="detail-label">流程名称</span><span class="detail-content">{{ record.processDefinitionName }}</span>
+        </a-col>
+        <a-col :span="12">
+          <span class="detail-label">BusinessKey</span><span class="detail-content">{{ record.processInstancesBusinessKey }}</span>
+        </a-col>
+        <a-col :span="12">
+          <span class="detail-label">发起人</span><span
+            class="detail-content">{{ record.processInstanceStartUserId }}</span>
+        </a-col>
+        <a-col :span="12">
+          <span class="detail-label">启动时间</span><span class="detail-content">{{ formatDate(record.created) }}</span>
+        </a-col>
+        <a-col :span="12">
+          <span class="detail-label">有效期</span><span class="detail-content">{{ formatDate(record.dueDate) }}</span>
+        </a-col>
       </a-row>
-      <a-divider v-if="formVariableVisible" orientation="left">表单变量</a-divider>
-      <!--      <dynamic-form :form-info="formInfo" v-if="formVariableVisible" />-->
+      <a-divider v-if="formInfo" orientation="left">表单变量</a-divider>
+      <dynamic-form :form-info="formInfo" v-if="formInfo" />
       <div
         :style="{
           position: 'absolute',
@@ -41,15 +60,29 @@
 </template>
 
 <script>
-import { setActivitiFormDateFormat } from '@/utils/common'
+import { formatDate, duration, setActivitiFormDateFormat } from '@/utils/common'
+
 export default {
   name: 'CompleteTask',
-  components: {
-  },
+  components: {},
   props: {
+    getInvolvedPeople: {
+      type: Function,
+      default: undefined
+    },
+    getAssignee: {
+      type: Function,
+      default: undefined
+    },
     refresh: {
       type: Function,
       default: undefined
+    },
+    formInfo: {
+      type: Object,
+      default: function () {
+        return {}
+      }
     },
     record: {
       type: Object,
@@ -60,11 +93,11 @@ export default {
   },
   data () {
     return {
+      formatDate: formatDate,
+      duration: duration,
       form: this.$form.createForm(this),
       visible: false,
-      formLoading: false,
-      formVariableVisible: false,
-      formInfo: {}
+      formLoading: false
     }
   },
   methods: {
@@ -96,8 +129,6 @@ export default {
     },
     onClose () {
       this.visible = false
-      this.formVariableVisible = false
-      this.formInfo = {}
       this.formLoading = false
       this.form.resetFields()
     }
@@ -106,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-  /deep/ .ant-divider-horizontal .ant-divider-with-text-left{
+  /deep/ .ant-divider-horizontal .ant-divider-with-text-left {
     font-size: 14px;
   }
 </style>

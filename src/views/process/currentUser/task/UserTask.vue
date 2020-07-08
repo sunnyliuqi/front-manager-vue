@@ -77,6 +77,9 @@
     <complete-task
       ref="completeTask"
       :record="recordActive"
+      :form-info="formInfo"
+      :get-assignee="getAssignee"
+      :get-involved-people="getInvolvedPeople"
       :refresh="refresh"/>
   </a-card>
 </template>
@@ -84,7 +87,7 @@
 <script>
 import { getProcessInstance } from '@/api/process/instance'
 import Trace from '../../instance/components/Trace'
-import { listTasksCurrentUser, listProcessDefinitions, claimTask } from '@/api/process/user'
+import { listTasksCurrentUser, listProcessDefinitions, claimTask, getTask, taskForm } from '@/api/process/user'
 import { STable } from '@/components'
 import CompleteTask from './components/CompleteTask'
 import { formatDate, duration } from '@/utils/common'
@@ -180,7 +183,9 @@ export default {
           })
       },
       // 单个记录行
-      recordActive: {}
+      recordActive: {},
+      // 表单信息
+      formInfo: undefined
     }
   },
   created () {
@@ -220,8 +225,17 @@ export default {
       })
     },
     complete (record) {
-      this.recordActive = record
-      this.$refs.completeTask.show()
+      getTask(record.id).then(res => {
+        if (res.code === 10000) {
+          this.recordActive = res.result
+          taskForm(record.id).then(res => {
+            if (res.code === 10000) {
+              this.formInfo = res.result
+              this.$refs.completeTask.show()
+            }
+          })
+        }
+      })
     },
     claim (record) {
       claimTask(record.id).then(res => {
