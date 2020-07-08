@@ -134,13 +134,13 @@ export default {
           key: 'processInstanceStartUserId'
         },
         {
-          title: '可指派',
+          title: '可处理',
           dataIndex: 'involvedPeople',
           key: 'involvedPeople',
           scopedSlots: { customRender: 'involvedPeople' }
         },
         {
-          title: '已指派',
+          title: '处理人',
           dataIndex: 'assignee',
           key: 'assignee',
           scopedSlots: { customRender: 'assignee' }
