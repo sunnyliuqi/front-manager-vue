@@ -1,7 +1,5 @@
 import path from '@/api/index'
-import {
-  axios
-} from '@/utils/request'
+import { axios } from '@/utils/request'
 import parsePageParams from '@/utils/page'
 
 /**
@@ -76,7 +74,7 @@ export function startProcessInstance (data) {
 
 /**
  * 操作-获取任务
- * @param data
+ * @param taskId
  * @returns {AxiosPromise}
  */
 export function claimTask (taskId) {
@@ -107,5 +105,19 @@ export function taskForm (taskId) {
   return axios({
     url: path.process + '/extend/form/task/' + taskId,
     method: 'GET'
+  })
+}
+
+/**
+ * 操作-完成任务
+ * @param taskId
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function completeTaskForm (taskId, data) {
+  return axios({
+    url: path.process + '/extend/task/complete/' + taskId,
+    method: 'PUT',
+    data: data
   })
 }

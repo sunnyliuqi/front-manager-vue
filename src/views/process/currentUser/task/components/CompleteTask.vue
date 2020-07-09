@@ -72,6 +72,10 @@ export default {
       type: Function,
       default: undefined
     },
+    completeTaskForm: {
+      type: Function,
+      default: undefined
+    },
     getAssignee: {
       type: Function,
       default: undefined
@@ -108,17 +112,16 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           const params = setActivitiFormDateFormat(values, this.formInfo.fields)
-          console.info(JSON.stringify(params))
-          // startProcessInstance(params).then(res => {
-          //   if (res.code === 10000) {
-          //     this.$message.info(res.msg)
-          //     this.onClose()
-          //     this.refresh()
-          //   }
-          // })
-          //   .finally(() => {
-          //     this.formLoading = false
-          //   })
+          this.completeTaskForm(this.record.id, params).then(res => {
+            if (res.code === 10000) {
+              this.$message.info(res.msg)
+              this.onClose()
+              this.refresh()
+            }
+          })
+            .finally(() => {
+              this.formLoading = false
+            })
         } else {
           setTimeout(() => {
             this.formLoading = false

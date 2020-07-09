@@ -80,6 +80,7 @@
       :form-info="formInfo"
       :get-assignee="getAssignee"
       :get-involved-people="getInvolvedPeople"
+      :complete-task-form="completeTaskForm"
       :refresh="refresh"/>
   </a-card>
 </template>
@@ -87,7 +88,14 @@
 <script>
 import { getProcessInstance } from '@/api/process/instance'
 import Trace from '../../instance/components/Trace'
-import { listTasksCurrentUser, listProcessDefinitions, claimTask, getTask, taskForm } from '@/api/process/user'
+import {
+  listTasksCurrentUser,
+  listProcessDefinitions,
+  claimTask,
+  getTask,
+  taskForm,
+  completeTaskForm
+} from '@/api/process/user'
 import { STable } from '@/components'
 import CompleteTask from './components/CompleteTask'
 import { formatDate, duration } from '@/utils/common'
@@ -185,7 +193,8 @@ export default {
       // 单个记录行
       recordActive: {},
       // 表单信息
-      formInfo: undefined
+      formInfo: undefined,
+      completeTaskForm: completeTaskForm
     }
   },
   created () {
