@@ -1,6 +1,6 @@
 <template>
   <a-card :bordered="false">
-    <p>进阶阶段，开发中...</p>
+    <p>高级阶段，开发中...</p>
   </a-card>
 </template>
 
