@@ -61,10 +61,12 @@
 
 <script>
 import { formatDate, duration, setActivitiFormDateFormat } from '@/utils/common'
-
+import DynamicForm from '@/components/Activiti/WorkFlow/DynamicForm'
 export default {
   name: 'CompleteTask',
-  components: {},
+  components: {
+    DynamicForm
+  },
   props: {
     getInvolvedPeople: {
       type: Function,
