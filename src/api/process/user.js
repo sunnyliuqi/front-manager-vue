@@ -121,3 +121,15 @@ export function completeTaskForm (taskId, data) {
     data: data
   })
 }
+/**
+ * 发起人终止流程
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function deleteProcessInstanceCurrentUser (data) {
+  return axios({
+    url: path.process + '/extend/runtime/process-instances/' + data.id,
+    method: 'DELETE',
+    params: { 'deleteReason': data.deleteReason }
+  })
+}

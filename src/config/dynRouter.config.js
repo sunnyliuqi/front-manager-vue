@@ -231,6 +231,16 @@ export const dynRouterMap = [{
       }
     },
     {
+      path: '/example/workFlow',
+      name: 'workFlow',
+      component: () => import('@/views/example/PersonWorkFlow'),
+      meta: {
+        title: '待办',
+        keepAlive: true,
+        static: true
+      }
+    },
+    {
       path: '/example/leave',
       name: 'leave',
       component: () => import('@/views/example/Leave'),

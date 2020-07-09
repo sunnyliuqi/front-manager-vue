@@ -1,15 +1,17 @@
 <template>
   <a-card :bordered="false">
-    <p>业务实例，开发中...</p>
+    <work-flow />
   </a-card>
 </template>
 
 <script>
 import { STable } from '@/components'
+import WorkFlow from '@/components/Activiti/WorkFlow'
 export default {
-  name: 'Leave',
+  name: 'PersonWorkFlow',
   components: {
-    STable
+    STable,
+    WorkFlow
   }
 }
 </script>

@@ -55,6 +55,8 @@
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="trace(record)">跟踪</a>
+          <a-divider v-if="!record.ended" type="vertical"/>
+          <a v-if="record.cancel" @click="cancel(record)">终止</a>
         </template>
       </span>
     </s-table>
@@ -64,6 +66,11 @@
       :duration="duration"
       :record="recordActive"
     />
+    <cancel
+      ref="cancel"
+      :delete-process-instance="deleteProcessInstance"
+      :refresh="refresh"
+      :record="recordActive" />
     <start-process-instance
       ref="startProcessInstance"
       :refresh="refresh"
@@ -74,9 +81,10 @@
 
 <script>
 import { getProcessInstance } from '@/api/process/instance'
-import { listProcessInstancesCurrentUser, listProcessDefinitions } from '@/api/process/user'
+import { listProcessInstancesCurrentUser, listProcessDefinitions, deleteProcessInstanceCurrentUser } from '@/api/process/user'
 import { STable } from '@/components'
 import Trace from '../../instance/components/Trace'
+import Cancel from '../../instance/components/Cancel'
 import StartProcessInstance from './components/StartProcessInstance'
 import { formatDate, duration } from '@/utils/common'
 const _allStatus = [{ label: '全部', value: 'all' }, { label: '进行', value: 'running' }, { label: '结束', value: 'completed' }]
@@ -85,6 +93,7 @@ export default {
   components: {
     STable,
     Trace,
+    Cancel,
     StartProcessInstance
   },
   data () {
@@ -165,7 +174,8 @@ export default {
           })
       },
       // 单个记录行
-      recordActive: {}
+      recordActive: {},
+      deleteProcessInstance: deleteProcessInstanceCurrentUser
     }
   },
   created () {
@@ -180,6 +190,14 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 结束
+     * @param record
+     */
+    cancel (record) {
+      this.recordActive = record
+      this.$refs.cancel.show()
+    },
     /**
      * 启动一个流程
      */
