@@ -30,6 +30,16 @@
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="12" :xs="24">
+              <a-form-item label="角色">
+                <a-select
+                  mode="multiple"
+                  :options="rolesCondition"
+                  v-model="queryParam.roleIds"
+                  placeholder="全部">
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="12" :xs="24">
               <a-form-item label="所属机构">
                 <a-tree-select
                   allowClear
@@ -225,6 +235,10 @@ export default {
           dataIndex: 'workNum',
           key: 'workNum'
         }, {
+          title: '角色',
+          dataIndex: 'rolesName',
+          key: 'rolesName'
+        }, {
           title: '所属机构',
           dataIndex: 'srcOrgName',
           key: 'srcOrgName'
@@ -266,7 +280,8 @@ export default {
       // 所属机构
       treeData: [],
       // 角色集合
-      roles: []
+      roles: [],
+      rolesCondition: [{ value: '', label: '全部' }]
     }
   },
   created () {
@@ -274,6 +289,18 @@ export default {
       if (res.code === 10000) {
         formatTree(res.result)
         this.treeData = res.result
+      }
+    })
+    roleList().then(res => {
+      if (res.code === 10000) {
+        const roles = res.result
+        const _roleCondition = []
+        if (roles.length > 0) {
+          roles.forEach(r => {
+            _roleCondition.push({ label: r.name, value: r.id })
+          })
+          this.rolesCondition = [...this.rolesCondition,..._roleCondition]
+        }
       }
     })
   },
