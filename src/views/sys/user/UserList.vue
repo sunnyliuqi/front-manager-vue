@@ -299,7 +299,7 @@ export default {
           roles.forEach(r => {
             _roleCondition.push({ label: r.name, value: r.id })
           })
-          this.rolesCondition = [...this.rolesCondition,..._roleCondition]
+          this.rolesCondition = [...this.rolesCondition, ..._roleCondition]
         }
       }
     })
