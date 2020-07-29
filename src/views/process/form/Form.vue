@@ -1,12 +1,15 @@
 <template>
   <a-card :bordered="false">
-    <p>进阶阶段，开发中...</p>
+    <form-design />
   </a-card>
 </template>
 
 <script>
+import FormDesign from '@/components/Activiti/FormDesign'
 export default {
-  name: 'Form'
+  name: 'Form',
+  components: { FormDesign }
+
 }
 </script>
 
