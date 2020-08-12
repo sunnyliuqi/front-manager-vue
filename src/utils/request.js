@@ -25,7 +25,9 @@ const err = (error) => {
       router.push('/403')
     }
     if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
+      const notificationKey = data.code + error.response.status
       notification.error({
+        key: notificationKey,
         message: data.msg
       })
       if (token) {
