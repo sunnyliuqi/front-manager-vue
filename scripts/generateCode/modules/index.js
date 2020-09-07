@@ -196,8 +196,8 @@ function updateRouterConfig (param, number) {
     const dnyRouterArr = data.split(split)
     const dnyRouter = replaceError(dnyRouterArr[1])
     console.info(dnyRouter)
-    const dnyRouterObj = eval('(' + dnyRouter + ')')
-    const routerObj = eval('(' + replaceError(router) + ')')
+    const dnyRouterObj = JSON.parse(dnyRouter)
+    const routerObj = JSON.parse(replaceError(router))
     // 将当前路由添加到路由配置里面
     setRouterToConfig(dnyRouterObj, routerObj)
     const dnyRouterJson = JSON.stringify(dnyRouterObj)
@@ -526,6 +526,7 @@ function dictFun (tableInfo, temp) {
     }
   })
 }
+
 function dictProps (tableInfo, temp) {
   tableInfo.forEach(column => {
     if (dictFlag(column)) {
@@ -540,6 +541,7 @@ function dictProps (tableInfo, temp) {
     }
   })
 }
+
 /** 下拉框函数**/
 function selectFun (tableInfo, temp) {
   tableInfo.forEach(column => {
@@ -550,6 +552,7 @@ function selectFun (tableInfo, temp) {
     }
   })
 }
+
 function selectProps (tableInfo, temp) {
   tableInfo.forEach(column => {
     if (column.componentType === 'Select') {
@@ -593,6 +596,7 @@ function dictFlag (column) {
   }
   return false
 }
+
 /** 日期函数**/
 function formatDate (tableInfo, temp) {
   if (isDate) {
@@ -600,6 +604,7 @@ function formatDate (tableInfo, temp) {
       :format-date="formatDate"`)
   }
 }
+
 function formatDateProps (tableInfo, temp) {
   if (isDate) {
     temp.push(`
@@ -609,6 +614,7 @@ function formatDateProps (tableInfo, temp) {
     },`)
   }
 }
+
 /**
  * 时间格式化函数
  * @param tableInfo
@@ -620,6 +626,7 @@ function getMoment (tableInfo, temp) {
       :get-moment="getMoment"`)
   }
 }
+
 function getMomentProps (tableInfo, temp) {
   if (isDate) {
     temp.push(`
@@ -629,6 +636,7 @@ function getMomentProps (tableInfo, temp) {
     },`)
   }
 }
+
 /**
  * list import
  * @param param
@@ -772,6 +780,7 @@ function columnSort (obj1, obj2) {
     return 0
   }
 }
+
 /**
  * 数据字典数据
  * @param param
@@ -852,6 +861,7 @@ function getListMethod (param) {
   })
   return temp.join('')
 }
+
 /**
  * <a-col :span="12">
  <a-form-item
@@ -1149,6 +1159,7 @@ function getAddOrEditSubmit (param) {
   })
   return temp.join('')
 }
+
 /**
  * 新增 props
  * @param param
@@ -1173,6 +1184,7 @@ function getEditProps (param) {
   getMomentProps(param.tableInfo, temp)
   return temp.join('')
 }
+
 /**
  * Add页面
  * 装饰绑定
@@ -1191,6 +1203,7 @@ function getAddDecorator (column) {
   decorator.push(`v-decorator="['${column.javaName}',{${initialValue.join('')}${rule.join('')}}]"`)
   return decorator.join('')
 }
+
 /**
  * Edit页面
  * 装饰绑定
@@ -1211,6 +1224,7 @@ function getEditDecorator (column) {
   }
   return decorator.join('')
 }
+
 /**
  * 业务模板内容替换
  * @param data
@@ -1250,9 +1264,20 @@ function replaceError (string) {
     .replace(/RouteView/g, '\'RouteView\'')
     .replace(/PagUserLayouteView/g, '\'UserLayout\'')
     .replace(/BlankLayout/g, '\'BlankLayout\'')
+    .replace(/path:/g, '\'path\':')
+    .replace(/component:/g, '\'component\':')
+    .replace(/meta:/g, '\'meta\':')
+    .replace(/name:/g, '\'name\':')
+    .replace(/title:/g, '\'title\':')
+    .replace(/static:/g, '\'static\':')
+    .replace(/redirect:/g, '\'redirect\':')
+    .replace(/children:/g, '\'children\':')
+    .replace(/keepAlive:/g, '\'keepAlive\':')
+    .replace(/hidden:/g, '\'hidden\':')
+    .replace(/(icon):\s(.+?),/g, '"#$1": "$2#",')
     .replace(/\(\) =>.+?\)/g, ($1) => {
-      return '"' + $1 + '"'
-    })
+      return ('"' + $1 + '"').replace(/'/g, '##')
+    }).replace(/'/g, '"')
 }
 
 function reReplaceError (string) {
@@ -1272,8 +1297,9 @@ function reReplaceError (string) {
     .replace(/"children":/g, 'children:')
     .replace(/"keepAlive":/g, 'keepAlive:')
     .replace(/"hidden":/g, 'hidden:')
+    .replace(/"#(icon)":\s?"(.*?)#",/g, '$1: $2,')
     .replace(/"\(\) =>.*?\)"/g, ($1) => {
-      return $1.substring(1, ($1.length - 1))
+      return $1.substring(1, ($1.length - 1)).replace(/##/g, '\'')
     })
 }
 
