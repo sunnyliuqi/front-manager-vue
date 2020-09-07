@@ -237,14 +237,15 @@ function updateApiService (param) {
   fs.readFile(filePath, character, (err, data) => {
     if (err) console.error(JSON.stringify(err))
     // 拿到服务配置
-    const serviceConfigObj = eval('(' + data.replace('export const service =', '') + ')')
+    const prefix = 'export const service ='
+    const serviceConfigObj = JSON.parse(data.replace(prefix, '').replace(/(\w+):\s*'(.+)'/g, '"$1":"$2"'))
     const serviceInfo = param.serviceName.split(/:|：/)
     if (!serviceInfo || serviceInfo.length < 2) {
       console.error('服务格式错误：' + param.serviceName)
     }
     const servicePro = {}
     servicePro[serviceInfo[0]] = serviceInfo[1].replace(/'/g, '').trim()
-    const newData = 'export const service = ' + JSON.stringify(Object.assign(serviceConfigObj, servicePro)).replace(/"[A-Za-z].+?"/g, ($1) => {
+    const newData = prefix + JSON.stringify(Object.assign(serviceConfigObj, servicePro)).replace(/"[A-Za-z].+?"/g, ($1) => {
       return $1.substring(1, ($1.length - 1))
     })
     fs.writeFile(filePath, newData, character, (err) => {
